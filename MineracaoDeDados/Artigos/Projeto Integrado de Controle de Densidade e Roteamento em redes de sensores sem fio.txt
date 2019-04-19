@@ -1,0 +1,752 @@
+Projeto Integrado de Controle de Densidade e Roteamento em
+Redes de Sensores Sem Fio*
+Isabela G. Siqueira1
+, Carlos M. S. Figueiredo12
+,
+Antonio A. F. Loureiro1
+, José M. S. Nogueira1
+, Linnyer B. Ruiz1
+1Departamento de Ciência da Computação
+Universidade Federal de Minas Gerais
+Belo Horizonte, MG, Brasil
+{isabela,mauricio,loureiro,jmarcos,linnyer}@dcc.ufmg.br
+2FUCAPI – Fundação Centro de Análise, Pesquisa e Inovação Tecnológica
+Manaus, AM, Brasil
+mauricio.figueiredo@fucapi.br
+Abstract. Wireless Sensor Networks (WSNs) are characterized by having scarce
+resources. The usual way of designing network functions is to consider them
+isolatedly, a strategy which may not guarantee the correct and efficient operation of WSNs. For this reason, in this work we propose an integrated design
+of network functions. We take two important WSN functions — density control
+and routing — as an example and present two approaches for integrating them.
+In particular, we present two solutions, named RDC-Sync and RDC-Integrated,
+which integrate a geographical density control algorithm with tree routing. The
+simulations experiments performed prove that the integrated design improves
+the network performance, especially when density control and routing are fully
+integrated.
+Resumo. Redes de sensores sem fio (RSSFs) possuem recursos bastante limitados. A maneira mais comum de projetar funções de rede tem sido considerá-las
+isoladamente, uma estratégia que pode não garantir a operação correta e eficiente das RSSFs. Por essa razão, neste trabalho propomos o projeto integrado
+de funções da rede com o intuito de garantir que sua operação seja mais correta
+e eficiente. Consideramos duas funções muito importantes de RSSFs — controle
+de densidade e roteamento — e apresentamos duas abordagens diferentes para
+integração das mesmas. Em particular, propomos duas soluções, chamadas
+RDC-Sync e RDC-Integrated, que integram um algoritmo de controle de densidade geográfico e um de roteamento em árvore. Experimentos de simulação
+conduzidos provam que o projeto integrado melhora o desempenho da rede, especialmente quando controle de densidade e roteamento são reunidos em uma
+única solução.
+1. Introdução
+As redes de sensores sem fio (RSSFs) são compostas por dispositivos compactos e de
+baixo custo, capazes de sensoriar, computar e se comunicar através de enlaces sem fio.
+Quando em grande número, os elementos dessas redes, os “nós sensores” são capazes
+de realizar importantes tarefas de sensoriamento através de colaboração. É previsto que
+*Trabalho desenvolvido com apoio do CNPq/MCT.
+plataformas de nós sensores conectados serão a chave para suporte a diversas aplicações
+no futuro, tais como monitoramento de tráfego, recuperação de desastres, instrumentação
+fabril, monitoramento de campos de batalha, detecção de intrusos, etc [Estrin et al. 1999].
+O maior desafio de pesquisa em RSSFs reside na elaboração de soluções que utilizam os recursos da rede eficientemente. Ao contrário de dispositivos de redes tradicionais, os nós sensores possuem muitas limitações de capacidade, especialmente no que
+se refere a estoque de energia (bateria). Infelizmente, recarregar ou trocar baterias pode
+ser inconveniente, ou nem mesmo factível, no caso de sensoriamento em regiões de difícil ou impossível acesso. Por essa razão, é essencial que a economia de energia seja um
+aspecto primordial no projeto de qualquer solução para RSSFs.
+O objetivo fundamental de uma RSSF é prover informações do ambiente ao observador da rede. Com esse intuito, é função dos nós sensores entregar os dados coletados do
+ambiente a uma entidade externa, um “nó sorvedouro”, que irá processá-los e analisá-los.
+Considerando que os nós sensores normalmente não têm potência suficiente para transferir dados diretamente ao nó sorvedouro, a fim de que essa entrega ocorra com sucesso,
+o roteamento é uma função fundamental. Além disso, para que a disseminação dos dados
+seja eficiente, é importante que a rede adote mecanismos para ter controle sobre a sua
+densidade. Normalmente esse controle se dá através do escalonamento das atividades dos
+nós sensores, mantendo apenas um conjunto mínimo deles em atividade. Nós que não
+são escolhidos para esse conjunto podem manter seus módulos desligados (rádio, sensor,
+etc.) até que sejam requeridos a retornar às suas atividades. Além de permitir a extensão
+do tempo de vida da rede, uma grande vantagem dessa estratégia é reduzir o tráfego e facilitar o trabalho do roteamento, já que a quantidade de dados produzidos se torna menor
+quando o número de nós em atividade é reduzido.
+Para que as RSSFs possam garantir uma entrega de dados eficiente, considerar essas duas importantes funções — roteamento e controle de densidade — no projeto de uma
+RSSFs é uma abordagem natural. Entretanto, é importante que elas sejam combinadas de
+forma cautelosa. Por exemplo, desde que o controle de densidade modifica a topologia
+da rede, caso uma infra-estrutura de roteamento exista, ela pode ser afetada com quebra
+de rotas, o que, por sua vez, pode levar a perdas de dados. Dependendo do caso, pode
+ser mais interessante que essas funções atuem em conjunto e em cooperação ao invés
+de separadamente; para isso, o seu projeto integrado é recomendado. As funções assim
+projetadas terão consciência uma da outra, compartilharão informações e executarão suas
+operações de maneira sincronizada (por exemplo, uma após a outra). Isso possibilita que
+a rede opere mais correta e eficientemente. Se a abordagem de integração adotada for
+combinar os objetivos do roteamento e do controle de densidade em uma única solução,
+melhores ainda poderão ser os resultados.
+Neste artigo propomos o projeto integrado de roteamento e controle de densidade
+no desenvolvimento de soluções para RSSFs. O projeto integrado em geral, conhecido
+como “cross-layer design”, introduz um novo patamar na busca por melhores soluções
+para redes sem fio. No âmbito das RSSFs, muitas abordagens já existem e a maior parte
+inclui apenas aspectos de comunicação de dados (principalmente roteamento e acesso ao
+meio). Pelo nosso conhecimento, não há propostas que consideram integradamente as
+funções de controle de densidade e de roteamento. Neste artigo, oferecemos esse novo
+enfoque para as RSSFs.
+As nossas principais contribuições são: (1) uma análise de fatores de impacto do
+controle de densidade sobre o roteamento; (2) proposta de uma abordagem de integração
+que mantém um funcionamento independente das funções de controle de densidade e
+roteamento, mas que as configura para atuar de forma sincronizada; (3) proposta de uma
+abordagem de integração completa dessas funções em uma única solução; e (4) apresentação de duas soluções (RDC-Sync e RDC-Integrated) fundamentadas nas abordagens
+de integração discutidas que combinam uma solução clássica de roteamento em árvore
+para RSSFs (baseada no EF-Tree [Figueiredo et al. 2004]) e um algoritmo de controle de
+densidade chamado OGDC [Zhang and Hou 2005].
+Com o intuito de avaliar o desempenho das soluções de integração e assim demonstrar a importância do uso do projeto integrado de controle de densidade e roteamento, experimentos de simulação foram realizados. Os resultados provam que integrar essas duas
+funções essenciais é dar um passo além na obtenção de soluções eficientes para RSSFs.
+Se a sua combinação não é cuidadosamente considerada, pode não haver benefícios em se
+controlar a redundância da rede, principalmente por causa de perdas de informações. Em
+particular, os resultados mostram que a solução totalmente integrada (RDC-Integrated)
+reduz o custo de roteamento e o consumo de energia, melhorando também significativamente a quantidade de informações que são entregues com sucesso ao observador da
+rede.
+Este documento é organizado da seguinte maneira. A Seção 2 apresenta os trabalhos relacionados A Seção 3 discute os aspectos do controle de densidade que podem influenciar o desempenho do roteamento e apresenta duas abordagens de solução baseadas na
+integração dessas funções. A Seção 4 descreve soluções integradas (RDC-Sync e RDCIntegrated) baseadas nessas abordagens. A Seção 5, por sua vez, apresenta o modelo de
+simulação e a metodologia de avaliação considerados, enquanto a Seção 6 discute os resultados obtidos. Por último, a Seção 7 apresenta as conclusões e as possibilidades de
+trabalhos futuros.
+2. Trabalhos Relacionados
+O roteamento é uma atividade fundamental em RSSFs. Desde que os nós sensores não
+têm potência suficiente para enviar dados diretamente ao nó sorvedouro, é necessário
+que colaborem para montar uma infra-estrutura de roteamento multi-saltos, que deve ser
+a mais eficiente possível. Esta questão já foi bastante estudada e soluções tais como
+Directed Diffusion [Intanagonwiwat et al. 2002], LEACH [Heinzelman et al. 2000] e
+SPIN [Kulik et al. 2002] lidam com o problema. Apesar da existência dessas abordagens, a infra-estrutura mais utilizada para roteamento em RSSFs tem sido a árvore, uma
+estrutura simples que é normalmente criada e mantida através de mensagens provenientes
+do nó sorvedouro, de forma pró-ativa. Trabalhos como EF-Tree [Figueiredo et al. 2004],
+One-Phase Pull Diffusion [Heidemann et al. 2003] e SAR [Sohrabi et al. 2000] apresentam avaliações dessa abordagem.
+Uma outra atividade fundamental em RSSFs é o controle de densidade. Nos
+casos em que a recarga ou troca de baterias é difícil ou mesmo impossível, formamse redes com densidade em excesso para se ter maior energia disponível e maior tolerância a falhas. Nessa configuração, mais nós sensores do que o necessário ficam
+responsáveis por observar uma mesma sub-região, gerando dados redundantes. Isso
+é indesejável porque quanto mais tráfego na rede, mais interferências, atraso e consumo de energia. Nesse contexto, o papel do controle de densidade é gerenciar a redundância da rede, mantendo apenas um conjunto mínimo de nós sensores em atividades simultâneas [Ye et al. 2003, Zhang and Hou 2005]. Como resultado, o tempo de
+vida fica estendido e o tráfego reduzido. Com relação às abordagens existentes, embora existam propostas que centralizam os cálculos e as decisões [Cardei et al. 2002,
+Siqueira et al. 2004], a maior parte delas são distribuídas, concordando com a natureza
+das RSSFs. Exemplos de abordagens distribuídas são ASCENT [Cerpa and Estrin 2002],
+PEAS [Ye et al. 2003], CCP [Wang et al. 2003], OGDC [Zhang and Hou 2005] e o algoritmo descrito em [Tian and Georganas 2002].
+Recentemente, uma nova área de pesquisa foi aberta com o intuito de melhorar o projeto das redes sem fio, conhecida como “cross-layer design”. O seu objetivo
+é promover um projeto integrado de soluções que tradicionalmente estariam em diferentes camadas, a fim de melhorar o desempenho do sistema. Para a integração das camadas MAC e rede em RSSFs, por exemplo, já existem algumas propostas com essa
+visão. Em [Ding et al. 2003], é apresentado um arcabouço unificado, chamado MINA,
+que engloba a organização da rede em grupos e os protocolos de MAC e de roteamento.
+Em [Zorzi 2004], por sua vez, um protocolo MAC baseado em contenção integra-se a um
+protocolo de roteamento geográfico sob demanda, o GeRaF. Já em [Sichitiu 2004], uma
+solução para escalonamento aleatório de nós sensores é suportada por interações entre os
+protocolos MAC e de roteamento.
+Todavia, embora existam alguns esforços no sentido de projetar protocolos de
+forma integrada, poucos pesquisadores já mostraram preocupação com relação a interações entre controle de densidade e roteamento, que é o foco do presente trabalho. No
+trabalho que propõe o ASCENT, os autores observam que perdas de pacotes podem ocorrer quando um nó que está em atividade é colocado para dormir [Cerpa and Estrin 2002].
+Eles comentam que se faz necessário que a camada de roteamento seja informada das
+mudanças na topologia causadas pelo ASCENT, mas não descrevem e nem analisam nenhuma solução. Um outro trabalho que lida mais profundamente com essa questão está
+descrito em [Tian and Georganas 2002], no qual um algoritmo de controle de densidade é
+avaliado conjuntamente com o LEACH [Heinzelman et al. 2000], uma solução de roteamento hierárquico. A sua abordagem é sincronizar as duas funções, inserindo a fase de
+controle de densidade logo antes da fase de configuração de rotas do LEACH. Assim, os
+nós inativos não participam da formação de grupos e nem da infra-estrutura de comunicação. No presente trabalho, consideramos a mesma idéia de sincronização, porém vamos
+além, oferecendo uma avaliação mais precisa desse tipo de solução e também discutindo
+os aspectos práticos envolvidos na sua implantação. Além disso, propomos uma solução
+completamente integrada como uma segunda e melhor alternativa.
+3. Projeto Integrado
+A principal motivação para se integrar as funções de controle de densidade e roteamento
+está no impacto indesejado que a primeira função pode causar na segunda quando consideradas separadamente. O projeto integrado promove a redução desse efeito, permitindo
+gerar melhorias significativas no desempenho das RSSFs. A seguir apresentamos uma
+discussão dos aspectos do controle de densidade que podem ter impacto no roteamento e
+duas abordagens possíveis para integrar essas funções.
+3.1. Aspectos de Impacto
+Um dos efeitos causados pelo controle de densidade sobre o roteamento é o aumento na
+dinâmica da rede. O controle de densidade altera o padrão de atividade dos nós sensores,
+que, dependendo da solução utilizada, são freqüentemente colocados para dormir. Além
+de interromper suas tarefas de sensoriamento, os nós inativos têm seus rádios desligados e também interrompem suas tarefas de roteamento. Caso o protocolo de roteamento
+adotado mantenha uma infra-estrutura de rotas, a atuação do controle de densidade pode
+acabar invalidando-a, causando perda de dados enquanto a mesma ainda não tiver sido
+reparada.
+Um outro efeito do controle de densidade sobre o roteamento está relacionado à
+modificação no tráfego da rede. Embora o controle de densidade reduza o número de nós
+em atividade e assim o tráfego gerado pela aplicação e pelo protocolo de roteamento, um
+novo fluxo de mensagens é introduzido para que os nós possam interagir e efetuar esse
+controle. Essas mensagens adicionais podem causar mais descartes de pacotes, maiores
+atrasos e maior consumo de energia, afetando o roteamento. Por exemplo, perdas de
+pacotes de roteamento podem levar à criação de uma infra-estrutura de rotas incompleta
+e ineficiente.
+Levando em conta os aspectos de impacto discuti
+Além disso, mesmo que uma sincronização perfeita pudesse ser obtida usando mecanismos extras, a soma dos tempos gastos no processo de controle de densidade e atualização
+da infra-estrutura de roteamento seria necessária para que se pudesse usufruir do serviço
+de comunicação com sucesso. Quanto maior esse tempo, menos eficiente será a rede,
+pois mais dados coletados do ambiente poderão deixar de serem entregues. Uma outra
+desvantagem está no fato do ponto de sincronização ser global, o que significa que os nós
+sensores só ganham novas rotas até o sorvedouro após o controle de densidade ter terminado em toda a rede. Como resultado, mesmo que já existam nós que tenham decidido por
+ficarem ativos, eles não poderão estabelecer rotas entre eles até que todos os nós da rede
+tenham tomado sua decisão. Essa é outra razão para perdas de informações e degradações
+de desempenho quando a abordagem sincronizada é aplicada. Por último, esse tipo de
+abordagem de sincronização não integra completamente as funções de controle de densidade e roteamento, não permitindo que mensagens sejam compartilhadas para se reduzir
+o tráfego na rede.
+3.2.2. Abordagem de Integração Completa
+Dadas as considerações sobre a abordagem de sincronização, uma melhor alternativa de
+integração é aquela que reúne controle de densidade e roteamento em um mesmo processo, ao invés de manter um funcionamento independente. Para obter essa solução única,
+é necessário analisar com cuidado a forma como os algoritmos de controle de densidade
+e roteamento escolhidos realizam suas tarefas e identificar possibilidades de integração.
+Dependendo do caso, pode-se tentar incluir os mecanismos de estabelecimento de rotas
+dentro do algoritmo de controle de densidade, ou o contrário. Com isso, as rotas podem
+ser criadas em um nó sem a necessidade de esperar que o processo de controle de densidade termine em toda a rede. Além disso, mensagens podem ser compartilhadas entre as
+duas funções. Por exemplo, imaginando que um nó envia uma mensagem para avisar seus
+vizinhos de que decidiu ficar ativo (processo de controle de densidade), cada nó vizinho
+pode utilizar essa informação para incluir a rota até o nó fonte em sua tabela. Isso porque
+ele terá a certeza de que a rota será válida dado que o nó fonte informou que ficará ativo.
+4. Soluções de Integração
+Neste trabalho, propomos duas soluções distintas para integrar roteamento e controle de
+densidade. Elas apresentam motivação para o projeto integrado dessas funções e ilustram
+alguns aspectos envolvidos na adoção desse tipo de projeto. Em particular, elas combinam
+o algoritmo de controle de densidade chamado OGDC [Zhang and Hou 2005] — uma
+solução que minimiza o consumo de energia garantindo cobertura e conectividade —
+com o roteamento pró-ativo em árvore — uma solução clássica de roteamento em RSSFs.
+Para o roteamento em árvore, baseamos a implementação no algoritmo EF-Tree descrito
+em [Figueiredo et al. 2004].
+A primeira solução que avaliamos, denominada Synchronized Routing and Density Control, ou simplesmente RDC-Sync, é uma alternativa de integração baseada na
+abordagem sincronizada discutida na Seção 3.2.1. A segunda solução, denominada Integrated Routing and Density Control, ou simplesmente RDC-Integrated, ao contrário da
+primeira, é uma alternativa baseada na abordagem completamente integrada discutida na
+Seção 3.2.2.
+A seguir, apresentamos uma descrição dos algoritmos de roteamento e controle
+de densidade considerados. Posteriormente, apresentamos as nossas propostas para integração desses algoritmos (RDC-Sync e RDC-Integrated).
+4.1. Algoritmo de Roteamento: EF-Tree
+O EF-Tree funciona da seguinte maneira. O nó sorvedouro inicia o processo de construção
+da árvore de roteamento disseminando uma mensagem de controle para seus vizinhos.
+Quando um nó recebe essa mensagem pela primeira vez, ele marca a sua fonte como seu
+pai na árvore e também dissemina uma mensagem de controle para seus vizinhos. É para
+esse nó pai que os dados serão enviados, sejam eles gerados localmente ou provenientes
+de outro nó para serem encaminhados. Para manter a árvore atualizada, esse processo
+é repetido periodicamente, cuja periodicidade deve ser configurada dependendo do quão
+freqüentes são as mudanças na topologia da rede. Redes mais dinâmicas necessitam de
+períodos mais curtos de atualização.
+Na descrição anterior, nota-se que a fonte da primeira mensagem de controle recebida por um nó é escolhida por ele como seu pai na árvore. Entretanto, é possível definir
+outras políticas para se escolher o nó pai. Dependendo dos requisitos da aplicação, regras diferentes podem ser aplicadas para se eleger o melhor candidato, tais como o mais
+próximo, o que possui maior estoque de energia, o que pertence a um caminho com mais
+energia disponível, etc.
+4.2. Algoritmo de Controle de Densidade: OGDC
+O OGDC ou Optimal Geographical Density Control é um solução distribuída de controle de densidade [Zhang and Hou 2005]. A idéia é fazer com que os nós sensores
+permaneçam inativos (ou seja, adormecidos) quando não são essenciais na garantia da
+cobertura e da conectividade da rede.
+O algoritmo OGDC funciona em rodadas. A cada rodada o processo de decisão é
+repetido e a solução é computada novamente. Para definir quais nós farão parte de uma
+solução em uma determinada rodada, um processo de decisão localizado é conduzido.
+Sendo assim, cada nó utiliza somente informações locais para realizar o processo de controle de densidade e decidir se ficará ativo ou não. A decisão de um nó baseia-se na posição
+dos vizinhos que já decidiram por ficar ativos na rodada corrente. Em um dado momento
+durante o processo de decisão, um nó decide por ficar ativo apenas se ele contribui para a
+cobertura adicional máxima considerando as decisões já tomadas pelos seus vizinhos.
+Durante a operação do algoritmo, os nós podem estar em três estados distintos:
+UNDECIDED, OFF e ON. Se um nó está no estado UNDECIDED, isso significa que ele
+ainda não decidiu se ficará ativo ou não na rodada corrente. Quando ele muda para o
+estado ON, ele fica ativo até a próxima rodada. Por outro lado, se ele muda para estado
+OFF, ele se desativa desligando seus módulos para economizar energia. Em uma rodada,
+o processo de controle de densidade do OGDC termina quando todos os nós já tiverem
+entrado nos estados ON ou OFF, ou seja, quando não houver mais nenhum nó no estado
+UNDECIDED.
+Em uma rodada, o processo de controle de densidade funciona para cada nó de
+acordo com o Algoritmo 11
+. Na parte principal (primeiro bloco), os nós decidem, de
+acordo com uma certa probabilidade, por se voluntariarem como nós iniciantes, ou starting nodes. Nós iniciantes são os responsáveis por principiar o processo de controle de
+densidade através da propagação de mensagens de POWER-ON. TD, TS e p0 são constantes; elas precisam ser cuidadosamente configuradas de modo que o conjunto de nós
+iniciantes seja eficiente. No segundo bloco, é mostrado o procedimento realizado quando
+uma mensagem de POWER-ON é recebida. O tempo aleatório rt é muito importante
+1Criamos este pseudo-código baseando-nos na descrição original do OGDC.
+para garantir que o OGDC produza melhores respostas2
+. Ele é computado usando uma
+fórmula que garante que o nó cuja presença é mais benéfica para a rede em um dado momento — aquele que está mais próximo ao ponto ótimo — recebe um valor mais baixo
+de temporização antes de decidir por ficar ativo. Finalmente, o terceiro bloco apresenta a
+ação efetuada quando ocorre uma perda de mensagem, que é a condição considerada pelo
+OGDC para assumir que a rede está excessivamente densa.
+Algoritmo 1: Pseudo-código do OGDC
+/* Corpo principal, executado no início de cada ro
+poderia ser obtido caso uma visão global e atualizada da rede estivesse disponível. Por
+outro lado, o pior caso de sincronização resulta no limite inferior de desempenho. A pior
+situação ocorre quando o ponto de sincronização é configurado para o início do período,
+o que significa que controle de densidade e atualização da infra-estrutura de roteamento
+iniciam seus processos simultaneamente. Nesse caso, a infra-estrutura de roteamento é
+refeita baseada em uma topologia em fase de mudança, o que significa que o nível de integração é zero. Nos referimos ao melhor caso como RDC-Sync-B (Synchronized Routing
+and Density Control - Best Case), e ao pior caso como RDC-Sync-W (Synchronized
+Routing and Density Control - Worst Case). Essa divisão é importante para que possamos
+avaliar o desempenho do RDC-Sync.
+4.4. Abordagem Completamente Integrada: RDC-Integrated
+Considerando as desvantagens da abordagem de sincronização, uma melhor alternativa de integração é aquela que reúne controle de densidade e roteamento em um
+mesmo processo, ao invés de manter um funcionamento independente, como discutido
+na Seção 3.2.2. Essa é a principal idéia do RDC-Integrated, que integra o EF-Tree com
+o OGDC em uma única solução através da inclusão de mecanismos de estabelecimento
+de rotas dentro do OGDC. O resultado é uma solução que constrói a árvore de roteamento
+usando somente as mensagens originais do OGDC, sem introduzir custos adicionais. Ao
+contrário do RDC-Sync, o RDC-Integrated não é baseado em um ponto de sincronização
+global e o pai de um nó sensor na árvore de roteamento pode ser atualizado durante a
+execução do processo de controle de densidade, no momento em que esse nó recebe a
+primeira mensagem de controle.
+Algoritmo 2: Pseudo-código do RDC-Integrated
+/* Corpo principal, executado no início de cada rodada no nó i */
+begin
+configure estadoi com UNDECIDED;
+configure paii com nulo;
+if nó i é o sorvedouro then
+dissemine uma mensagem de POWER-ON a todos os vizinhos;
+else
+while estadoi é UNDECIDED do espere por mensagem de POWER-ON;
+end
+/* Executado quando um nó i recebe uma mensagem de POWER-ON */
+begin
+if paii é nulo then configure paii com a fonte da mensagem recebida;
+adicione o nó fonte da mensagem recebida à lista de vizinhos;
+continue como no algoritmo do OGDC original;
+end
+Para incluir o mecanismo de construção da árvore dentro do OGDC, algumas modificações a esse algoritmo são necessárias. Primeiramente, o processo de controle de densidade deve ser iniciado pelo nó sorvedouro, ou seja, o nó sorvedouro deve ser o único nó
+iniciante do OGDC, ao invés dos nós iniciantes serem escolhidos aleatoriamente. Como
+conseqüência, no RDC-Integrated, o nó sorvedouro será o primeiro nó a enviar uma mensagem de POWER-ON e assim as próximas mensagens de POWER-ON vão fluir da sua
+posição em direção à periferia da rede. A idéia principal por trás deste mecanismo está
+no no fato de que as árvores de roteamento têm sua raiz no nó sorvedouro. Sendo assim,
+seguindo esse padrão de fluxo, as mensagens de POWER-ON podem não somente ser utilizadas para controle de densidade, como também para construir a árvore de roteamento.
+Sabe-se que no OGDC as mensagens de POWER-ON se originam dos nós que acabaram
+de entrar no estado ON, ou seja, dos nós que decidiram por ficarem ativos. Como resultado, quando um nó recebe uma mensagem de POWER-ON, ele já pode considerar o nó
+fonte da mensagem como um candidato a seu pai na árvore, podendo inclusive já elegê-lo
+como pai imediatamente dependendo da política adotada. Quando dados precisam ser
+roteados, esse nó pai é usado como um caminho para alcançar o sorvedouro. Exceto
+para o mecanismo de construção e reconstrução da árvore de roteamento, todas as demais
+funções do EF-Tree são mantidas sem modificação dentro do RDC-Integrated.
+O Algoritmo 2 mostra as modificações necessárias ao OGDC com o propósito de
+incluir o mecanismo de construção da árvore. Para simplificar, omitimos as partes do
+EF-Tree e do OGDC que não foram modificadas.
+5. Modelo de Simulação
+Simulações foram conduzidas com o intuito de avaliar o desempenho das soluções propostas e mostrar os ganhos do uso da abordagem integrada. Com este fim, foi utilizado
+o ns-2 (Network Simulator 2) [NS-2 2004], atualmente o simulador mais amplamente
+adotado para redes sem fio.
+Tabela 1: Parâmetros de simulação baseados no rádio dos nós Mica2
+Parâmetro Valor
+Potência da transmissão 45,0 mW
+Potência de recepção 24,0 mW
+Potência idle 24,0 mW
+Largura de banda 19.200 bps
+Alcance de comunicação 40 m
+Os parâmetros de simulação foram selecionados baseando-se na arquitetura de
+hardware dos nós Mica2 [Crossbow 2004], que estão disponíveis comercialmente. A
+Tabela 5 mostra os parâmetros de rádio e os seus respectivos valores, conforme utilizados
+nas simulações. Levando em conta que na plataforma Mica2 o módulo de rádio dos nós
+sensores e dos nós sorvedouros é o mesmo, não fizemos nenhuma distinção em relação os
+valores para os dois tipos de nós.
+Considerando que os nós Mica2 são capazes de trabalhar com sensores de temperatura, a aplicação escolhida para ser simulada foi o monitoramento da temperatura de
+uma área quadrada. Nessa aplicação, todos os nós sensoriam continuamente o ambiente
+e enviam periodicamente (a cada 20 s) os dados obtidos ao nó sorvedouro, localizado no
+centro da área. As suas atividades de sensoriamento se iniciam em momentos escolhidos
+aleatoriamente entre 0 e 20 s. Dado que é possível conectar um sensor de temperatura
+ao nó Mica2 sorvedouro, consideramos que ele também é capaz de sensoriar o ambiente.
+Em relação ao alcance de sensoriamento, cada nó sensor observa uma região circular
+com 20 m de raio, que corresponde exatamente à metade do valor do alcance de comunicação. No que se refere à camada MAC, dado que os nós Mica2 implementam um
+protocolo CSMA/CA, foi feita a opção por utilizar o IEEE 802.11, que possui uma versão
+disponível para o ns-2. Os pacotes de dados e controle possuem 32 bytes, devido à limitação da plataforma Mica2 (TinyOS). O intervalo de atualização de rotas e da topologia de
+nós ativos foi configurado para 100 s. Para o OGDC, os valores de constantes utilizados
+são os mesmos que os definidos no artigo original do protocolo [Zhang and Hou 2005].
+Em relação à configuração da rede, os nós são estáticos e uniformemente distribuídos na
+área. A energia inicial de cada nó foi configurada com 100 J, suficiente para que todos os
+nós da rede sobrevivam por mais de 3.000 s.
+6. Avaliação das Soluções
+Com o propósito de avaliar as soluções propostas, dois conjuntos de simulações foram
+conduzidos. O primeiro conjunto provê uma comparação do desempenho das soluções
+para diferentes tamanhos de rede, quando todos os nós estão disponíveis (ou seja, sem
+falhas). O segundo conjunto, por sua vez, permite uma análise comparativa da cobertura
+da rede ao longo do tempo de funcionamento da rede, também possibilitando identificar
+o tempo de vida da rede obtido com cada solução. A seguir descrevemos as soluções
+simuladas, as métricas e posteriormente os resultados.
+6.1. Soluções Avaliadas
+Com o propósito de avaliar os benefícios da integração entre controle de densidade e
+roteamento, foram consideradas as seguintes soluções: Árvore de Roteamento (RT).
+Implementa o algoritmo de roteamento em árvore EF-Tree sem controle de densidade,
+com a estrutura de rotas sendo atualizada a cada 100 s. RDC-Sync. Implementa a
+abordagem de sincronização entre controle de densidade e roteamento, como descrito
+na Seção 4.3. Com o intuito de avaliar os resultados do uso dessa abordagem, os melhor
+(RDC-Sync-B) e pior (RDC-Sync-W) casos foram os cenários considerados, que provêm,
+respectivamente, os limites superior e inferior para o desempenho de uma solução de integração convencional. Na sua implementação, consideramos que o nó sorvedouro não
+participa do OGDC (porque ele não pode ser desligado), mas contribui para a cobertura
+da rede mantendo o seu sensor permanentemente ativo. RDC-Integrated. Implementa a
+abordagem de integração completa de controle de densidade e roteamento, como descrito
+anteriormente na Seção 4.4.
+6.2. Métricas
+Para que pudéssemos avaliar o desempenho das soluções propostas, algumas métricas
+foram eleitas, como descritas a seguir:
+Taxa de entrega de pacotes. Relação entre o número de pacotes de dados recebidos pelo nó sorvedouro e o número de pacotes enviados pelos nós sensores. Essa
+métrica determina a quantidade de informação do ambiente entregue corretamente ao nó
+sorvedouro.
+Energia total consumida. Energia total consumida por todos os nós sensores
+durante o tempo de simulação, sem incluir o nó sorvedouro. Essa métrica identifica o
+custo em energia de cada solução.
+Atraso. Tempo médio gasto entre o envio de um pacote proveniente de um nó
+sensor até a sua recepção pelo nó sorvedouro. Se o atraso é muito alto, isso significa que
+a informação entregue ao observador da rede pode ter perdido seu “prazo de validade” e
+pode não ser mais útil.
+Cobertura (visão global). Medida da fração (em porcentagem) da área total que
+está sendo observada por pelo menos um nó sensor. Desde que a cobertura varia no tempo,
+o valor dessa métrica é a média dos valores coletados a cada 20 s, que equivale ao período
+de geração de dados pelos nós sensores.
+Cobertura (visão sorvedouro). Similar à métrica anterior, porém neste caso a
+cobertura é medida no nó sorvedouro, ou seja, considerando apenas a fração da área
+da qual o sorvedouro tenha recebido informação de sensoriamento. Sendo assim, essa
+métrica representa a cobertura real da rede, sendo uma função da cobertura global e da
+qualidade de entrega de dados da rede. A exemplo da cobertura global, também é medida
+a cada 20 s.
+Nós em atividade. Quantidade média de nós que decidiram por estar ativos em
+determinado período de funcionamento da rede. Quando as soluções são comparadas, se a
+cobertura global é a mesma, um número alto de nós em atividade pode ser uma indicação
+de que a rede possui mais nós sensoriando do que necessário.
+6.3. Resultados
+A seguir, apresentamos os resultados e análise para dois conjuntos de simulações.
+6.3.1. Primeiro Conjunto: Avaliação de Desempenho sem Falhas
+Para comparar o desempenho das soluções escolhidas, simulações foram conduzidas variando o número de nós de 50 a 200. A dimensão da área monitorada foi variada simultaneamente, para que a densidade ficasse fixa em 5 nós/1.000 m2
+. Neste conjunto, todos
+os experimentos de simulação foram executados por 3.000 s, e repetidos 33 vezes. Os
+resultados apresentados estão com intervalos de confiança de 95%.
+ 10
+ 20
+ 30
+ 40
+ 50
+ 60
+ 70
+ 80
+ 90
+ 100
+ 50 75 100 125 150 175 200
+Taxa de entrega de pacotes (%)
+Número de nós
+RT
+RDC-Sync-W
+RDC-Sync-B
+RDC-Integrated
+(a) Taxa de entrega de pacotes.
+ 0
+ 2000
+ 4000
+ 6000
+ 8000
+ 10000
+ 12000
+ 14000
+ 16000
+ 50 75 100 125 150 175 200
+Energia total consumida (Joules)
+Número de nós
+RT
+RDC-Sync-W
+RDC-Sync-B
+RDC-Integrated
+(b) Energia total consumida.
+ 0
+ 0.5
+ 1
+ 1.5
+ 2
+ 2.5
+ 3
+ 3.5
+ 4
+ 4.5
+ 5
+ 50 75 100 125 150 175 200
+Atraso (s)
+Número de nós
+RT
+RDC-Sync-W
+RDC-Sync-B
+RDC-Integrated
+(c) Atraso.
+Figura 1: Comparação do desempenho variando o tamanho da rede.
+A Figura 1(a) apresenta a taxa de entrega de pacotes em função do tamanho da
+rede, para todas as soluções. É possível notar um melhor desempenho do RDC-Integrated,
+que é a única solução que evita completamente a invalidação de rotas devido à dinâmica
+introduzida pelo controle de densidade. No RDC-Sync-B, esse efeito é apenas parcialmente resolvido. Isso porque pacotes podem ser perdidos antes que o ponto de sincronização global seja atingido, já que o processo de controle de densidade precisa terminar em
+todos os nós para que as rotas sejam atualizadas. No RDC-Integrated, as rotas são computadas durante o processo de controle de densidade e assim a atualização ocorre mais
+rapidamente. É importante ressaltar que embora esse efeito não tenha sido tão significativo, a solução RDC-Sync-B não pode ser obtida na prática. Portanto, em uma situação
+real, o desempenho seria ainda pior, dependendo da qualidade de estimativa do ponto de
+sincronização global. Com relação ao RT, é possível observar que a sua taxa de entrega se
+assemelha à taxa do RDC-Integrated para pequenos tamanhos de rede. No entanto, quanto
+maior a rede, mais preocupante se torna essa estratégia, já que o problema da redundância
+passa a ter um valor mais negativo.
+A Figura 1(b) mostra os resultados para o consumo de energia. Obviamente, para
+as soluções que aplicam controle de densidade, menos energia é gasta devido ao número
+reduzido de nós ativos e também à diminuição no tráfego da rede. Esse resultado é ainda
+melhor quando o controle de densidade é completamente integrado com o roteamento,
+como mostram os resultados para o RDC-Integrated. Isso se deve ao compartilhamento
+de mensagens, cada uma passando a servir tanto para o controle de densidade quanto para
+o estabelecimento de rotas. Adicionalmente, o fato de termos considerado a participação
+efetiva do nó sorvedouro no processo de controle de densidade do RDC-Integrated causa
+uma diminuição do número de nós sensores ativos, permitindo uma maior economia de
+energia.
+Na Figura 1(c), notam-se os resultados para o atraso médio obtido na rede. A
+solução RDC-Sync-W tem o pior desempenho devido à grande presença de rotas inválidas. Pacotes de dados ficam retidos nas filas de roteamento para novas tentativas de
+transmissão e isso causa um aumento no atraso dos pacotes recebidos com sucesso. O
+RDC-Integrated, ao contrário, apresenta os menores valores de atraso. Isso se deu porque
+essa solução permite que a árvore de roteamento seja reconstruída tão logo a topologia
+seja alterada, de modo que rotas são rapidamente revalidadas.
+ 90
+ 92
+ 94
+ 96
+ 98
+ 100
+ 50 75 100 125 150 175 200
+Cobertura (%)
+Número de nós
+RT
+RDC-Sync-W
+RDC-Sync-B
+RDC-Integrated
+(a) Cobertura (visão global).
+ 10
+ 20
+ 30
+ 40
+ 50
+ 60
+ 70
+ 80
+ 90
+ 100
+ 50 75 100 125 150 175 200
+Cobertura (%)
+Número de nós
+RT
+RDC-Sync-W
+RDC-Sync-B
+RDC-Integrated
+(b) Cobertura (visão sorvedouro).
+ 20
+ 40
+ 60
+ 80
+ 100
+ 120
+ 140
+ 160
+ 180
+ 200
+ 50 75 100 125 150 175 200
+Número de nós em atividade
+Número de nós
+RT
+RDC-Sync-W
+RDC-Sync-B
+RDC-Integrated
+(c) Nós em atividade.
+Figura 2: Comparação de cobertura e atividade variando o tamanho de rede.
+Em relação à cobertura de área resultante, é possível notar, pela Figura 2(a), que o
+melhor resultado é obtido pelo RT, que não realiza controle de densidade e assim mantém
+todos os nós em atividade (veja Figura 2(c)). As demais soluções também apresentam
+uma alta cobertura, com uma diferença de cerca de 3%, sendo o pior resultado o obtido
+pelo RDC-Sync-W. Essa solução em particular considera os processos de controle de densidade e construção da estrutura de rotas acontecendo simultaneamente, o que causa mais
+colisões e perdas de pacotes de controle. Como descrito na Seção 4.2, no OGDC essas
+colisões podem forçar alguns nós a ficarem inativos, dado que se acredita que quando o
+número de colisões é alto, isso significa que a rede está densa. Entretanto, nem sempre
+isso é verdade, e quando não é, a cobertura da rede pode ficar prejudicada.
+Caso a cobertura seja medida no nó sorvedouro (veja Figura 2(b)), observa-se
+um desempenho aceitável para todas as soluções, exceto para o RDC-Sync-W, devido
+à sua baixa taxa de entrega. Nota-se também que embora o uso do RT implique em
+muitas perdas por tráfego alto, a cobertura é mantida como resultado da alta redundância.
+Entretanto, quando o tamanho da rede é aumentado, as desvantagens de não se controlar
+a densidade se tornam mais evidentes. Mantendo menos de 50% dos nós em atividade
+(veja Fig. 2(c)), as demais soluções obtêm valores de cobertura bastante semelhantes com
+tráfego muito mais reduzido e menor gasto de energia.
+6.3.2. Segundo Conjunto: Avaliação de Desempenho com Falhas
+Com o intuito de verificar o impacto de cada abordagem na cobertura da rede ao longo do
+seu tempo de vida, foram conduzidos experimentos sem se limitar o tempo de simulação,
+ou seja, executando-os até que todos os nós tenham sua energia esgotada. Para essas
+simulações, o número de nós foi fixado em 100, com 5 nós por 1.000 m2
+. Os resultados
+apresentam a cobertura no tempo para uma simulação de cada solução.
+A Figura 3 mostra a cobertura ao longo do tempo do ponto de vista de um observador global. Nota-se o grande benefício da adoção do controle de densidade no tempo
+de vida da rede. Enquanto para o RT a rede se torna completamente indisponível antes
+dos 5.000 s (descartando a cobertura do nó sorvedouro), para as demais soluções o tempo
+de vida é cerca de quatro vezes maior. O comportamento das soluções com controle de
+densidade é principalmente uma conseqüência do número de nós vivos mantidos pelas
+soluções. Dentre essas soluções, o melhor desempenho é o do RDC-Integrated, que mantém por mais tempo a produção da rede.
+ 0
+ 10
+ 20
+ 30
+ 40
+ 50
+ 60
+ 70
+ 80
+ 90
+ 100
+ 0 5000 10000 15000 20000 25000 30000
+Cobertura (%)
+Time (s)
+(a) RT
+ 0
+ 10
+ 20
+ 30
+ 40
+ 50
+ 60
+ 70
+ 80
+ 90
+ 100
+ 0 5000 10000 15000 20000 25000 30000
+Cobertura (%)
+Time (s)
+(b) RDC-Sync-W
+ 0
+ 10
+ 20
+ 30
+ 40
+ 50
+ 60
+ 70
+ 80
+ 90
+ 100
+ 0 5000 10000 15000 20000 25000 30000
+Cobertura (%)
+Time (s)
+(c) RDC-Sync-B
+ 0
+ 10
+ 20
+ 30
+ 40
+ 50
+ 60
+ 70
+ 80
+ 90
+ 100
+ 0 5000 10000 15000 20000 25000 30000
+Cobertura (%)
+Time (s)
+(d) RDC-Integrated
+Figura 3: Comparação da cobertura (visão global) ao longo do tempo.
+Quando a cobertura no nó sorvedouro é avaliada (Fig. 4), a distinção entre as
+estratégias de integração se torna mais evidente. Dentre as soluções com controle de densidade, o RDC-Sync-W apresenta o pior resultado. Conforme esperado, a taxa de entrega
+de pacotes faz a diferença. O RDC-Sync-W oferece baixa cobertura com uma variação
+bem mais alta que a apresentada pelo RDC-Integrated. No geral, os resultados mostram
+que a estratégia de integração completa permite melhorar a eficiência em energia, estendendo o tempo de vida da rede sem prejudicar a sua capacidade de produção.
+ 0
+ 10
+ 20
+ 30
+ 40
+ 50
+ 60
+ 70
+ 80
+ 90
+ 100
+ 0 5000 10000 15000 20000 25000 30000
+Cobertura (%)
+Time (s)
+(a) RT
+ 0
+ 10
+ 20
+ 30
+ 40
+ 50
+ 60
+ 70
+ 80
+ 0 5000 10000 15000 20000 25000 30000
+Cobertura (%)
+Time (s)
+(b) RDC-Sync-W
+ 0
+ 10
+ 20
+ 30
+ 40
+ 50
+ 60
+ 70
+ 80
+ 90
+ 100
+ 0 5000 10000 15000 20000 25000 30000
+Cobertura (%)
+Time (s)
+(c) RDC-Sync-B
+ 0
+ 10
+ 20
+ 30
+ 40
+ 50
+ 60
+ 70
+ 80
+ 90
+ 100
+ 0 5000 10000 15000 20000 25000 30000
+Cobertura (%)
+Time (s)
+(d) RDC-Integrated
+Figura 4: Comparação da cobertura (visão sorvedouro) ao longo do tempo.
+7. Conclusões e Trabalhos Futuros
+As redes de sensores sem fio (RSSFs) diferem de redes tradicionais por possuírem recursos limitados. Essa característica impõe muitos desafios na elaboração de soluções para
+essas redes, pois sua operação, além de correta, deve ser eficiente. Com esse propósito,
+mecanismos como controle de densidade têm sido introduzidos a fim de economizar energia e estender o tempo de vida da rede. Contudo, esse tipo de estratégia causa uma
+dinâmica difícil de ser gerenciada e que afeta a qualidade da estrutura de roteamento
+utilizada e da entrega de dados em conseqüência.
+Este trabalho contribui para o desenvolvimento das RSSFs nos seguintes aspectos. Primeiramente, apresenta uma análise dos efeitos causados pela função de controle
+de densidade sobre a função de roteamento, onde fica claro que é necessário considerar
+os aspectos dessas funções através de um projeto de integração. Segundo, propõe duas
+abordagens de integração, utilizadas nas soluções RDC-Sync e RDC-Integrated. Finalmente, através de resultados de simulação, oferece uma análise comparativa que mostra
+as vantagens desse tipo de abordagem.
+Particularmente, o RDC-Integrated mostra a vantagem de um projeto de integração mais ambicioso, considerando as funções como uma só atividade, já que a simples
+estratégia de sincronização pode ser difícil de ser obtida e, logo, insuficiente. Embora o
+objetivo principal neste trabalho seja motivar o uso do projeto integrado, acreditamos que
+o RDC-Integrated seja uma solução de interesse para que seja utilizado na prática. Em
+primeiro lugar, o seu emprego demanda pouco esforço de implementação. Além disso,
+ele pode ser facilmente estendido tanto para considerar outras métricas de construção da
+árvore de roteamento, quanto para acrescentar ainda mais funções às mensagens de controle, como por exemplo gerenciamento de rede e outros processos de auto-organização.
+Além da extensão do RDC-Integrated, são possíveis outros trabalhos. Um próximo passo seria sincronizar os tempos da aplicação com o controle de densidade e o
+roteamento, por exemplo escalonando as transmissões de dados para ocorrerem somente
+após o término da atualização de rotas. Outra possibilidade seria trabalhar na integração
+de outras classes de soluções de controle de densidade e roteamento.
+Referências
+Cardei, M., Maccallum, D., Cheng, X., Min, M., Jia, X., Li, D., zhu Du, D., and Du,
+D. (2002). Wireless sensor networks with energy efficient organization. Journal of
+Interconnection Networks, 3:213–229.
+Cerpa, A. and Estrin, D. (2002). Ascent: Adaptive self-configuring sensor networks
+topologies. In Proceedings of the 21st International Annual Joint Conference of the
+IEEE Computer and Communications Societies (INFOCOM’02), volume 3, pages
+1278–1287, New York, NY, USA.
+Crossbow (2004). Mica2 - wireless measurement system. [Online] Available:
+http://www.xbow.com/.
+Ding, J., Sivalingam, K., Kashyapa, R., and Chuan, L. J. (2003). A multi-layered architecture and protocols for large-scale wireless sensor networks. In Proceedings of the
+58th IEEE Semiannual Vehicular Technology Conference (VTC 2003-Fall), volume 3,
+pages 1443–1447.
+Estrin, D., Govindan, R., Heidemann, J., and Kumar, S. (1999). Next century challenges:
+Scalable coordination in sensor networks. In Proceedings of the 5th Annual International Conference on Mobile Computing and Networks (MobiCom’99), pages 263–
+270, Seattle, Washington, USA. ACM Press.
+Figueiredo, C. M. S., Nakamura, E. F., and Loureiro, A. A. F. (2004). Multi: A hybrid
+adaptive dissemination protocol for wireless sensor networks. In Proceedings of the
+1st International Workshop on Algorithmic Aspects of Wireless Sensor Networks (Al-
+gosensors 2004), volume 3121 of Lecture Notes in Computer Science, pages 171–186,
+Turku, Finland. Springer.
+Heidemann, J., Silva, F., and Estrin, D. (2003). Matching data dissemination algorithms
+to application requirements. In Proceedings of the 1st International Conference on
+Embedded Networked Sensor Systems (SenSys’03), pages 218–229, Los Angeles, CA,
+USA. ACM Press.
+Heinzelman, W. R., Chandrakasan, A., and Balakrishnan, H. (2000). Energy-efficient
+communication protocol for wireless microsensor networks. In IEEE Proceedings of
+the Hawaii International Conference on System Sciences, pages 4–13.
+Intanagonwiwat, C., Govindan, R., Estrin, D., Heidemann, J., and Silva, F. (2002). Directed diffusion for wireless sensor networking. ACM/IEEE Transactions on Networking, 11(1):2–16.
+Kulik, J., Heinzelman, W., and Balakrishnan, H. (2002). Negotiation-based protocols for disseminating information in wireless sensor networks. Wireless Networks,
+8(2/3):169–185.
+NS-2 (2004). The network simulator - ns-2. [Online] Available:
+http://www.isi.edu/nsnam/ns/.
+Sichitiu, M. L. (2004). Cross-layer scheduling for power efficiency in wireless sensor
+networks. In Proceedings of the 23rd Annual Joint Conference of the IEEE Computer
+and Communications Societies (INFOCOM’04).
+Siqueira, I. G., Ruiz, L. B., Loureiro, A. A. F., and Nogueira, J. M. S. (2004). Um
+serviço de gerenciamento para controle de densidade de redes sensores sem fio. In 22o.
+Simpósio Brasileiro de Redes de Computadores (SBRC’04), pages 249–262, Gramado,
+RS.
+Sohrabi, K., Gao, J., Ailawadhi, V., and Pottie, G. (2000). Protocols for self-organization
+of a wireless sensor network. IEEE Personal Communications, 7(5):16–27.
+Tian, D. and Georganas, N. D. (2002). A coverage-preserving node scheduling scheme for
+large wireless sensor networks. In Proceedings of the 1st ACM International Workshop
+on Wireless Sensor Networks and Applications (WSNA’02), pages 32–41, Atlanta, GA,
+USA. ACM Press.
+Wang, X., Xing, G., Zhang, Y., Lu, C., Pless, R., and Gill, C. (2003). Integrated coverage
+and connectivity configuration in wireless sensor networks. In Proceedings of the 1st
+ACM Internation Conference on Embedded Networked Sensor Systems (SenSys’03),
+pages 28–39, Los Angeles, California, USA. ACM Press.
+Ye, F., Zhong, G., Cheng, J., Lu, S., and Zhang, L. (2003). Peas: A robust energy conserving protocol for long-lived sensor networks. In Proceedings of the 23rd International
+Conference on Distributed Computing Systems, pages 28–37, Providence, Rhode Island, USA.
+Zhang, H. and Hou, J. C. (2005). Maintaining sensing coverage and connectivity in large
+sensor networks. Wireless Ad Hoc and Sensor Networks: An International Journal,
+1(1–2):89–123.
+Zorzi, M. (2004). A new contention-based mac protocol for geographic forwarding in
+ad hoc and sensor networks. In Proceedings of the IEEE Internation Conference on
+Communications (ICC 2004), volume 27, pages 3481–3485.
