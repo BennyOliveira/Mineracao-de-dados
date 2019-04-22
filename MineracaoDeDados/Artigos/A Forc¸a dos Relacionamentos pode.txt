@@ -1,0 +1,245 @@
+A Forc¸a dos Relacionamentos pode
+Medir a Qualidade de Comunidades?
+Mariana O. Silva, Michele A. Brandao, Mirella M. Moro ˜
+Universidade Federal de Minas Gerais (UFMG) – Belo Horizonte, MG – Brasil
+{mariana.santos,micheleabrandao,mirella}@dcc.ufmg.br
+Abstract. In social networks, community detection provides valuable data about
+relationships between individuals. There are various metrics to validate the
+quality of communities, but there is no consensus on the performance of these
+metrics. In this paper, we evaluate whether strength metrics can also be used
+to measure the quality of algorithms that detect communities. The results are
+positive to confirm such hypothesis.
+Resumo. Em redes sociais, a detecc¸ao de comunidades fornece valiosos dados ˜
+sobre as relac¸oes entre indiv ˜ ´iduos. Ha diversas m ´ etricas para validar a qua- ´
+lidade de comunidades, mas nao h ˜ a um consenso sobre o desempenho dessas ´
+metricas. Neste artigo, avaliamos se m ´ etricas para for ´ c¸a dos relacionamentos
+podem tambem ser usadas para medir a qualidade de algoritmos que detectam ´
+comunidades. Os resultados sao positivos para con ˜ firmar tal hipotese. ´
+1. Introduc¸ao˜
+Estudos para a analise de intera ´ c¸oes entre pessoas ou organiza ˜ c¸oes, bem como a detec ˜ c¸ao˜
+de padroes nessas intera ˜ c¸oes, permitem prever o comportamento de uma rede e analisar ˜
+diferentes aspectos da mesma. No contexto academico, uma rede social de co-autoria ˆ
+pode ser representada por colaborac¸oes cient ˜ ´ificas que possuem padroes e caracter ˜ ´isticas
+relacionados as intera ` c¸oes dos indiv ˜ ´iduos envolvidos. Tais indiv´iduos sao representados ˜
+por pesquisadores e os v´inculos relacionais, as colaborac¸oes entre eles. ˜
+Em tais redes, existem grupos de pessoas que possuem relacionamentos mais fortes
+e compartilham interesses semelhantes [Brandao and Moro 2017] e s ˜ ao chamados de ˜
+comunidades (agrupamentos ou clusters). A detecc¸ao de tais comunidades tornou-se um ˜
+problema fundamental [Yang et al. 2016], podendo ajudar a obter valiosos dados sobre a
+existencia de grupos que colaboram mais densamente, a identi ˆ ficac¸ao de relacionamentos ˜
+mais intensos entre determinados autores ou ainda autores com maior grau de colaborac¸ao˜
+[Procopio et al. 2011]. Uma vez que este problema n ´ ao possui uma solu ˜ c¸ao exata, muitas ˜
+heur´isticas foram propostas para encontrar clusters. No entanto, nao h ˜ a garantia formal de ´
+que os resultados obtidos atraves deles sejam os melhores poss ´ ´iveis [Almeida et al. 2012].
+Um dos aspectos mais importantes do processo de identificac¸ao de comunidades ˜ e´
+a avaliac¸ao da qualidade dos algoritmos que as detectam. ˜ E fundamental n ´ ao s ˜ o para medir ´
+a eficiencia dos algoritmos de agrupamento, mas tamb ˆ em para prover uma vis ´ ao sobre a ˜
+dinamica de relacionamentos em uma determinada rede. Muitas m ˆ etricas para validar a ´
+qualidade de comunidades ja foram propostas na literatura, mas n ´ ao h ˜ a um consenso sobre ´
+como elas se comparam e quao bons s ˜ ao seus desempenhos [Almeida et al. 2012]. ˜
+32nd SBBD – Short Papers – ISSN 2316-5170 October 2-5, 2017 – Uberlˆandia, MG, Brazil
+paper:174600
+204
+Nesse contexto, este trabalho realiza uma analise comparativa entre m ´ etricas para a ´
+forc¸a dos relacionamentos em redes de co-autoria e metricas usadas para validar comuni- ´
+dades. Especificamente, utilizamos tais metricas para avaliar a qualidade de comunidades ´
+detectadas por tres algoritmos comumente aplicados em grafos n ˆ ao direcionados [Brand ˜ ao˜
+and Moro 2017]: Louvain Method (LM) [Blondel et al. 2008], Clique Percolation Method
+(CPM) [Palla et al. 2005] e Markov Cluster Algorithm (MCL) [Van Dongen 2000].
+Apos apresentar os trabalhos relacionados (Se ´ c¸ao 2), descrevemos a metodologia ˜
+para realizac¸ao deste trabalho (Se ˜ c¸ao 3). Em seguida, apresentamos os resultados obtidos ˜
+(Sec¸ao 4). Finalmente, discutimos as principais conclus ˜ oes (Sec¸ ˜ ao 5). ˜
+2. Trabalhos Relacionados
+O processo de agrupamento (clustering) tem sido aplicado em diversos campos, incluindo
+Engenharias, Ciencia da Computa ˆ c¸ao, Ci ˜ encias M ˆ edicas e Economia [Xu and Wunsch ´
+2005]. Na area de ci ´ encia da computa ˆ c¸ao, em especial, essas t ˜ ecnicas de agrupamento ´
+sao utilizadas para detectar comunidades em redes sociais. Este processo ˜ e um problema ´
+fundamental, uma vez que permite a analise das intera ´ c¸oes e relacionamentos entre os ˜
+participantes das redes. Especialmente em redes sociais academicas, a detec ˆ c¸ao de co- ˜
+munidades auxilia na descoberta de padroes que podem aumentar a produtividade dos ˜
+pesquisadores bem como entender a formac¸ao de grupos. ˜
+Identificar comunidades em redes sociais de co-autoria e geralmente uma tarefa ´
+dif´icil, sendo necessario utilizar ferramentas para detectar e entender o comportamento das ´
+mesmas. De acordo com Mishra et al. [2007], modularidade, mutualidade, acessibilidade
+e cadeias de Markov, sao exemplos de estrat ˜ egias para detectar comunidades em redes ´
+sociais. Diante da variedade de tecnicas, aplicamos tr ´ es comumente utilizadas em grafos ˆ
+nao direcionados, o ˜ Louvain Method que e baseado em modularidade [Blondel et al. 2008], ´
+Clique Percolation Method que considera o conceito de mutualidade [Palla et al. 2005] e
+Markov Cluster Algorithm que utiliza cadeias de Markov [Van Dongen 2000].
+Para validar a qualidade das comunidades detectadas pelos algoritmos de agrupamento escolhidos, utilizamos as metricas ´ neighborhood overlap e co-authorship frequency.
+No entanto, de acordo com Brandao e Moro [2017], considerar apenas m ˜ etricas para a for ´ c¸a
+dos relacionamentos de uma rede nao˜ e su ´ ficiente para definir a qualidade de algoritmos
+de clusterizac¸ao. Portanto, aplicamos tamb ˜ em m ´ etricas que s ´ ao comumente utilizadas para ˜
+avaliar a qualidade de comunidades. Nosso estudo investiga se metricas para a for ´ c¸a dos
+relacionamentos podem medir a qualidade das comunidades de forma adequada.
+3. Metodologia
+A metodologia deste trabalho possui cinco passos: inicialmente, criamos as redes sociais de
+co-autoria para analisar a detecc¸ao de comunidades; em seguida, aplicamos duas m ˜ etricas ´
+para a forc¸a dos relacionamentos dos pesquisadores; entao, utilizamos tr ˜ es algoritmos de ˆ
+agrupamento para detectar comunidades; finalmente, validamos a qualidade dos grupos
+atraves de tr ´ esˆ ´indices e analisamos os resultados das diferentes metricas. ´
+Redes Sociais de Co-autoria. Utilizamos um conjunto de dados coletado da DBLP1
+com aproximadamente 15 milhoes de registros para construir as redes sociais. Estes ˜
+1DBLP Digital Bibliography & Library Project): http://dblp.uni-trier.de/
+32nd SBBD – Short Papers – ISSN 2316-5170 October 2-5, 2017 – Uberlˆandia, MG, Brazil
+205
+Tabela 1: Descric¸ao das redes sociais criadas. ˜
+Rede # autores # pares (# dist) MedPubA Modularidade Coeficiente de
+clusterizac¸ao m ˜ edio ´
+0 394 3898 (738) 9,89 0,686 0,377
+1 68.397 249.352 (110.357) 3,65 0,86 0,672
+2 314.444 1.297.929 (540.571) 4,13 0,691 0,524
+dados produziram uma rede social extremamente grande, tornando a analise de rede muito ´
+trabalhosa. Diante deste problema, utilizamos a tecnica de amostragem n ´ ao probabil ˜ ´istica
+conhecida como snowball sampling [Goodman 1961]. A partir de uma rede origem
+formada pelos bolsistas vigentes (Abril de 2017) de produtividade do CNPq2 da area de ´
+Ciencia da Computa ˆ c¸ao, foram feitas mais duas coletas para aumentar a amostra e criar tr ˜ esˆ
+redes reais de tamanhos diferentes. Ao final, sao tr ˜ es redes criadas a partir da DBLP: (0) ˆ
+formada apenas pelos bolsistas vigentes do CNPq (que fazem parte da DBLP); (1) formada
+pela rede 0 e seus vizinhos; e (2) formada pela rede 1 e seus vizinhos. Dessa forma,
+foi poss´ivel analisar como o tamanho das redes influencia na formac¸ao e valida ˜ c¸ao de ˜
+comunidades. A Tabela 1 apresenta os numeros de pesquisadores e de publica ´ c¸oes, n ˜ umero ´
+medio de publica ´ c¸oes por autor, n ˜ umero de pares de co-autores (e distintos), modularidade ´
+da rede e o coeficiente de clusterizac¸ao m ˜ edio de cada rede. ´
+Configurac¸ao da An ˜ alise. ´ Para a analise comparativa, as redes sociais de co-autoria foram ´
+modeladas como um grafo ponderado nao dirigido ˜ Gw = (V, Ew), onde V e o conjunto de ´
+nos e ´ Ew o conjunto de arestas ponderadas. Os nos representam todos os pesquisadores ´
+na rede, enquanto as arestas representam a co-autoria em publicac¸oes. Al ˜ em disso, o ´
+peso da aresta representa o numero absoluto de publica ´ c¸oes entre eles, chamado de ˜ coauthorship frequency (frequencia de co-autoria). Para analisar as comunidades, aplicamos ˆ
+os tres algoritmos de agrupamento: ˆ Louvain Method (LM), Clique Percolation Method
+(CPM) e Markov Cluster Algorithm (MCL). O metodo de Louvain ´ e um dos algoritmos de ´
+clustering mais utilizados e baseia-se na otimizac¸ao da modularidade de uma parti ˜ c¸ao de ˜
+rede. O segundo metodo ´ e o Clique Percolation que ´ e capaz de detectar comunidades com ´
+sobreposic¸ao, ou seja, os n ˜ os podem pertencer a mais de uma comunidade. Finalmente, o ´
+Markov Cluster detecta clusters alternando dois processos de Markov: expansao e in ˜ flac¸ao. ˜
+Para medir a forc¸a dos relacionamentos, utilizamos as metricas ´ co-authorship
+frequency e neighborhood overlap (sobreposic¸ao de vizinhan ˜ c¸a). Dados dois pesquisadores
+vi e vj , neighborhood overlap e de ´ finida pela equac¸ao: ˜ |N(vi)nN(vj )|
+|N(vi)?N(vj )-{vi,vj}| , onde N(vi)
+representa os co-autores do pesquisador vi, e N(vj ) os co-autores de vj . Essa propriedade
+topologica calcula a colabora ´ c¸ao entre dois n ˜ os em rela ´ c¸ao ao seus vizinhos. Seguindo ˜
+[Brandao and Moro 2015], consideramos que um relacionamento ˜ e fraco quando o valor da ´
+metrica ´ neighborhood overlap esta no intervalo ´ [0; 0.2] e forte, caso contrario. Da mesma ´
+forma, um lac¸o e fraco quando a frequ ´ encia de co-autoria est ˆ a no intervalo ´ [1; 5] e forte,
+caso contrario. Para veri ´ ficar se metricas para a for ´ c¸a dos relacionamentos podem ser
+usadas para avaliar a qualidade do agrupamento, comparamos seus resultados com tresˆ
+metricas de valida ´ c¸ao interna: ˜ C-index (C), Dunn Index (Dunn) e Davies Bouldin Index
+(DB). Tais metricas utilizam no ´ c¸oes de similaridade intra-comunidade, em contraste com ˜
+as noc¸oes de separa ˜ c¸ao inter-comunidades [Zaki and Meira Jr 2014]. Pela de ˜ finic¸ao de ˜
+2Bolsistas de produtividade do CNPq: http://cnpq.br/bolsistas-vigentes/
+32nd SBBD – Short Papers – ISSN 2316-5170 October 2-5, 2017 – Uberlˆandia, MG, Brazil
+206
+(a) Rede 0 (b) Rede 1 (c) Rede 2
+(d) Rede 0 (e) Rede 1 (f) Rede 2
+Figura 1: Resultados dos algoritmos de agrupamento (cada cor representa um cluster.
+clusters [Blondel et al. 2008; Palla et al. 2005; Van Dongen 2000], os v´inculos intracomunidade devem ser fortes e os v´inculos inter-comunidades devem ser fracos. Logo,
+uma comunidade deve ter a maioria dos pares de pesquisadores classificados como fortes e
+a maioria dos lac¸os que conectam diferentes grupos devem ser fracos.
+4. Resultados
+Esta sec¸ao compara os resultados das m ˜ etricas para a for ´ c¸a dos relacionamentos com as
+metricas de valida ´ c¸ao interna considerando as comunidades detectadas pelos LM, CPM e ˜
+MCL. A Figura 1 apresenta a comparac¸ao das comunidades detectadas por cada algoritmo ˜
+em relac¸ao˜ as duas m ` etricas de for ´ c¸a dos relacionamentos, neighborhood overlap e coauthorship frequency. Nota-se que o CPM encontra um numero menor de comunidades em ´
+relac¸ao aos demais m ˜ etodos, na maioria dos casos. Por outro lado, o MCL detecta o maior ´
+numero de grupos. Ademais, ´ e importante enfatizar que algumas rela ´ c¸oes fortes foram ˜
+exclu´idas no metodo CPM, pelo fato dessas arestas pertencerem a um 2-clique. Isso ocorre ´
+porque na aplicac¸ao do m ˜ etodo, foi escolhido ´ k=3. Essa limitac¸ao pode ter restringido o ˜
+numero de comunidades identi ´ ficados pelo algoritmo, fazendo com que ele tenha sido o
+metodo com menor n ´ umero de comunidades formadas. ´
+Analisando as principais vantagens de cada algoritmo, observamos que o LM
+nao foi capaz de detectar pequenas comunidades em grandes redes. Por outro lado, o ˜
+CPM permite a sobreposic¸ao de comunidades, sendo uma situa ˜ c¸ao bem rotineira em redes ˜
+sociais reais (pesquisadores publicam com pesquisadores de outras comunidades). No
+entanto, pela necessidade da escolha do parametro ˆ k, o metodo CPM n ´ ao teve desempenho ˜
+melhor que o MCL, visto que o MCL nao detectou relacionamentos entre pesquisadores de ˜
+diferentes comunidades nas tres redes. Ou seja, uma vez que o objetivo de um algoritmo ˆ
+de agrupamento e maximizar o n ´ umero de arestas intra-comunidade e minimizar as inter- ´
+comunidade, este foi o algoritmo que forneceu o melhor resultado.
+32nd SBBD – Short Papers – ISSN 2316-5170 October 2-5, 2017 – Uberlˆandia, MG, Brazil
+207
+Tabela 2: Resultados das metricas para a forc¸a dos relacionamentos. ´ Neighborhood Overlap Co-authorship Frequency
+Rede 1o 2o 3o 1o 2o 3o
+0 MCL LM CPM MCL LM CPM
+1 MCL CPM LM MCL CPM LM
+2 MCL CPM LM MCL CPM LM
+Tabela 3: Resultados dos ´indices de validac¸ao interna. ˜ Neighborhood Overlap Co-authorship Frequency
+´
+Indice Rede 1o 2o 3o 1o 2o 3o
+C 0 MCL LM CPM MCL LM CPM
+C 1 - - - - - -
+C 2 - - - - - -
+Dunn 0 LM CPM MCL LM CPM MCL
+Dunn 1 MCL/LM CPM - MCL/LM CPM -
+Dunn 2 - - - - - -
+DB 0 LM/MCL CPM - LM/MCL CPM -
+DB 1 CPM MCL LM CPM MCL LM
+DB 2 - - - - - -
+Tabela 4: Resultados dos diferentes tipos de metricas. ´ Rede NO C-index Dunn Index DB Index CF C-index Dunn Index DB Index
+0 MCL MCL MCL LM/MCL MCL MCL LM LM/MCL
+1 MCL - MCL/LM CPM MCL - MCL/LM CPM
+2 MCL - - - MCL - - -
+Em relac¸ao ao tamanho das redes, podemos notar que ao aumentar o n ˜ umero de n ´ os´
+conectados, a frequencia de co-autoria aumentou menos do que o esperado. Da ˆ Rede 1 para
+a Rede 2 (Figuras 1(e) e 1(f), respectivamente), nao houve um crescimento signi ˜ ficativo no
+n´ivel de colaborac¸ao. Por outro lado, foi n ˜ ´itido o crescimento no valor da sobreposic¸ao de ˜
+vizinhanc¸a, a medida que o tamanho das redes aumenta. Al ` em disso, nas Figuras 1(a), 1(b) ´
+e 1(c), nota-se que ha uma alta concentra ´ c¸ao de arestas somente at ˜ e o valor ´ 0.4 em todas
+as redes. Considerando a frequencia de co-autoria, as Figuras 1(d), 1(e) e 1(f) mostram ˆ
+uma alta concentrac¸ao de arestas com frequ ˜ encia de co-autoria menor do que 40 na ˆ Rede 0
+e menor do que 100 nas outras duas redes.
+As Tabelas 2, 3 e 4 apresentam os resultados das metricas para a for ´ c¸a dos relacionamentos, dos ´indices de validac¸ao interna e a compara ˜ c¸ao entre as diferentes m ˜ etricas, ´
+respectivamente. Nas duas primeiras tabelas, os resultados foram ordenados de acordo
+com o desempenho dos metodos de agrupamento (primeiro, segundo e terceiro melhor ´
+algoritmo). Na Tabela 2, comparando os resultados das duas metricas, observa-se que os al- ´
+goritmos apresentaram os mesmos desempenhos independente da metrica analisada. Al ´ em´
+disso, o algoritmo que realizou o melhor agrupamento foi o MCL em todos os casos. Em
+redes maiores, o segundo melhor metodo foi o CPM, seguido pelo LM. J ´ a na menor rede ´
+(Rede 0), o LM apresenta o segundo melhor resultado. Isso pode ser explicado pelo fato de
+que algoritmos de otimizac¸ao de modularidade, geralmente, apresentam di ˜ ficuldades em
+detectar pequenas comunidades em grandes redes.
+Na Tabela 3, a ordem de desempenho dos algoritmos qualificados pelas medidas
+de validac¸ao interna ˜ e similar aos resultados apresentados na Tabela 2 . J ´ a a Tabela 4 ´
+apresenta uma comparac¸ao entre as m ˜ etricas para for ´ c¸a dos relacionamentos e as metricas ´
+para validac¸ao interna. Analisando apenas a ˜ Rede 0, nota-se que na maioria dos casos as
+32nd SBBD – Short Papers – ISSN 2316-5170 October 2-5, 2017 – Uberlˆandia, MG, Brazil
+208
+medidas de validac¸ao interna indicam o mesmo m ˜ etodo com melhor resultado: o algoritmo ´
+MCL. Finalmente, os tres algoritmos detectam comunidades com relacionamentos fracos e ˆ
+fortes. No entanto, o MCL mostrou-se capaz de detectar grupos com relacionamentos mais
+fortes do que fracos. Similarmente, analisando os resultados das metricas de valida ´ c¸ao˜
+interna, o algoritmo MCL apresenta comunidades mais coesas na maioria dos casos.
+5. Conclusao˜
+Neste trabalho, aplicamos tres algoritmos de agrupamento em tr ˆ es redes sociais de co- ˆ
+autoria criadas a partir de dados coletados da DBLP. Os resultados mostram que o MCL e´
+o melhor algoritmo de agrupamento a ser aplicado em redes sociais de co-autoria quando
+comparado ao LM e CPM, pois a forc¸a dos relacionamentos inter-cluster tendem a ser mais
+fortes nessa tecnica do que nas demais. Ademais, os resultados mostram que as m ´ etricas ´
+para a forc¸a de relacionamento, principalmente a neighborhood overlap, podem tambem´
+auxiliar na avaliac¸ao da qualidade de algoritmos que detectam comunidades. Pesquisas ˜
+futuras incluem realizar a mesma comparac¸ao gerando redes sociais de co-autoria sint ˜ eticas. ´
+Alem disso, planejamos aplicar mais m ´ etricas para for ´ c¸a dos relacionamentos e avaliar
+mais algoritmos de detecc¸ao de comunidades. ˜
+Agradecimentos. Trabalho parcialmente financiado por CAPES, CNPq e FAPEMIG.
+Referencias ˆ
+Almeida, H., Guedes Neto, D., Meira Jr., W., and Zaki, M. J. (2012). Towards a better
+quality metric for graph cluster evaluation. JIDM, 3(3):378.
+Blondel, V. D., Guillaume, J.-L., Lambiotte, R., and Lefebvre, E. (2008). Fast unfolding
+of communities in large networks. J. Stat. Mech., 2008(10):P10008.
+Brandao, M. A. and Moro, M. M. (2015). Analyzing the strength of co-authorship ties ˜
+with neighborhood overlap. In DEXA, pages 527–542, Valencia, Espanha.
+Brandao, M. A. and Moro, M. M. (2017). A comparative analysis of the strength of ˜
+co-authorship ties in clusters. In AMW, Montevideo, Uruguai.
+Goodman, L. A. (1961). Snowball sampling. Ann. Math. Statist., 32(1):148–170.
+Mishra et al., N. (2007). Clustering social networks. In WAW, pages 56–67, S.Diego, USA.
+Palla et al., G. (2005). Uncovering the overlapping community structure of complex
+networks in nature and society. Nature, 435(7043):814–818.
+Procopio, P., Laender, A. H., and Moro, M. M. (2011). An ´ alise da rede de coautoria do ´
+simposio brasileiro de bancos de dados. In ´ SBBD Short Papers, Florianopolis, Brasil. ´
+Van Dongen, S. M. (2000). Graph clustering by flow simulation. PhD thesis, University of
+Utrecht.
+Xu, R. and Wunsch, D. (2005). Survey of clustering algorithms. IEEE Transactions on
+Neural Networks, 16(3):645–678.
+Yang, Z., Algesheimer, R., and Tessone, C. J. (2016). A comparative analysis of community
+detection algorithms on artificial networks. Scientific Reports, 6(30750).
+Zaki, M. J. and Meira Jr, W. (2014). Data mining and analysis: fundamental concepts and
+algorithms. Cambridge University Press.

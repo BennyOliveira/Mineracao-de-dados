@@ -1,0 +1,281 @@
+Aspectos Temporais para Medir
+a Forc¸a da Colaborac¸ao no GitHub ˜
+Natercia A. Batista, Michele A. Brand ´ ao, Ana Paula C. da Silva, Mirella M. Moro ˜
+Universidade Federal de Minas Gerais (UFMG) – Belo Horizonte, MG – Brasil
+{natercia,micheleabrandao,ana.coutosilva,mirella}@dcc.ufmg.br
+Abstract. Time is fundamental to understand interactions between individuals
+in a social network. Here, we consider the temporal aspect to measure the collaboration strength between GitHub developers. The results show the temporal
+aspect enables to build a more realistic collaboration graph.
+Resumo. Tempo e fundamental para entender a interac¸ ´ ao entre indiv ˜ ´iduos em
+uma rede social. Aqui, consideramos o aspecto temporal para medir a forc¸a da
+colaborac¸ao entre desenvolvedores no GitHub. Os resultados revelam que tal ˜
+aspecto permite construir um grafo de colaborac¸ao mais realista. ˜
+1. Introduc¸ao˜
+Social Coding e uma abordagem de desenvolvimento de software que prop ´ oe um ambi- ˜
+ente colaborativo entre os desenvolvedores, encorajando a discussao e compartilhamento ˜
+de ideias e conhecimento [Dabbish et al. 2012]. Essa metodologia tem alterado a forma
+de desenvolvimento de software e criado um novo tipo de rede de colaborac¸ao. Note que ˜
+uma colaborac¸ao ocorre quando desenvolvedores contribuem em um mesmo reposit ˜ orio. ´
+Trabalhos Relacionados. Estudos abordam diferentes propriedades e investigam comportamentos no GitHub [Tsay et al. 2014] (principal website de social coding), incluindo
+metricas que podem ser calculadas utilizando dados temporais e relacionamentos posteri- ´
+ores [Casalnuovo et al. 2015]. Porem, tais m ´ etricas s ´ ao calculadas como propriedades de ˜
+um projeto (repositorio). Aqui, o foco est ´ a na colaborac¸ ´ ao entre pares de desenvolvedores ˜
+e na melhoria de propriedades que utilizam dados temporais.
+Contribuic¸oes. ˜ A medida da forc¸a dos relacionamentos pode ser utilizada para varias ´
+aplicac¸oes, como melhorar recomendac¸ ˜ ao de desenvolvedores, avaliar a formac¸ ˜ ao de ti- ˜
+mes ou melhorar algoritmos de analise. Assim, nosso objetivo ´ e encontrar propriedades ´
+semanticas da relac¸ ˆ ao entre desenvolvedores e analisar como ˜ e poss ´ ´ivel utilizar essas propriedades para determinar a forc¸a do relacionamento entre eles. Para tal, analisamos a
+correlac¸ao entre m ˜ etricas para a forc¸a dos relacionamentos. Essas m ´ etricas s ´ ao propri- ˜
+edades topologicas e sem ´ anticas previamente propostas e propriedades sem ˆ anticas que ˆ
+consideram aspectos temporais. Tambem discutimos como tais aspectos podem ser utili- ´
+zados para modelar um grafo que representa a rede de colaborac¸ao. ˜
+2. Metodologia
+Esta sec¸ao apresenta a base de dados e o modelo de rede utilizado para as an ˜ alises, e a ´
+definic¸ao das m ˜ etricas topol ´ ogicas e sem ´ anticas para forc¸a dos relacionamentos. ˆ
+32nd SBBD – Short Papers – ISSN 2316-5170 October 2-5, 2017 – Uberlˆandia, MG, Brazil
+paper:174084
+234
+(a) Repositorios e desenvolvedores ´ (b) Conexoes (links entre desenvolvedores) ˜
+Figura 1: Estat´isticas para cada uma das linguagens no dataset
+Base de Dados. A base provem do GHTorrent [Gousios 2013] e foi modi ´ ficada e disponibilizada por Batista et al. [2017], que incluiu informac¸oes da rede do GitHub para ˜
+as linguagens JavaScript e Ruby. Com a mesma metodologia de coleta, aqui tambem in- ´
+clu´imos a linguagem Java. Batista et al. [2017] considera a data de in´icio da colaborac¸ao˜
+entre dois desenvolvedores como a mais recente entre as datas dos primeiros commits de
+ambos em um repositorio, e data de ´ fim de colaborac¸ao como o ˜ ultimo commit realizado ´
+no repositorio por ´ qualquer colaborador. Aqui, o fim da colaborac¸ao foi ˜ alterado para
+a menor data entre os ultimos commits do ´ par de desenvolvedores no repositorio, o que ´
+permite limitar o relacionamento dentro da janela temporal de contribuic¸ao em comum. ˜
+Modelagem da Rede. A rede de desenvolvedores e representada por um grafo ponderado ´
+G = (V, E): V e o conjunto de n ´ os para os desenvolvedores, e ´ E e o conjunto de arestas ´
+nao direcionadas que conectam dois desenvolvedores quando ambos contribuem em um ˜
+mesmo repositorio. O peso das arestas corresponde aos valores que podem ser calculados ´
+a partir das metricas propostas por Alves et al. [2016] e Batista et al. [2017] (apre- ´
+sentadas a seguir). A Figura 1 (a) mostra a quantidade de repositorios e desenvolvedores ´
+presentes na rede para cada uma das linguagens, e a Figura 1 (b) apresenta a quantidade
+de conexoes existentes em cada uma das redes. Apesar da linguagem Java possuir o se- ˜
+gundo maior numero de reposit ´ orios e desenvolvedores, tal rede n ´ ao˜ e t ´ ao densa quanto ˜
+as demais. Por outro lado, a rede da linguagem Ruby possui as menores quantidades de
+repositorios e desenvolvedores, mas possui a maior quantidade de conex ´ oes. ˜
+Propriedades topologicas e sem ´ anticas. ˆ A Tabela 1 apresenta as caracter´isticas topologicas e sem ´ anticas para avaliar como desenolvedores se relacionam. ˆ
+Propriedades semanticas com aspecto temporal. ˆ A Tabela 1 apresenta tres proprie- ˆ
+dades semanticas que consideram o aspecto temporal dos relacionamentos propostas por ˆ
+Batista et al. [2017]. LPC e GPC calculam o tempo de contribuic¸ao entre um par de ˜
+desenvolvedores em um dado repositorio com variac¸ ´ oes local e global, respectivamente. ˜
+Apos as alterac¸ ´ oes na de ˜ finic¸ao da data de ˜ fim de colaborac¸ao entre desenvolvedores, os ˜
+resultados para tais metricas s ´ ao alterados. O c ˜ alculo de LPC pode ser enviesado, prin- ´
+cipalmente em repositorios de curta durac¸ ´ ao como exempli ˜ ficado na Tabela 2. O par de
+desenvolvedores AB contribuiu por menos tempo que o par CD, mas possui um valor
+superior para a metrica. Para entender a forc¸a de colaborac¸ ´ ao baseada no tempo para to- ˜
+dos os pares de desenvolvedores, e proposta uma vis ´ ao global das colaborac¸ ˜ oes de toda ˜
+a rede. A metrica GPC considera o tempo de contribuic¸ ´ ao m ˜ aximo entre todos os pares ´
+32nd SBBD – Short Papers – ISSN 2316-5170 October 2-5, 2017 – Uberlˆandia, MG, Brazil
+235
+Tabela 1: Dados dois nos´ A e B, N (A) e N (B) sao os vizinhos de ˜ A e B, w(A) e w(B)
+sao o grau ponderado (soma do peso de cada aresta conectada ao n ˜ o), ´ w(A, B) o peso da
+aresta entre A e B, e R o conjunto de repositorios compartilhados por ´ A e B. Propriedades topologicas ´
+Metrica ´ Definic¸ao˜ Interpretac¸ao˜
+Neighborhood
+Overlap (NO)
+Mede a similaridade dos vizinhos entre dois nos´
+por: NO(A,B) = |N(A)|n|N(B)|
+|N(A)|?|N(B)|
+De acordo com [Easley and Kleinberg 2010], NO pode
+ser utilizada para calcular a forc¸a de links. Quanto
+maior o valor de NO, mais forte e o relacionamento. ´
+Adamic-Adar Coefficient (AA)
+Customizada para este contexto e calculada
+por: AA(A,B) =
+? ?z?|N(A)|n|N(B)|
+log|N(z)| .
+Vizinhos que nao se relacionam com muitos outros re- ˜
+cebem maior peso.
+Preferential Attachment (PA)
+Quanto maior o numero de vizinhos de um ´
+no, maior seu valor de PA calculado por: ´
+P A(A,B) = |N (A)||N (B)|.
+De acordo com Barabasi and Albert 1999, h ´ a uma ´
+relac¸ao linear entre o n ˜ umero de vizinhos de um n ´ o e a ´
+probabilidade de conexao (i.e., ”o rico ˜ fica mais rico”).
+Propriedades semanticas ˆ (Alves et al. [2015] )
+Metrica ´ Definic¸ao e Interpretac¸ ˜ ao˜
+Number of shared
+repositories (SR)
+Refere-se ao numero de reposit ´ orios compartilhados e ´ e de ´ finida pela cardinalidade do conjunto R (i.e.,
+SR(A,B) = |R|)
+Jointly developers
+contribution to
+shared repositories
+(JCSR)
+Definida por: JCSR(A,B) =
+?
+?ri ? R
+JCSR(A,B,ri)
+|R| . Exemplo: considerando dois repositorios ´ r1 e
+r2 em que r1 e compartilhado apenas pelos desenvolvedores ´ A e B, a contribuic¸ao conjunta do par AB ˜
+em r1 (JCSR(A,B,r1)) e igual a 1. Para ´ r2, considerando que e compartilhado pelos desenvolvedores ´
+A, B e C, a contribuic¸ao conjunta de ˜ A e B em r2 (JCSR(A,B,r2)) e 0.66. Supondo que ´ A e B compartilham apenas r1 e r2, a contribuic¸ao conjunta para eles ˜ e a m ´ edia dos valores para cada reposit ´ orio: ´
+(JCSR(A,B)) = 0.83.
+Jointly developers
+commits to shared repositories
+(JCOSR)
+Dado que NC(A,rj ) e o n ´ umero total de commits realizados pelo desenvolvedor ´ A no repositorio ´
+rj , NC(B,rj ) e o n ´ umero total de commits realizados pelo desenvolvedor ´ B no repositorio ´ rj , e
+NC(rj ) e o n ´ umero total de commits realizados no reposit ´ orio ´ rj independente do desenvolvedor, entao: ˜
+JCOSR(A,B) = ?
+?ri ? R
+(NC(A,ri)+NC(B,ri))
+NC(ri) .
+Propriedades semanticas com aspecto temporal ˆ (Batista et al. [2017])
+Metrica ´ Definic¸ao e Interpretac¸ ˜ ao˜
+Local Potential
+Contribution (LPC)
+Considerando que T(A,B,ri) e o intervalo de tempo em que ambos os desenvolvedores contribu ´ ´iram em
+um repositorio ´ ri definido pelas datas de in´icio e fim de colaborac¸ao (representadas pelo primeiro e ˜ ultimo ´
+commit em um repositorio), esta m ´ etrica pode ser calculada por ´ LP C(A,B) =
+?
+?ri ? R
+T(A,B,ri)
+T(ri)
+|R| .
+Global Potential Contribution
+(GPC)
+Para compensar o vies no c ´ alculo da m ´ etrica LPC, Batista et al. [2017] estenderam para uma vers ´ ao˜
+global definida como: GP C(A,B) =
+?
+?ri ? R
+T(D1,D2,ri)
+max?(D1,D2)?D, ri?R T (D1,D2,ri) . onde D e o conjunto de ´
+desenvolvedores total na rede, e T(A,B,ri) e o intervalo de tempo em dois desenvolvedores contribu ´ ´iram
+num repositorio comum ´ ri.
+Previous Collaboration (PC)
+Contabiliza as colaborac¸oes pr ˜ evias entre dado par de desenvolvedores. Assim, no tempo ´ t e de ´ finida por:
+P C(A,B,t) =
+?
+?ri ? R
+1 ND(ri,t)
+|R| , onde ND(ri,t) e o n ´ umero total de desenvolvedores que contribuem ´
+no repositorio ´ ri no tempo t, antes do desenvolvedor B iniciar a colaborac¸ao em ˜ ri. Altos valores da
+frac¸ao˜ 1/ND(ri,t) indicam que A tem mais chances de trabalhar com B e vice-versa. Por exemplo, se ha´
+apenas duas pessoas em dado repositorio, h ´ a apenas uma possibilidade de colaborac¸ ´ ao; em contrapartida, ˜
+quanto mais colaboradores no mesmo repositorio, mais opc¸ ´ oes de escolha e assim, menor ˜ e a possibilidade ´
+de colaborac¸ao com um desenvolvedor em particular. Ou seja, existe maior possibilidade de estabelecer ˜
+uma conexao com um desenvolvedor se a atenc¸ ˜ ao do mesmo n ˜ ao for dividida em muitas opc¸ ˜ oes. ˜
+de desenvolvedores como denominador a fim de normalizar o valor da metrica calculada. ´
+Para o exemplo anterior apresentado na Tabela 2, considerando que o maior tempo de
+contribuic¸ao da rede foi de 12 meses, os resultados s ˜ ao divididos por este denominador. ˜
+Assim, a metrica GPC permite classi ´ ficar a forc¸a potencial de contribuic¸ao em relac¸ ˜ ao a ˜
+todas as contribuic¸oes poss ˜ ´iveis dentro da rede e por este motivo ela deve ser preferencialmente escolhida para o desenvolvimento das analises. ´
+3. Resultados
+Nesta sec¸ao, apresentamos a an ˜ alise de correlac¸ ´ ao entre as propriedades com aspectos ˜
+temporais e as demais existentes a fim de entender o relacionamento entre elas. Apresen32nd SBBD – Short Papers – ISSN 2316-5170 October 2-5, 2017 – Uberlˆandia, MG, Brazil
+236
+Tabela 2: Exemplos de calculo da LPC e GPC para dois pares de desenvolvedores. ´ Par de
+Desenvolvedores Repositorio ´ Durac¸ao˜
+Repositorio ´
+Tempo de
+Contribuic¸ao˜ LPC
+Dev A - Dev B R1 3 meses 3 meses 3/3 = 1,00
+Dev C - Dev D R2 12 meses 6 meses 6/12 = 0,50
+Par de
+Desenvolvedores
+Tempo de
+Contribuic¸ao˜
+Maior Tempo de
+Contribuic¸ao da Rede ˜ GPC
+Dev A - Dev B 3 meses 12 meses 3/12 = 0,25
+Dev C - Dev D 6 meses 6/12 = 0,50
+(a) JavaScript (b) Java (c) Ruby
+Figura 2: Coeficiente de correlac¸ao de Spearman entre as novas propriedades com aspec- ˜
+tos temporais: GPC, LPC e PC.
+tamos resultados apenas para o coeficiente de correlac¸ao de Spearman, pois obtivemos ˜
+resultados similares para o coeficiente de correlac¸ao de Pearson. ˜
+Analise das propriedades sem ´ anticas com aspecto temporal. ˆ As metricas GPC e LPC ´
+tendem a ser correlacionadas devido a sua forma de c ` alculo semelhante e ´ as caracter ` ´isticas
+das redes onde as mesmas foram aplicadas. A Figura 2 apresenta a correlac¸ao de Sper- ˜
+man para as tres novas m ˆ etricas. Conforme esperado, GPC e LPC s ´ ao altamente cor- ˜
+relacionadas monotonicamente. Em um modelo computacional para medir a forc¸a dos
+relacionamentos, a metrica escolhida seria a GPC por representar melhor a conex ´ ao do ˜
+par de desenvolvedores no tempo em relac¸ao a todos os demais pares na rede. Al ˜ em´
+disso, a metrica PC n ´ ao se relaciona com nenhuma das demais, independente do coe ˜ ficiente de correlac¸ao. Este comportamento pode ser justi ˜ ficado por conta da janela temporal
+de colaborac¸ao. Para as m ˜ etricas LPC e GPC, dois desenvolvedores s ´ o t ´ em um valor de ˆ
+colaborac¸ao atribu ˜ ´ido caso tenham trabalhado em um mesmo repositorio na mesma ja- ´
+nela temporal. Caso contrario, o valor tanto de LPC quanto de GPC para este par ´ e igual ´
+a zero. No entanto, ha uma aresta entre os dois desenvolvedores na rede, ainda que n ´ ao˜
+tenham trabalhado na mesma janela temporal. Por isso, ha um valor para PC calculado ´
+para tal par. Nesse cenario, a maioria dos pares de desenvolvedores tem valor zero para ´
+LPC e GPC e valor diferente de zero para PC, o que explica a nao correlac¸ ˜ ao de ambos. ˜
+Assim, a nao correlac¸ ˜ ao entre tais m ˜ etricas pode ser justi ´ ficada pelos valores das arestas que nao possuem intersec¸ ˜ ao de tempo de contribuic¸ ˜ ao, ou pode acontecer ainda que ˜
+apenas os mesmos pares sejam considerados.
+A fim de avaliar a correlac¸ao entre as m ˜ etricas, realizamos a an ´ alise descartando as ´
+arestas em que nao houve contribuic¸ ˜ ao em uma mesma janela temporal. Ap ˜ os a remoc¸ ´ ao˜
+das arestas, a quantidade de pares de desenvolvedores e 16% da base de dados original ´
+para JavaScript, 27% para Java e 14% para Ruby. A analise das correlac¸ ´ oes para o coe ˜ ficiente de Spearman e Pearson com os pares de desenvolvedores filtrados revela resultados
+32nd SBBD – Short Papers – ISSN 2316-5170 October 2-5, 2017 – Uberlˆandia, MG, Brazil
+237
+(a) JavaScript (b) Java (c) Ruby
+Figura 3: Coeficiente de correlac¸ao de Spearman entre todas as m ˜ etricas apresentadas ´
+muito proximos aos da Figura 2. Assim, podemos considerar que a m ´ etrica PC gera uma ´
+informac¸ao de colaborac¸ ˜ ao diferente das demais, fazendo com que seja importante cal- ˜
+cula-la e consider ´ a-la para medir a forc¸a de colaborac¸ ´ ao. ˜
+Correlac¸ao com propriedades existentes. ˜ Considerando as propriedades topologicas ´
+e semanticas existentes e as propriedades sem ˆ anticas com aspectos temporais, a Figura ˆ
+3 apresenta as correlac¸oes para o coe ˜ ficiente de Spearman. Nas tres linguagens de ˆ
+programac¸ao, a m ˜ etrica GPC ´ e altamente correlacionada ´ a JCOSR. Desta forma, podemos `
+afirmar que o tempo de contribuic¸ao entre desenvolvedores est ˜ a bem relacionado com a ´
+quantidade de commits realizados pelo par de desenvolvedores em relac¸ao aos demais ˜
+contribuidores em um mesmo repositorio. Esta correlac¸ ´ ao˜ e pertinente, uma vez que os ´
+commits de ambos os desenvolvedores sao mais frequentes na janela temporal de traba- ˜
+lho entre eles. Alem disso, a GPC tamb ´ em´ e bem correlacionada com a m ´ etrica JCSR, ´
+que avalia a contribuic¸ao de um par de desenvolvedores normalizada pela quantidade de ˜
+desenvolvedores total nos repositorios. Em todas as correlac¸ ´ oes, as m ˜ etricas SR e PC n ´ ao˜
+estao fortemente correlacionadas a nenhuma outra. Em relac¸ ˜ ao˜ as m ` etricas topol ´ ogicas, ´
+AA e PA sao fortemente correlacionadas em todos os cen ˜ arios. Dessa forma, podemos ´
+considerar apenas uma entre elas em conjunto com a NO.
+4. Aplicac¸ao˜
+A baixa correlac¸ao entre LPC e GPC com as demais ˜ e devido ´ a atribuic¸ ` ao do valor zero ˜
+a arestas entre desenvolvedores sem colaborac¸oes na mesma janela temporal de um re- ˜
+positorio. Com isso, podemos utilizar o crit ´ erio de janela temporal para a formac¸ ´ ao das ˜
+arestas entre desenvolvedores na modelagem da rede. Para exemplificar a nova modelagem, selecionamos um repositorio de JavaScript com um total de 55 colaboradores e ´
+1.485 arestas, conforme Figura 4a. O repositorio selecionado teve in ´ ´icio em marc¸o de
+2012 e termino em setembro de 2015. Note que a janela temporal considera esse per ´ ´iodo
+de durac¸ao do reposit ˜ orio. Esta primeira rede apresenta densidade igual a 1 devido ´ a`
+formac¸ao de uma grande clique com conex ˜ oes entre todos os desenvolvedores. ˜
+Aplicando os novos criterios temporais, a Figura 4b apresenta a rede do mesmo ´
+repositorio, mas com as arestas geradas apenas entre desenvolvedores que colaboraram ´
+em uma mesma janela temporal. Desta forma, a quantidade de arestas na rede e reduzida ´
+para 571, ou seja, 38% da quantidade original. A densidade da nova rede e igual a 0,385, ´
+32nd SBBD – Short Papers – ISSN 2316-5170 October 2-5, 2017 – Uberlˆandia, MG, Brazil
+238
+(a) (b)
+Figura 4: Grafo de um unico reposit ´ orio (a) com links entre todos os desenvolvedores e ´
+(b) com links entre desenvolvedores com contribuic¸ao numa mesma janela de tempo. ˜
+inferior a anterior com densidade igual a 1. Portanto, essa nova modelagem expressa um `
+cenario mais realista do relacionamento entre desenvolvedores em um grande reposit ´ orio. ´
+Neste caso, o grau medio dos n ´ os presentes na rede ´ fica em torno de 20,8.
+5. Conclusao e Trabalhos Futuros ˜
+Analisamos como diferentes propriedades topologicas e sem ´ anticas se relacionam com ˆ
+as que consideram o aspecto temporal. Os resultados mostram que GPC e PC podem
+ser utilizadas em conjunto em um modelo computacional para medir a forc¸a dos relacionamentos. A principal contribuic¸ao˜ e melhorar a modelagem do grafo para representar ´
+a rede social de colaborac¸ao. A modelagem sem o aspecto temporal conecta todos os ˜
+desenvolvedores que contribu´iram em um mesmo repositorio. Tal abordagem cria v ´ arias ´
+cliques para cada repositorios. No entanto, as propriedades com aspecto temporal reve- ´
+laram que cerca de 80% dos pares de desenvolvedores nao contribu ˜ ´iam em uma mesma
+janela temporal. Assim, em trabalhos futuros planejamos modelar as redes atribuindo
+arestas apenas entre desenvolvedores que colaboraram num mesmo per´iodo de tempo.
+Agradecimentos. Trabalho parcialmente financiado por CAPES, CNPq e FAPEMIG.
+Referencias ˆ
+Alves et al., G. B. (2016). The strength of social coding collaboration on github. In SBBD Short Papers,
+pages 247–252, Salvador, Brasil.
+Barabasi, A.-L. and Albert, R. (1999). Emergence of scaling in random networks. ´ Science, 286(5439):509–
+512.
+Batista, N. A. et al. (2017). Collaboration strength metrics and analyses on github (aceito para publicac¸ao). ˜
+In IEEE/WIC/ACM WI, Leipzig, Germany.
+Casalnuovo, C. et al. (2015). Developer onboarding in github: The role of prior social links and language
+experience. In ESEC/FSE, pages 817–828, Bergamo, Italy.
+Dabbish, L. et al. (2012). Social Coding in GitHub: Transparency and Collaboration in an Open Software
+Repository. In CSCW, pages 1277–1286, Seattle, USA.
+Easley, D. and Kleinberg, J. (2010). Networks, crowds, and markets: Reasoning about a highly connected
+world. Cambridge University Press.
+Gousios, G. (2013). The GHTorrent Dataset and Tool Suite. In MSR, pages 233–236, S.Francisco, USA.
+Tsay, J. et al. (2014). Influence of Social and Technical Factors for Evaluating Contribution in GitHub. In
+ICSE, pages 356–366, Hyderabad, India.
