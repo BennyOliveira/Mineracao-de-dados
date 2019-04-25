@@ -1,172 +1,172 @@
-Uma Abordagem para Detecc¸ao de T ˜ opicos Relevantes em ´
+Uma Abordagem para  D etecc ¸ ao de T ˜ opicos Relevantes em  ´ 
 Redes Sociais Online
-Bruno A. Souza ´ 1
-, Thais G. Almeida1
-, Alice A. Menezes1
-,
-Carlos M. S. Figueiredo2
-, Fab´iola G. Nakamura1
-, Eduardo F. Nakamura1
-1Universidade Federal do Amazonas (UFAM) – Manaus, AM – Brasil
-2Universidade do Estado do Amazonas (UEA) – Manaus, AM – Brasil
-{bruno.abia,tga,alice.menezes,fabiola,nakamura}@icomp.ufam.edu.br
-cfigueiredo@uea.edu.br
-Abstract. The popularization of social networks has contributed to increase the
-amount of information shared daily, making these networks a source of information about diversified events. However, this information is difficult to understand, since there is a contextual diversity about these events and the high
-cost of processing to eliminate noises, make the process of recognition of relevant information challenging. In this context, this work propose an approach
-to characterize relevant information to events, through the extraction of topics
-in shared data on Twitter, where we used as a study scenario the phases of
-Lava Jato operation in 2016. In this way, we evaluated three machine learning
-methods (K-means, LDA and NMF) and compared pre-processing techniques
+Bruno A .  Souza  ´  1
+ ,  Thais G .  Almeida1
+ ,  Alice A .  Menezes1
+ , 
+Carlos M .  S .  Figueiredo2
+ ,  Fab ´ iola G .  Nakamura1
+ ,  Eduardo F .  Nakamura1
+1Universidade Federal do Amazonas  ( UFAM )   –  Manaus ,  AM  –  Brasil
+2Universidade do Estado do Amazonas  ( UEA )   –  Manaus ,  AM  –  Brasil
+{bruno . abia , tga , alice . menezes , fabiola , nakamura}@icomp . ufam . edu . br
+cfigueiredo@uea . edu . br
+Abstract .  The popularization of social networks has contributed to increase the
+amount of information shared daily ,  making these networks a source of information about diversified events .  However ,  this information is difficult to understand ,  since there is a contextual diversity about these events and the high
+cost of processing to eliminate noises ,  make the process of recognition of relevant information challenging .  In this context ,  this work propose an approach
+to characterize relevant information to events ,  through the extraction of topics
+in shared data on Twitter ,  where we used as a study scenario the phases of
+Lava Jato operation in 2016 .  In this way ,  we evaluated three machine learning
+methods  ( K-means ,  LDA and NMF )  and compared pre-processing techniques
 for cleaning texts in order to observe if there is an improvement in algorithms
-performance. In addition, we use the Silhouette technique to find the best value
-of clusters, eliminating the need to rank relevant topics. In our results we demonstrated that our approach is able to monitor social networks to characterize
-events when we use NMF combined with named entity recognition.
-Resumo. A popularizac¸ao das redes sociais tem contribu ˜ ´ido para o aumento da
-quantidade de informac¸oes compartilhadas diariamente, tornando estas redes ˜
-uma fonte de informac¸ao sobre eventos diversos. Por ˜ em essas informac¸ ´ oes s ˜ ao˜
-de dif´icil compreensao, uma vez que h ˜ a uma diversidade contextual sobre esses ´
-eventos e o custo de processar uma elevada massa de dados, tornam desafiador o processo de reconhecimento de informac¸oes relevantes. Neste contexto, ˜
-este trabalho propoe uma abordagem para caracterizac¸ ˜ ao de informac¸ ˜ oes re- ˜
-levantes de eventos, atraves da extrac¸ ´ ao de t ˜ opicos em dados compartilhados ´
-no Twitter, onde utilizamos como cenario de estudo as fases da operac¸ ´ ao Lava ˜
-Jato em 2016. Deste modo, avaliamos o desempenho de tres m ˆ etodos de apren- ´
-dizagem de maquina (K-means, LDA e NMF) e comparamos t ´ ecnicas de pr ´ e-´
+performance .  In addition ,  we use the Silhouette technique to find the best value
+of clusters ,  eliminating the need to rank relevant topics .  In our results we demonstrated that our approach is able to monitor social networks to characterize
+events when we use NMF combined with named entity recognition . 
+Resumo .  A popularizac ¸ ao das redes sociais tem contribu  ˜   ´ ido para o aumento da
+quantidade de informac ¸ oes compartilhadas diariamente ,  tornando estas redes  ˜ 
+uma fonte de informac ¸ ao sobre eventos diversos .  Por  ˜  em essas informac ¸   ´  oes  s  ˜ ao˜
+de dif ´ icil compreensao ,  uma vez que h  ˜  a uma diversidade contextual sobre esses  ´ 
+eventos e o custo de processar uma elevada massa de dados ,  tornam desafiador o processo de reconhecimento de informac ¸ oes relevantes .  Neste contexto ,   ˜ 
+este trabalho propoe uma abordagem para caracterizac ¸   ˜  ao de informac ¸   ˜  oes re-  ˜ 
+levantes de eventos ,  atraves da extrac ¸   ´  ao de t  ˜  opicos em dados compartilhados  ´ 
+no Twitter ,  onde utilizamos como cenario de estudo as fases da operac ¸   ´  ao Lava   ˜
+Jato em 2016 .  Deste modo ,  avaliamos o desempenho de tres m ˆ etodos de apren-  ´ 
+dizagem de maquina  ( K-means ,  LDA e NMF )  e comparamos t  ´  ecnicas de pr  ´  e- ´ 
 processamen
-1. Introduc¸ao˜
-Uma rede social e composta por conjuntos de pessoas ou grupos com algum padr ´ ao de ˜
-contato ou interac¸ao entre si [Atefeh and Khreich, 2013]. Uma forma de instanciar o con- ˜
-ceito de redes sociais para a interac¸ao entre usu ˜ arios a partir de uma ferramenta online ´ e´
-a Rede Social Online (RSO). Os usuarios das RSOs costumam compartilhar informac¸ ´ oes ˜
-relacionadas ao contexto no qual estao inseridos, como por exemplo, informac¸ ˜ oes de ˜
-transito, neg ˆ ocios, relatos pessoais e acontecimentos di ´ arios [Ramos et al., 2016]. Isso ´
-possibilita que as RSOs funcionem como sensores para identificac¸ao de dados do mundo ˜
-real, devido a quantidade de informac¸ ` oes que s ˜ ao produzidas diariamente e diversidade ˜
-dos dados, como: localizac¸ao, hor ˜ ario, fotos e v ´ ´ideos [Sakaki et al., 2010].
-Um exemplo de Rede Social Online que disponibiliza informac¸oes compartilhadas ˜
-de usuarios ´ e o Twitter ´
+1 .  Introduc ¸ ao ˜ 
+Uma rede social e composta por conjuntos de pessoas ou grupos com algum padr  ´  ao de  ˜ 
+contato ou interac ¸ ao entre si [Atefeh and Khreich ,  2013] .  Uma forma de instanciar o con-  ˜ 
+ceito de redes sociais para a interac ¸ ao entre usu  ˜  arios a partir de uma ferramenta online  ´  e ´ 
+a Rede Social Online  ( RSO )  .  Os usuarios das RSOs costumam compartilhar informac ¸   ´  oe s  ˜
+relacionadas ao contexto no qual estao inseridos ,  como por exemplo ,  informac ¸   ˜  oes de  ˜ 
+transito ,  neg ˆ ocios ,  relatos pessoais e acontecimentos di  ´  arios [Ramos et al .  ,  2016] .  Isso  ´ 
+possibilita que as RSOs funcionem como sensores para identificac ¸ ao de dados do mundo  ˜ 
+real ,  devido a quantidade de informac ¸  ` oes que s  ˜  ao produzidas diariamente e divers i dade ˜
+dos dados ,  como :  localizac ¸ ao ,  hor  ˜  ario ,  fotos e v  ´   ´ ideos [Sakaki et al .  ,  2010] . 
+Um exemplo de Rede Social  O nline que disponibiliza informac ¸ oes compartilhadas ˜
+de usuarios  ´  e o Twitter  ´ 
 1
-. Segundo um levantamento feito em 2016, o Twitter contabilizou
-aproximadamente 313 milhoes de usu ˜ arios que produziram mais de 400 milh ´ oes de ˜ tweets
+ .  Segundo um levantamento feito em 2016 ,  o Twitter contabilizou
+aproxim a damente 313 milhoes de usu ˜ arios que produziram mais de 400 milh  ´  oes de ˜ tweets
 por dia2
-. O Twitter permite que os usuarios fac¸am atualizac¸ ´ oes ( ˜ tweets) com ate 140 ´
-caracteres, onde o intuito e compartilhar informac¸ ´ oes curtas e de r ˜ apida leitura. Com isso, ´
-e poss ´ ´ivel monitorar essa rede social para descobrir eventos de grande escala, onde esses
-acontecimentos dentro do ambiente de RSO sao considerados como assuntos importantes ˜
-e com grande repercussao, que servem para caracterizar fen ˜ omenos sociais (seja na esfera ˆ
-economica, cultural ou pol ˆ ´itica), como por exemplo, ac¸oes sobre o ˜ impeachment no Brasil
-[Souza et al., 2016] e os terremotos no Japao [Sakaki et al., 2010]. ˜
-Outra aplicac¸ao em descoberta de eventos nas redes sociais, ˜ e a possibilidade de ´
-se monitorar um determinado acontecimento como, por exemplo, as fases da Operac¸ao˜
-Lava Jato da Pol´icia Federal, e descobrir quais sao os t ˜ opicos mais relevantes de um deter- ´
-minado dia ou per´iodo, a fim de quantificar as pessoas envolvidas e os impactos gerados.
-Neste contexto, este trabalho tem como objetivo comparar tecnicas n ´ ao-supervisionadas ˜
-de aprendizagem de maquina na tarefa de detecc¸ ´ ao de t ˜ opicos em Redes Sociais Online, ´
-com o intuito de propor uma abordagem que permita extrair informac¸oes e demonstrar a ˜
-viabilidade de se utilizar o Twitter para descobrir relatos relevantes de um evento.
-Partindo do cenario discutido, as principais contribuic¸ ´ oes deste artigo s ˜ ao: (a) ˜
-avaliac¸ao de t ˜ ecnicas de aprendizagem de m ´ aquina ( ´ K-means, Non-negative Matrix Factorization e Latent Dirichlet Allocation) na tarefa de extrac¸ao de t ˜ opicos em textos em ´
-portugues; (b) an ˆ alise de duas abordagens de pr ´ e-processamento para textos, buscando ´
-eliminar ru´idos existentes nos dados; (c) estudo de caso considerando os tweets compartilhados sobre as fases da Operac¸ao Lava Jato; e (d) a utilizac¸ ˜ ao da t ˜ ecnica de ´ Silhouette
-para estimar a quantidade de agrupamentos em uma amostra de dados, a fim de obter um
-valor de cluster que melhor represente esse conjunto, pois como a maioria dos trabalhos
-estima altos valores para a extrac¸ao, este processo acaba se tornando lento e custoso. ˜
-O restante deste trabalho esta dividido da seguinte forma: na Sec¸ ´ ao 2 s ˜ ao apre- ˜
-sentados os trabalhos relacionados a extrac¸ ` ao de t ˜ opicos em redes sociais; na Sec¸ ´ ao 3 ˜ e´
-descrita a metodologia utilizada na conduc¸ao deste trabalho; na Sec¸ ˜ ao 4 s ˜ ao apresenta- ˜
-dos os experimentos e os resultados obtidos. Por fim, a Sec¸ao 5 apresenta a conclus ˜ ao e ˜
-trabalhos futuros.
-1https://www.twitter.com
-2https://www.statista.com/statistics/272014/global-social-networksranked-by-number-of-users/
+ .  O Twitter permite que os usuarios fac ¸ am atualizac ¸   ´  oes  (   ˜  tweets )  com ate 140  ´ 
+caracteres ,  onde o intuito e compartilhar informac ¸   ´  oes curtas e de r  ˜  apida leitura .  Com isso ,   ´ 
+e poss  ´   ´ ivel monitorar essa rede social para descobrir eventos de grande escala ,  onde esses
+acontecimentos dentro do ambiente de RSO sao considerados como assuntos importantes  ˜ 
+e com grande repercussao ,  que servem para caracterizar fen  ˜  omenos sociais  ( seja na esfera ˆ
+economica ,  cultural ou pol ˆ  ´ itica )  ,  como por exemplo ,  ac ¸ oes sobre o  ˜  impeachment no Brasil
+[Souza et al .  ,  2016] e os terremotos no Japao [Sakaki et al .  ,  2010] .   ˜ 
+Outra aplicac ¸ ao em descoberta de eventos nas redes sociais ,   ˜  e a possibilidade de  ´ 
+se monitorar um determinado acontecimento como ,  por exemplo ,  as fases da Operac ¸ ao ˜ 
+Lava Jato da Pol ´ icia Federal ,  e descobrir quais sao os t  ˜  opicos mais relevantes de um deter-  ´ 
+minado dia ou per ´ iodo ,  a fim de quantificar as pessoas envolvidas e os impactos gerados . 
+Neste contexto ,  este trabalho tem como objetivo comparar tecnicas n  ´  ao-supervisionadas  ˜ 
+de aprendizagem de maquina na tarefa de detecc ¸   ´  ao de t  ˜  opicos em Redes Sociais Online ,   ´ 
+com o intuito de propor uma abordagem que permita extrair informac ¸ oes e demonstrar a   ˜
+viabilidade de se utilizar o Twitter para descobrir relatos relevantes de um evento . 
+Partindo do cenario discutido ,  as principais contribuic ¸   ´  oes deste artigo s  ˜  ao :   ( a )   ˜ 
+avaliac ¸ ao de t  ˜  ecnicas de aprendizagem de m  ´  aquina  (   ´  K-means ,  Non-negative Matrix Factorization e Latent Dirichlet Allocation )  na tarefa de extrac ¸ ao de t  ˜  opicos em textos em  ´ 
+portugues;  ( b )  an ˆ alise de duas abordagens de pr  ´  e-processamento para textos ,  buscando  ´ 
+eliminar ru ´ idos existentes nos dados;  ( c )  estudo de caso considerando os tweets compartilhados sobre as fases da Operac ¸ ao Lava Jato; e  ( d )  a utilizac ¸   ˜  ao da t  ˜  ecnica de  ´  Silhouette
+para estimar a quantidade de agrupamentos em uma amostra de dados ,  a fim de obter um
+valor de cluster que melhor represente esse conjunto ,  pois como a maioria dos trabalhos
+estima altos valores para a extrac ¸ ao ,  este processo acaba se tornando lento e custoso  .   ˜
+O restante deste trabalho esta dividido da seguinte forma :  na Sec ¸   ´  ao 2 s  ˜  ao apre-  ˜ 
+sentados os trabalhos relacionados a extrac ¸  ` ao de t  ˜  opicos em redes sociais; na Sec ¸   ´  ao  3  ˜ e ´ 
+descrita a metodologia utilizada na conduc ¸ ao deste trabalho; na Sec ¸   ˜  ao 4 s  ˜  ao apresenta-   ˜
+dos os experimentos   e os resultados obtidos .  Por fim ,  a Sec ¸ ao 5 apresenta a conclus ˜ ao e ˜
+trabalhos futuros . 
+1https : //www . twitter . com
+2https : //www . statista . com/statistics/272014/global-social-networksranked-by-number-of-users/
 XXXVII Congresso da Sociedade Brasileira de Computação
 556
-2. Trabalhos Relacionados
-Os estudos sobre o problema de detecc¸ao de eventos tiveram in ˜ ´icio em 1998, sendo tratado como um problema de descoberta de topicos, onde o objetivo ´ e o agrupamento de ´
-informac¸oes de maneira contextualizada [Allan et al., 1998]. Portanto, dado um conjunto ˜
-A de textos, existe uma quantidade B de contextos (temas) associados a estes textos.
-Neste caso, B e menor ou igual a ´ A, visto que mais de um texto pode discorrer sobre o
-mesmo tema.
-Em redes sociais, a detecc¸ao de t ˜ opicos enfrenta desafios adicionais, tais como: ´
-(i) o processamento da quantidade de informac¸oes geradas; e (ii) os ru ˜ ´idos existentes,
-visto que nem todas as informac¸oes compartilhadas sobre um determinado tema s ˜ ao rele- ˜
-vantes. Buscando solucionar estes desafios, diversos trabalhos que propoem abordagens ˜
-de selec¸ao de t ˜ opicos relevantes por palavras-chave t ´ em surgido [Zhao et al., 2011; Diao ˆ
-et al., 2012; Cataldi et al., 2010; Suh et al., 2016; Katragadda et al., 2016].
-Esses metodos utilizam palavras-chave para criar um agrupamento de termos e ´
-realizam a detecc¸ao de t ˜ opicos usando modelos probabil ´ ´isticos, como por exemplo, o
-Latent Dirichlet Allocation (LDA), que e utilizado no trabalho de Bolelli et al. [2009] ´
-como forma de identificar topicos relevantes. Diao et al. [2012] aplicam o LDA para ´
-identificar topicos de acontecimentos passados em dados do Twitter. Os autores assumem ´
-que os topicos s ´ ao constitu ˜ ´idos de palavras-chave de multiplos ´ tweets, onde o principal
-objetivo de sua abordagem consiste em, simultaneamente, capturar duas observac¸oes: (1) ˜
-tweets publicados que tenham o mesmo topico; e (2) ´ tweets publicados por um mesmo
-usuario referentes ao mesmo t ´ opico. Com isso, os autores demonstram uma abordagem ´
-diferente dos trabalhos que se limitam a apenas reconhecer a informac¸ao. ˜
-No trabalho de Xu et al. [2003], os autores apresentam uma adaptac¸ao do ˜ Nonnegative Matrix Factorization (NMF) para demonstrar a eficiencia do m ˆ etodo em extrair ´
-topicos. O estudo mostrou que em comparac¸ ´ ao aos m ˜ etodos LSI e SC, a adaptac¸ ´ ao reali- ˜
-zada no NMF para extrair topicos apresenta um rendimento superior de 1.16% em relac¸ ´ ao˜
-aos demais. No trabalho de Suh et al. [2016], os autores capturaram topicos locais de sua ´
-regiao, a fim de detectar informac¸ ˜ oes relevantes. Os autores compararam o NMF com ˜
-suas variantes e o LDA. Desta forma, conclu´iram que o modelo utilizando o NMF superava os demais, tanto na captura de topicos relevantes, como tamb ´ em na velocidade de ´
-processamento, tornando o metodo vi ´ avel para captura de t ´ opicos em tempo real e em ´
-larga-escala.
-A partir dos desafios citados anteriormente e das tecnicas utilizadas para detecc¸ ´ ao˜
-de informac¸oes relevantes, nossa abordagem foca em analisar uma amostra de dados e ˜
-poder definir qual a quantidade de clusters que melhor a representam, a fim de reduzir a
-quantidade de interac¸oes que os m ˜ etodos executam para extrair t ´ opicos. Outro fator que ´
-pode ser destacado, e a aplicac¸ ´ ao de uma arquitetura de pr ˜ e-processamento e extrac¸ ´ ao˜
-de topicos que seja capaz de manipular a larga quantidade de dados capturados sobre ´
-um determinado evento, a fim de caracterizar os relatos mais significativos. Alem disso, ´
-aplicamos as tecnicas de extrac¸ ´ ao de t ˜ opicos baseadas nos trabalhos anteriores com o ´
-intuito de validar a abordagem feita neste trabalho.
+2 .  Trabalhos Relacionados
+Os estudos sobre o problema de   detecc ¸ ao de eventos tiveram in ˜  ´ icio em 1998 ,  sendo tratado como um problema de descoberta de topicos ,  onde o objetivo  ´  e o agrupamento de  ´ 
+informac ¸ oes de maneira contextualizada [Allan et al .  ,  1998] .  Portanto ,  dado um c o njunto ˜
+A de textos ,  existe uma quantidade B de contextos  ( temas )  associados a estes textos . 
+Neste caso ,  B e menor ou igual a  ´  A ,  visto que mais de um texto pode discorrer sobre o
+mesmo tema . 
+Em redes sociais ,  a detecc ¸ ao de t  ˜  opicos enfrenta desafios adicionais ,  tais como :   ´ 
+ ( i )  o processamento da quantidade de informac ¸ oes geradas; e  ( ii )  os ru  ˜   ´ idos existentes , 
+visto que nem todas as informac ¸ oes compartilhadas sobre um determinado tema s  ˜  ao rele -  ˜
+vantes .  Buscando solucionar estes desafios ,  diversos trabalhos que propoem abordagens  ˜ 
+de selec ¸ ao de t  ˜  opicos relevantes por palavras-chave t  ´  em surgido [Zhao et al .  ,  2011; Diao ˆ
+et al .  ,  2012; Cataldi et al .  ,  2010; Suh et al .  ,  2016; Katragadda et al .  ,  2016] . 
+Esses metodos utilizam palavras-chave para criar um agrupamento de termos e  ´ 
+realizam a detecc ¸ ao de t  ˜  opicos usando modelos probabil  ´   ´ isticos ,  como por exemplo ,  o
+Latent Dirichlet Allocation  ( LDA )  ,  que e utilizado no trabalho de Bolelli et al .  [2009]  ´ 
+como forma de identificar topicos relevantes .  Diao et al .  [2012] aplicam o LDA para  ´ 
+identificar topicos de acontecimentos passados em dados do Twitter .  Os autores assumem  ´ 
+que os topicos s  ´  ao constitu  ˜   ´ idos de palavras-chave de multiplos  ´  tweets ,  onde o principal
+objetivo de sua abordagem consiste em ,  simultaneamente ,  capturar duas observac ¸ oes  :    ( 1 )  ˜
+tweets publicados que tenham o mesmo topico; e  ( 2 )   ´  tweets publicados por um mesmo
+usuario referentes ao mesmo t  ´  opico .  Com isso ,  os autores demonstram uma abordagem  ´ 
+diferente dos trabalhos que se limitam a apenas reconhecer a informac ¸ ao .   ˜ 
+No trabalho de Xu et al  .   [2003] ,  os autores apresentam uma adaptac ¸ ao do ˜ Nonnegative Matrix Factorization  ( NMF )  para demonstrar a eficiencia do m ˆ etodo em extrair  ´ 
+topicos .  O estudo mostrou que em comparac ¸   ´  ao aos m  ˜  etodos LSI e SC ,  a adaptac ¸   ´  ao  r eali- ˜
+zada no NMF para extrair topicos apresenta um rendimento superior de 1 . 16% em relac ¸   ´  ao ˜ 
+aos demais .  No trabalho de Suh et al .  [2016] ,  os autores capturaram topicos locais de sua  ´ 
+regiao ,  a fim de detectar informac ¸   ˜  oes relevantes .  Os autores compararam o NMF com  ˜ 
+suas variantes e o LDA .  Desta forma ,  conclu ´ iram que o modelo utilizando o NMF superava os demais ,  tanto na captura de topicos relevantes ,  como tamb  ´  em na velocidade de  ´ 
+processamento ,  tornando o metodo vi  ´  avel para captura de t  ´  opicos em tempo real e em  ´ 
+larga-escala . 
+A partir dos desafios citados anteriormente e das tecnicas utilizadas para detecc ¸   ´    ao˜
+de informac ¸ oes relevantes ,  nossa abordagem foca em analisar uma amostra de dados e  ˜ 
+poder definir qual a quantidade de clusters que melhor a representam ,  a fim de reduzir a
+quantidade de interac ¸ oes que os m  ˜  etodos executam para extrair t  ´  opicos .  Outro fator que  ´ 
+pode ser destacado ,  e a aplicac ¸   ´  ao de uma arquitetura de pr  ˜  e-processamento e e x trac ¸   ´  ao˜
+de topicos que seja capaz de manipular a larga quantidade de dados capturados sobre  ´ 
+um determinado evento ,  a fim de caracterizar os relatos mais significativos .  Alem disso ,   ´ 
+aplicamos as tecnicas de extrac ¸   ´  ao de t  ˜  opicos baseadas nos trabalhos anteriores com o  ´ 
+intuito de validar a abordagem feita neste trabalho . 
 6º BraSNAM - Brazilian Workshop on Social Network
 Analysis and Mining
 557
-3. Metodo Proposto ´
-O metodo proposto na elaborac¸ ´ ao deste trabalho consiste das seguintes etapas (ilustradas ˜
-na Figura 1): (i) coleta de dados provenientes do Twitter para construc¸ao da base de ˜
-dados; (ii) pre-processamento dos dados, a fim de retirar poss ´ ´iveis ru´idos dos tweets; e
-(iii) selec¸ao da melhor quantidade e extrac¸ ˜ ao de t ˜ opicos utilizando a t ´ ecnica de ´ Silhouette
-combinada com os metodos de aprendizagem de m ´ aquina. Nas subsec¸ ´ oes que seguem, ˜
-detalhamos cada uma destas etapas.
+3 .  Metodo Proposto  ´ 
+O metodo proposto na elaborac ¸   ´  ao deste trabalho consiste das seguintes etapas  ( ilus t radas ˜
+na Figura 1 )  :   ( i )  coleta de dados provenientes do Twitter para construc ¸ ao da base de  ˜ 
+dados;  ( ii )  pre-processamento dos dados ,  a fim de retirar poss  ´   ´ iveis ru ´ idos dos tweets; e
+ ( iii )  selec ¸ ao da melhor quantidade e extrac ¸   ˜  ao de t  ˜  opicos utilizando a t  ´  ecnica de  ´  Silhouette
+combinada com os metodos de aprendi z agem de m  ´  aquina .  Nas subsec ¸   ´  oes que seguem ,  ˜
+detalhamos cada uma destas etapas . 
 &ROHWD
-3UpSURFHVVDPHQWR ([WUDomRGH
+3UpSURFHVVDPHQWR  ( [WUDomRGH
 WySLFRV
-7ySLFRV([WUDtGRV
+7ySLFRV ( [WUDtGRV
 /'$
-10)
-1(5 .0($16
+10 ) 
+1 ( 5  . 0 ( $16
 7UDGLFLRQDO
 6HOHomRGRV
-YDORUHVGH.
-Figura 1. Arquitetura do metodo proposto. ´
-3.1. Base de Dados
-A base de dados utilizada neste trabalho e composta por ´ tweets escritos em portugues, per- ˆ
-tencentes ao per´iodo de 01/01/2016 a 20/11/2016. Os tweets da nossa base de dados sao˜
-relativos a Operac¸ao Lava Jato, deflagrada em 2014 pela Pol ˜ ´icia Federal do Brasil, cujo
-objetivo e investigar a pr ´ atica de crimes financeiros e desvio de recursos p ´ ublicos. Neste ´
-artigo, consideramos somente as fases deflagradas no ano de 2016 que correspondem as`
+YDORUHVGH . 
+Figura 1 .  Arquitetura do metodo proposto .   ´ 
+3 . 1 .  Base de Dados
+A base de dados utilizada neste trabalho e composta por  ´  tweets escritos em portugues ,  per- ˆ
+tencentes ao per ´ iodo de 01/01/2016 a 20/11/2016 .  Os tweets da nossa base de dados sao ˜ 
+relativos a Operac ¸ ao Lava Jato ,  deflagrada em 2014 pela Pol  ˜   ´ icia Federal do Brasil ,  cujo
+objetivo e investigar a pr  ´  atica de crimes financeiros e desvio de recursos p  ´  ublicos .  Neste  ´ 
+artigo ,  consideramos somente as fases deflagradas no ano de 2016 que correspondem as`
 fases da 22a
 a` 36a
-.
-A fim de coletar tweets sobre a Operac¸ao Lava Jato, utilizamos a Search API da ˜
+ . 
+A fim de coletar tw e ets sobre a Operac ¸ ao Lava Jato ,  utilizamos a Search API da ˜
 rede social Twitter3
-, que permite a coleta de dados historicos. Para filtrar ´ tweets relativos
-a determinados assuntos, a Search API utiliza uma query de busca, que e equivalente ´
-a uma expressao boleana envolvendo termos. No trabalho proposto, a ˜ query de busca
-especificada foi “lava jato”, e resultou em uma base com um total de 652.210 tweets. A
-Figura 2 mostra a distribuic¸ao de ˜ tweets por mes. ˆ
-3.2. Pre-processamento ´
-Apos a etapa de coleta dos dados, os ´ tweets foram pre-processados para remoc¸ ´ ao de ˜
-poss´iveis ru´idos e reduc¸ao do n ˜ umero de atributos dos vetores de caracter ´ ´isticas dos
-metodos n ´ ao-supervisionados, detalhados na pr ˜ oxima subsec¸ ´ ao. Para tanto, utilizamos o ˜
-framework Apache Spark4 que facilita a manipulac¸ao de dados em larga escala ( ˜ Big Data).
-O framework Apache Spark baseia-se em duas das principais abstrac¸oes de programac¸ ˜ ao˜
-paralela [M. Zaharia and Stoica, 2010]: Resilient Distributed Datasets (uma colec¸ao de ˜
-objetos particionados entre um conjunto de maquinas que podem ser reconstitu ´ ´idos caso
-uma partic¸ao seja perdida) e operac¸ ˜ oes paralelas (e.g., ˜ reduce, collect, foreach).
-3https://www.twitter.com
-4http://spark.apache.org/
+ ,  que permite a coleta de dados historicos .  Para filtrar  ´  tweets relativos
+a determinados assuntos ,  a Search API utiliza uma query de busca ,  que e equivalente  ´ 
+a uma expressao boleana envolvendo termos .  No trabalho proposto ,  a  ˜  query de busca
+especificada foi “lava jato” ,  e resultou em uma base com um total de 652 . 210 tweets .  A
+Figura 2 mostra a distribui c  ¸ ao de ˜ tweets por mes .  ˆ
+3 . 2 .  Pre-processamento  ´ 
+Apos a etapa de coleta dos dados ,  os  ´  tweets foram pre-processados para remoc ¸   ´  ao de  ˜ 
+poss ´ iveis ru ´ idos e reduc ¸ ao do n  ˜  umero de atributos dos vetores de caracter  ´   ´ isticas dos
+metodos n  ´  ao-supervisionados ,  detalhados na pr  ˜  oxima subsec ¸   ´  ao .  Para tanto ,  utiliza m os o ˜
+framework Apache Spark4 que facilita a manipulac ¸ ao de dados em larga escala  (   ˜  Big Data )  . 
+O framework Apache Spark baseia-se em duas das principais abstrac ¸ oes de programac ¸   ˜  ao ˜ 
+paralela [M .  Zaharia and Stoica ,  2010] :  Resilient Distributed Datasets  ( uma colec ¸ ao d e  ˜
+objetos particionados entre um conjunto de maquinas que podem ser reconstitu  ´   ´ idos caso
+uma partic ¸ ao seja perdida )    e operac ¸  ˜ oes paralelas  ( e . g .  ,  ˜ reduce ,  collect ,  foreach )  . 
+3https : //www . twitter . com
+4http : //spark . apache . org/
 XXXVII Congresso da Sociedade Brasileira de Computação
 558
 15000
@@ -191,15 +191,15 @@ XXXVII Congresso da Sociedade Brasileira de Computação
 2016-11
 Meses
 Número de tweets
-Figura 2. Distribuic¸ao de ˜ tweets por mes. ˆ
-Neste trabalho, realizamos dois pre-processamentos distintos: tradicional e com ´
-reconhecimento de entidade. O pre-processamento tradicional (figura 3), consiste em se- ´
-parar os tweets em tokens (segmentos de sentenc¸as), para logo em seguida, remover as
-menc¸oes, URLs e ˜ emoticons de cada um deles. Posteriormente, os tokens sao normaliza- ˜
-dos, isto e, s ´ ao submetidos a transformac¸ ˜ oes (e.g., tratamento de pontuac¸ ˜ ao, limpeza de ˜
-caracteres especiais), correc¸oes (e.g., ortogr ˜ aficas) e expans ´ ao de contrac¸ ˜ oes [Stiilpen Ju- ˜
-nior and Merschmann, 2016]. Apos a normalizac¸ ´ ao, os ˜ tokens que forem stopwords sao˜
-descartados e, por fim, os afixos dos tokens restantes sao eliminados ( ˜ stemming).
+Figura 2 .  Distribuic ¸ ao de  ˜  tweets por mes .  ˆ
+Neste trabalho ,  realizamos dois pre-processamentos distintos :  tradicional e com  ´ 
+reconhecimento de entidade .  O pre-processamento tradicional  ( figura 3 )  ,  consiste em se-  ´ 
+parar os tweets em tokens  ( segmentos de sentenc ¸ as )  ,  para logo em seguida ,  remover as
+menc ¸ oes ,  URLs e  ˜  emoticons de cada um deles .  Posteriormente ,  os tokens sao normaliza-  ˜ 
+dos ,  isto e ,  s  ´  ao submetidos a transformac ¸   ˜  oes  ( e . g .  ,  tratamento de pontuac ¸   ˜  ao ,  limpeza de  ˜ 
+caracteres especiais )  ,  correc ¸ oes  ( e . g .  ,  ortogr  ˜  aficas )  e expans  ´  ao de contrac ¸   ˜   o es [Stiilpen Ju- ˜
+nior and Merschmann ,  2016] .  Apos a normalizac ¸   ´  ao ,  os  ˜  tokens que forem stopword s  sao˜
+descarta d os e ,  por fim ,  os afixos dos tokens restantes sao eliminados  (  ˜ stemming )  . 
 5HPRomRGH
 PHQo}HV
 5HPRomRGH
@@ -208,90 +208,90 @@ PHQo}HV
 HPRWLFRQ
 5HPRomRGH
 VWRSZRUGV 6WHPPLQJ WZHHWV
-63$5.
+63$5 . 
 7RNHQL]HU WZHHWV
 ILOWUDGRV
-Figura 3. Pre-processamento tradicional. ´
-O pre-processamento com reconhecimento de entidade (Figura 4), por sua vez, ´
-consiste em primeiramente remover as menc¸oes e as URLs dos ˜ tweets. Em seguida, as
-entidades (substantivos proprios) presentes nos ´ tweetssao extra ˜ ´idas por meio do algoritmo
-Polyglot-Ner [Al-Rfou et al., 2015]. Tal algoritmo modela a tarefa de reconhecimento de
-entidades como um problema de classificac¸ao a n ˜ ´ivel de palavra. O objetivo destes dois
-pre-processamentos ´ e verificar se h ´ a melhora na efici ´ encia dos m ˆ etodos ao extrair t ´ opicos, ´
-pois as matrizes de termos em cada pre-processamento possuem diferentes caracter ´ ´isticas.
+Figura 3 .  Pre-processamento tradicional .   ´ 
+O pre-processamento com reconhecimento de entidade  ( Figura 4 )  ,  por sua vez ,   ´ 
+consiste em primeiramente remover as menc ¸ oes e as URLs dos  ˜  tweets .  Em seguida ,  as
+entidades  ( substantivos proprios )  presentes nos  ´  tweetssao extra  ˜   ´ idas por meio do algoritmo
+Polyglot-Ner [Al-Rfou et al .  ,  2015] .  Tal algoritmo modela a tarefa de reconhecimento de
+entidades como um problema de classificac ¸ ao a n  ˜   ´ ivel de palavra .  O objetivo destes dois
+pre-processamentos  ´  e verificar se h  ´  a melhora na efici  ´  encia dos m ˆ etodos ao extrair t  ´  opicos ,   ´ 
+pois as matrizes de termos em cada pre-processamento possuem diferentes caracter  ´   ´ isticas . 
 5HPRomRGH
 PHQo}HV
 5HPRomRGH
 85/V
 5HFRQKHFLPHQWR
-WZHHWV GH(QWLGDGH
-63$5.
+WZHHWV GH ( QWLGDGH
+63$5 . 
 WZHHWV
 ILOWUDGRV
-Figura 4. Pre-processamento com reconhecimento de entidade. ´
-Apos a aplicac¸ ´ ao do pr ˜ e-processamento sobre a base de dados, o vetor de ca- ´
-racter´isticas de cada um dos metodos n ´ ao-supervisionados ˜ e modelado como uma ´ bag6º BraSNAM - Brazilian Workshop on Social Network
+Figura 4 .  Pre-processamento com reconhecimento de entidade .   ´ 
+Apos a aplicac ¸   ´  ao do pr  ˜  e-processamento sobre a base de dados ,  o vetor de ca-  ´ 
+racter ´ isticas de  c ada um dos metodos n  ´  ao-supervisionados ˜ e modelado como uma  ´  bag6º BraSNAM - Brazilian Workshop on Social Network
 Analysis and Mining
 559
-of-words, em que cada tweet t e representado por um vetor ´ p1, p2,..., pn, onde pi e a ´
+of-words ,  em que cada tweet t e representado por um vetor  ´  p1 ,  p2 ,  .  .  .  ,  pn ,  onde pi e a  ´ 
 frequencia ponderada da palavra ˆ i no tweet t normalizada pela frequencia da palavra ˆ i
-na base de dados. Tal modelagem de vetor de caracter´istica e an ´ aloga a proposta por ´
-Aisopos et al. [2012]. Entretanto, em nossa modelagem, caso a frequencia ponderada de ˆ
-uma palavra i no tweet t seja menor que vinte, tal palavra e eliminada da ´ bag-of-words.
-Isto permite a reduc¸ao da dimens ˜ ao do vetor de caracter ˜ ´isticas dos metodos de apren- ´
-dizagem de maquina e reduz a quantidade de termos com baixa frequ ´ encia. Esse valor ˆ
-foi selecionado, apos observarmos que durante os experimentos esses termos n ´ ao tinham ˜
-representatividade dentro da matriz de termos.
-3.3. Extrac¸ao de T ˜ opicos ´
-Neste trabalho utilizamos os seguintes metodos de aprendizagem de m ´ aquina n ´ ao- ˜
-supervisionada para extrair topicos da base de dados: ´ Latent Dirichlet Allocation, Kmeans e Non-negative Matrix Factorization. Para cada um dos metodos, consideramos ´
-a quantidade de clusters recomendados pela tecnica de ´ Silhouette5
-, que baseada numa
-amostra de dados, permite que observemos atraves de uma representac¸ ´ ao gr ˜ afica qual ´
-seria o melhor valor de k para esse conjunto. Essa tecnica permite a validac¸ ´ ao da con- ˜
-sistencia dos dados dentro de um agrupamento, onde em sua definic¸ ˆ ao˜ e assumido que os ´
-dados sao agrupados por uma t ˜ ecnica que tenha como par ´ ametro de entrada um n ˆ umero ´
-K de clusters. Matematicamente, o Silhouette pode ser representado pela Equac¸ao 1: ˜
-s(i) =
+na base de dados .  Tal modelagem de vetor de caracter ´ istica e an  ´  aloga a proposta por  ´ 
+Aisopos et al .  [2012] .  Entretanto ,  em nossa modelagem ,  caso a frequencia ponderada de ˆ
+uma palavra i no tweet t seja menor que vinte ,  tal palavra e eliminada da  ´  bag-of-words . 
+Isto permite a reduc ¸ ao da dimens  ˜  ao do vetor de caracter  ˜   ´ isticas dos metodos de apren-  ´ 
+dizagem de maquina e reduz a quantidade de termos com baixa frequ  ´  encia .  Esse valor ˆ
+foi selecionado ,  apos observarmos que durante o s  experimentos esses termos n  ´  ao tinham ˜
+representatividade dentro da matriz de termos . 
+3 . 3 .  Extrac ¸ ao de T  ˜  opicos  ´ 
+Neste trabalho utilizamos os seguintes metodos de aprendizagem de m  ´  aquina n  ´  ao-  ˜ 
+supervisionada para extrair topicos da base de dados :   ´  Latent Dirichlet Allocation ,  Kmeans e Non-negative Matrix Factorization .  Para cada um dos metodos ,  consideramos  ´ 
+a quantidade de clusters recomendados pela tecnica de  ´  Silhouette5
+ ,  que baseada numa
+amostra de dados ,  permite que observemos atraves de uma representac ¸   ´  ao gr  ˜  afica qual  ´ 
+seria o melhor valor de k para esse conjunto .  Essa tecnica permite a validac ¸   ´  ao da con -  ˜
+sistencia dos dados dentro de um agrupamento ,  onde em sua definic ¸  ˆ ao ˜  e assumido que os  ´ 
+dados sao agrupados por uma t  ˜  ecnica que tenha como par  ´  ametro de entrada um n ˆ umero  ´ 
+K de  c lusters .  Matematicamente ,  o Silhouette pode ser representado pela Equac ¸ ao 1 :  ˜
+s ( i )  =
 ?
 ?
 ?
-1 - a(i)/b(i), Se a(i) < b(i)
-0, Se a(i) = b(i)
-b(i)/a(i) - 1, Se a(i) > b(i)
-(1)
-onde a(i) e uma representac¸ ´ ao de qu ˜ ao bem um dado ˜ i e atribu ´ ´ido a um cluster, e b(i)
-a menor media de n ´ ao similaridade de ˜ i em relac¸ao a qualquer outro ˜ cluster que o dado
-nao seja membro. Com isso, podemos obter valores de [-1, 1]. Esses coeficientes quando ˜
-estao perto de +1 indicam que a amostra est ˜ a longe dos ´ clusters vizinhos. Um valor 0
-indica que a amostra esta perto do limite de decis ´ ao entre dois ˜ cluster vizinhos e valores
-negativos indicam que essas amostras podem ter sido atribu´idas ao cluster errado (conforme ilustrado na Figura 5).
-Esses valores obtidos atraves da t ´ ecnica de ´ Silhouette sao utilizados como ˜
-parametros de entrada para os algoritmos de extrac¸ ˆ ao de t ˜ opicos, ou seja, cada n ´ umero ´
-inteiro obtido corresponde a quantidade de topicos da amostra em an ´ alise. Vale ressaltar, ´
-que essa tecnica foi aplicada a cada algoritmo, levando em considerac¸ ´ ao que os mesmos ˜
-possuem estrategias diferentes para alcanc¸ar o mesmo resultado. ´
-O Latent Dirichlet Allocation (LDA) consiste em um modelo probabil´istico, no
-qual cada documento e modelado como uma combinac¸ ´ ao de t ˜ opicos e onde cada t ´ opico ´
-corresponde a uma distribuic¸ao multinomial sobre as palavras [Bolelli et al., 2009]. A ˜
-distribuic¸ao documento-t ˜ opico e t ´ opico-palavra aprendidas pelo LDA, por meio de in- ´
-ferencia Bayesiana, descrevem os melhores t ˆ opicos por documento e as palavras mais ´
-descritivas para cada topico. Em nossa abordagem seguimos a estrat ´ egia adotada por ´
-Zhao et al. [2011], onde assumimos que um topico ´ T tambem est ´ a atrelado a um usu ´ ario ´
-5http://scikit-learn.org/stable/modules/generated/
-sklearn.metrics.silhouette score.html
+1 - a ( i ) /b ( i )  ,  Se a ( i )  < b ( i ) 
+0 ,  Se a ( i )  = b ( i ) 
+b ( i ) /a ( i )  - 1 ,  Se a ( i )  > b ( i ) 
+ ( 1 ) 
+onde a ( i )  e uma representac ¸   ´  ao de qu  ˜  ao bem um dado  ˜  i e atribu  ´   ´ ido a um cluster ,  e b ( i ) 
+a menor media de n  ´  ao similaridade de  ˜  i em relac ¸ ao a qualquer outro  ˜  cluster que o dado
+nao seja membro .  Com isso ,  podemos obter valores de [-1 ,  1] .  Esses coeficientes quando   ˜
+estao perto de +1 indicam que a amostra est  ˜  a longe dos  ´  clusters vizinhos .  Um valor 0
+indica que a amostra esta perto do limite de decis  ´  ao entre dois  ˜  cluster vizinhos e valores
+negativos indicam que essas amostras podem ter sido atribu ´ idas ao cluster errado  ( conforme ilustrado na Figura 5 )  . 
+Esses valores obtidos atraves da t  ´  ecnica de  ´  Silhouette sao utilizados como  ˜ 
+parametros de entrada para os algoritmos de extrac ¸  ˆ ao de t  ˜  opicos ,  ou seja ,  cada n  ´  umero  ´ 
+inteiro obtido corresponde a quantidade de topicos da amostra em an  ´  alise .  Vale ressaltar ,   ´ 
+que essa tecnica foi aplicada a cada algoritmo ,  levando em consider a c ¸   ´  ao que os mesmos ˜
+possuem estrategias diferentes para alcanc ¸ ar o mesmo resultado .   ´ 
+O Latent Dirichlet Allocation  ( LDA )  consiste em um modelo probabil ´ istico ,  no
+qual cada documento e modelado como uma combinac ¸   ´  ao de t  ˜  opicos e onde cada t  ´  opico  ´ 
+corresponde a uma distribuic ¸ ao multinomial sobre as palavras [Bolelli et al .  ,  2009] .  A   ˜
+distribuic ¸ ao documento-t  ˜  opico e t  ´  opico-palavra aprendidas pelo LDA ,  por meio de in-  ´ 
+ferencia Bayesiana ,  descrevem os melhores t ˆ opicos por documento e as palavras mais  ´ 
+descritivas para cada topico .  Em nossa abordagem seguimos a estrat  ´  egia adotada por  ´ 
+Zhao et al .  [2011] ,  onde assumimos que um topico  ´  T tambem est  ´  a atrelado a um usu  ´  ario  ´ 
+5http : //scikit-learn . org/stable/modules/generated/
+sklearn . metrics . silhouette score . html
 XXXVII Congresso da Sociedade Brasileira de Computação
 560
  !"# !"! !"$ !"% !"& !"' #"!
-()*+,-. !"# $"%&'$'%()%# !" *'+,"-%))%
-.+-#)%/ +01%+
+ (  ) *+ , - .  !"# $"%&'$'% (  ) %# !" *'+ , "-% )  ) %
+ . +-# ) %/ +01%+
 2
 3
 4
 5
 6
 272 274 276 278 279
-:#;0$" !% $0/0$)%/'#)'$0# <;/'=%'/0 $0/0$)%/'#)'$0>
+ : #;0$" !% $0/0$ ) %/'# ) '$0# <;/'=%'/0 $0/0$ ) %/'# ) '$0>
  279
  278
  276
@@ -301,56 +301,56 @@ XXXVII Congresso da Sociedade Brasileira de Computação
 276
 278
 279
-:#;0$" !% $0/0$)%/'#)'$0# <#%?-(!0 $0/0$)%/'#)'$0>
-*'+,"-%))% $"= (@$+-#)%/# A B
-Figura 5. Exemplo do grafico de ´ Silhouette para selec¸ao de valores de k com
-k 5.
-e nao unicamente a uma distribuic¸ ˜ ao de palavras, pois conforme observado, o modelo ˜
-tradicional do LDA apresenta baixo rendimento em textos curtos [Zhao et al., 2011].
-O K-means. Seja X = x1,x2,...,xd o conjunto de pontos d-dimensionais a serem
-agrupados em um conjunto de K clusters, C = ck, k = 1,...,K. O K-means encontra uma
-partic¸ao de tal forma que o erro quadr ˜ atico entre a m ´ edia emp ´ ´irica de um cluster e os
-pontos no cluster sejam minimizados.
-O Non-negative Matrix Factorization (NMF). O NMF consiste em um algoritmo
-de fatorizac¸ao de matrizes que encontra a fatorizac¸ ˜ ao positiva de uma matriz positiva ˜
-recebida como entrada [Xu et al., 2003]. Seja S o conjunto de documentos representados
-por uma matriz V de dimensao˜ m × d, onde m e o n ´ umero de termos distintos e ´ d e´
-equivalente ao numero de documentos em ´ S. O NMF encontra a menor aproximac¸ao de ˜
-V em termos de alguma metrica espec ´ ´ifica (e.g., norma) fatorando V no produto (WH) de
-duas matrizes de menor dimensoes ˜ Wm×k e Hk×n, onde k e o n ´ umero de t ´ opicos. Cada ´
-coluna de W e um vetor base que cont ´ em uma codificac¸ ´ ao sem ˜ antica ou um conceito de ˆ
-V e cada coluna de H contem uma codificac¸ ´ ao da combinac¸ ˜ ao linear dos vetores bases ˜
-que aproxima a correspondente coluna de V [Shahnaz et al., 2006].
-4. Experimentos e Resultados
-Durante esta fase conduzimos os nossos experimentos em dois cenarios, onde o primeiro ´
-cenario consiste em demonstrar a utilizac¸ ´ ao das t ˜ ecnicas de extrac¸ ´ ao de t ˜ opicos, tendo ´
+ : #;0$" !% $0/0$ ) %/'# ) '$0# <#%?- ( !0 $0/0$ ) %/'# ) '$0>
+*'+ , "-% )  ) % $"=  ( @$+-# ) %/# A B
+Figura 5 .  Exemplo do grafico de  ´  Silhouette para selec ¸ ao de valores de k com
+k 5 . 
+e nao unicamente a uma distribuic ¸   ˜  ao de palavras ,  pois conforme observado ,  o modelo   ˜
+tradicional do LDA apresenta baixo rendimento em textos curtos [Zhao et al .  ,  2011] . 
+O K-means .  Seja X = x1 , x2 ,  .  .  .  , xd o conjunto de pontos d-dimensionais a serem
+agrupados em um conjunto de K clusters ,  C = ck ,  k = 1 ,  .  .  .  , K .  O K-means encontra uma
+partic ¸ ao de tal forma que o erro qua d r ˜ atico entre a m  ´  edia emp  ´   ´ irica de um cluster e os
+pontos no cluster sejam minimizados . 
+O Non-negative Matrix Factorization  ( NMF )  .  O NMF consiste em um algoritmo
+de fatorizac ¸ ao de matrizes que encontra a fatorizac ¸   ˜  ao positiva de uma matriz positiv a  ˜
+recebida como entrada [Xu et al .  ,  2003] .  Seja S o conjunto de documentos representados
+por uma matriz V de dimensao ˜  m × d ,  onde m e o n  ´  umero de termos distintos e  ´  d e ´ 
+equivalente ao numero de documentos em  ´  S .  O NMF encontra a menor aproximac ¸ ao de  ˜ 
+V em termos de alguma metrica espec  ´   ´ ifica  ( e . g .  ,  norma )  fatorando V no produto  ( WH )  de
+duas matrizes de menor dimensoes  ˜  Wm×k e Hk×n ,  onde k e o n  ´  umero de t  ´  opicos .  Cada  ´ 
+coluna de W e um vetor base que cont  ´  em uma codificac ¸   ´  ao sem  ˜  antica ou um conceito de ˆ
+V e cada coluna de H contem uma codificac ¸   ´  ao da combinac ¸   ˜  ao li n ear dos vetores bases ˜
+que aproxima a correspondente coluna de V [Shahnaz et al .  ,  2006] . 
+4 .  Experimentos e Resultados
+Durante esta fase conduzimos os nossos experimentos em dois cenarios ,  onde o primeiro  ´ 
+cenario consiste em demonstrar a utilizac ¸   ´  ao das t  ˜  ecnicas de extrac ¸   ´  ao de  t  ˜ opicos ,  tendo  ´ 
 como entrada uma matriz de termos que foi processada com uma arquitetura tradicional
-(Figura 3). O segundo cenario descreve a utilizac¸ ´ ao de pr ˜ e-processamento atrav ´ es do reco- ´
-nhecimento de entidades (Figura 4), onde a matriz de termos gerada, consiste unicamente
-de termos reconhecidos como entidades em cada tweet.
-Para validarmos nossa arquitetura de extrac¸ao de t ˜ opicos, ilustrada na Figura ´
-1, realizamos uma comparac¸ao dos t ˜ opicos extra ´ ´idos por cada algoritmo com canais
-de not´icias, e verificamos se as informac¸oes compartilhadas nas redes sociais sobre ˜
+ ( Figura 3 )  .  O segundo cenario descreve a utilizac ¸   ´  ao de pr  ˜  e-processamento atrav  ´  es do reco-  ´ 
+nhecimento de entidades  ( Figura 4 )  ,  onde a matriz de termos gerada ,  consiste unicamente
+de termos reconhecidos como entidades em cada tweet . 
+Para validarmos nossa arquitetura de extrac ¸ ao de t  ˜  opicos ,  ilustrada na Figura  ´ 
+1 ,  realizamos uma comparac ¸ ao dos t  ˜  opicos extra  ´   ´ idos por cada algoritmo com canais
+de not ´ icias ,  e verificamos se as informac ¸ oes c o mpartilhadas nas redes sociais sobre ˜
 6º BraSNAM - Brazilian Workshop on Social Network
 Analysis and Mining
 561
-a Operac¸ao Lava Jato em um determinado m ˜ es, s ˆ ao equivalentes a outras fontes de ˜
-informac¸ao. Essa comparac¸ ˜ ao gera um percentual de acerto para cada algoritmo, onde ˜
-dividimos o total topicos extra ´ ´idos pelos algoritmos que correspondiam as not´icias compartilhadas, pelo total de informac¸oes (not ˜ ´icias) divulgadas nos meios de comunic¸ao tradi- ˜
-cionais (P =
+a Operac ¸ ao Lava Jato em um determinado m  ˜  es ,  s ˆ ao equivalentes a outras fontes de  ˜ 
+informac ¸ ao .  Essa comparac ¸   ˜  ao gera um percentual de acerto para cada algoritmo ,  onde  ˜ 
+dividimos o total topicos extra  ´   ´ idos pelos algo r itmos que correspondiam as not ´ icias compartilhadas ,  pelo total de informac ¸ oes  ( not ˜  ´ icias )  div u lgadas nos meios de comunic ¸ ao tradi- ˜
+cionais  ( P =
 topicosrelacionados
-N oticias ). O objetivo desta abordagem e comprovar que monitorando ´
-o Twitter, conseguimos descobrir informac¸oes relevantes sobre um determinado aconte- ˜
-cimento.
-Figura 6. Linha do tempo das fases da Operac¸ao Lava Jato em 2016. ˜
-Durante os experimentos aplicamos os algoritmos de extrac¸ao de t ˜ opicos aos con- ´
-juntos de dados de cada mes, pois conforme observado na Figura 6, a Operac¸ ˆ ao Lava Jato ˜
-da Pol´icia Federal, de janeiro a novembro teve fases relatadas nas redes sociais mensalmente, atingindo um total de 15 operac¸oes. Vale ressaltar que levamos em considerac¸ ˜ ao˜
-todos os relatos compartilhados sobre esses eventos, desde prisoes de pessoas envolvidas ˜
-a ac¸ ` oes judicias executadas pelos ˜ org ´ aos respons ˜ aveis. ´
-pre-processamento ´
+N oticias  )  .  O objetivo desta abordagem e comprovar que monitorando  ´ 
+o Twitter  ,   conseguimos descobrir informac ¸ oes relevantes sobre um determinado aconte- ˜
+cimento . 
+Figura 6 .  Linha do tempo das fases da Operac ¸ ao Lava Jato em 2016 .   ˜ 
+Durante os experimentos aplicamos os algoritmos de extrac ¸ ao de t  ˜  opicos aos con-  ´ 
+juntos de dados de cada mes ,  pois conforme observado na Figura 6 ,  a Operac ¸  ˆ ao Lava Jato  ˜ 
+da Pol ´ icia Federal ,  de janeiro a novembro teve fases relatadas nas redes sociais mensalmente ,  atingindo um total de 15 operac ¸ oes .  Vale ressaltar que levamos em considerac ¸   ˜  ao ˜ 
+todos os relatos compartilhados sobre esses eventos ,  desde prisoes de   pessoas envolvidas ˜
+a ac ¸  ` oes judici a s executadas pelos ˜ org  ´  aos respons ˜ aveis .   ´ 
+pre-processamento  ´ 
 tradicional
-pre-processamento com ´
+pre-processamento com  ´ 
 reconhecimento de Entidade
 Meses LDA NMF K-means LDA NMF K-means
 Jan 5 5 5 4 4 7
@@ -364,69 +364,69 @@ Ago 5 5 6 3 3 5
 Set 5 5 5 5 5 5
 Out 7 7 8 8 8 6
 Nov 5 5 7 4 4 6
-Tabela 1. Valores de K observados na tecnica de ´ Silhouette.
-Em ambos os cenarios, executamos a t ´ ecnica de ´ Silhouete para obter a melhor
-quantidade de topicos para cada amostra de dados (cada m ´ es), conforme observado na ˆ
-Tabela 1, ou seja, a cada amostra de dados executamos a variac¸ao de ˜ clusters de 2 ate 15 ´
-para realizar a verificac¸ao. ˜
+Tabela 1 .  Valores de K observados na tecnica de  ´  Silhouette . 
+Em ambos os cenarios ,  executamos a t  ´  ecnica de  ´  Silhouete para obter a melhor
+quantidade de topicos para cada amostra de dados  ( cada m  ´  es )  ,  conforme observado na ˆ
+Tabela 1 ,  ou seja ,  a cada amostr a  de dados executamos a variac ¸ ao de ˜ clusters de 2 ate 15  ´ 
+para realizar a verificac ¸ ao .   ˜ 
 XXXVII Congresso da Sociedade Brasileira de Computação
 562
-4.1. Cenario I ´
-Neste cenario, para uma melhor compreens ´ ao de como as avaliac¸ ˜ oes foram realizadas, ˜
-selecionamos o mes de setembro que teve maior diverg ˆ encia entre os t ˆ opicos extra ´ ´idos
-em relac¸ao as informac¸ ˜ oes compartilhadas em outros canais, onde ocorreram a 34 ˜
+4 . 1 .  Cenario I  ´ 
+Neste cenario ,  para uma melhor compreens  ´  ao de como as avaliac ¸   ˜  oes foram realizadas ,   ˜ 
+selecionamos o mes de setembro que teve maior diverg ˆ encia entre os t ˆ opicos extra  ´   ´ idos
+ e m relac ¸ ao as informac ¸  ˜ oes compartilhadas em outros canais ,  onde ocorreram a 34 ˜
 a
 e a
 35a
-fase da Operac¸ao Lava Jato com uma amostra de 80.577 ˜ tweets.
-Neste per´iodo, os acontecimentos de maior impacto segundo as fontes de
-informac¸ao (Paran ˜ a Portal ´
+fase da Operac ¸ ao Lava Jato com uma amostra de 80 . 577  ˜  tweets . 
+Neste per ´ iodo ,  os acontecimentos de maior impacto segundo as fontes de
+ i nformac ¸ ao  ( Paran ˜ a Portal  ´ 
 6
-, O Globo 7
-, Estadao˜
+ ,  O Globo 7
+  ,   Estadao˜
 8
-e site da Pol´icia Federal9
-) que mais
-detalhavam os acontecimentos da Operac¸ao Lava jato foram: ˜
-1. O ex-ministro Guido Mantega e preso temporariamente, mas o juiz S ´ ergio Moro ´
-manda solta-lo horas depois. ´
-2. O empresario Eike Batista declarou que, em 1 ´
-o de novembro de 2012, recebeu
-pedido de “um entao ministro e ent ˜ ao presidente do Conselho de Administrac¸ ˜ ao˜
-da Petrobras” para que fizesse um pagamento de R$ 5 milh ´ oes destinado ao PT ˜
+e site da Pol ´ icia Federal9
+ )  que mais
+detalhavam os acontecimentos da Operac ¸ ao Lava jato foram :   ˜ 
+1 .  O ex-ministro Guido Mantega e preso temporariamente ,  mas o juiz S  ´  ergio Moro  ´ 
+manda solta-lo horas depois .   ´ 
+2 .  O empresario Eike Batista declarou que ,  em 1  ´ 
+o de novembro de 2012 ,  recebeu
+pedido de “um entao ministro e ent  ˜  ao presidente do Conselho de Administrac ¸   ˜  ao˜
+d a  Petrobras” para que fizesse um pagamento de R$ 5 milh  ´  oes destinado ao PT ˜
 10
-.
-3. Supremo Tribunal Federal manda ac¸ao contra Eduardo Cunha para S ˜ ergio Moro. ´
-4. O ex-ministro da Fazenda Antonio Palocci ˆ e preso na 35 ´
-a operac¸ao, por atuar de ˜
-maneira direta para proporcionar vantagens a empreiteira Odebrecht. `
-5. Gleisi Hoffmann e Paulo Bernardo virao r ˜ eus da Operac¸ ´ ao Lava Jato no Supremo ˜
-Tribunal Federal.
-Neste contexto, ao aplicarmos o pre-processamento apresentado na Figura 3 com ´
-os algoritmos de aprendizagem de maquina, observamos se os t ´ opicos extra ´ ´idos tinham
-alguma menc¸ao as not ˜ ´icias compartilhadas nos canais de informac¸ao. Durante esta ˜
-avaliac¸ao, observamos que os t ˜ opicos extra ´ ´idos pelo NMF, conforme apresentado na Tabela 2, foram os que mais se aproximaram das not´icias compartilhadas por outras fontes
-de informac¸ao (conforme ilustrado na Figura 7(a)) . ˜
-Topicos LDA ´ Topicos NMF ´ Topicos Kmeans ´
-Marisa Lula operac¸ao˜ diz Lula operac¸ao˜ youtube video gostei
-Guido prisao horas ˜ fase Mantega operac¸ao˜ lula denuncia reu
-video youtube gostei justic¸a temer ministro Bernardo Gleise reu´
-abafar operac¸ao Moro ˜ Lula Moro reu´ Lula operac¸ao diz ˜
+ . 
+3 .  Supremo Tribunal Federal manda ac ¸ ao contra Eduardo Cunha   para S ˜ ergio Moro .   ´ 
+4 .  O ex-ministro da Fazenda Antonio Palocci ˆ e preso na 35  ´ 
+a operac ¸ ao ,  por atuar de  ˜ 
+maneira direta para proporcionar vantagens a empreiteira Odebrecht .  `
+5 .  Gleisi Hoffma n n e Paulo Bernardo virao r ˜ eus da Operac ¸   ´  ao Lava Jato no Supremo ˜
+Tribunal Federal . 
+Neste contexto ,  ao aplicarmos o pre-processamento apresentado na Figura 3 com  ´ 
+os algoritmos de aprendizagem de maquina ,  observamos se os t  ´  opicos extra  ´   ´ idos tinham
+alguma menc ¸ ao as not  ˜   ´ icias compartilhadas nos canais de informac ¸ ao .  Durante esta  ˜ 
+avaliac ¸ ao ,  observamos que os t  ˜  opicos extra  ´   ´ idos pelo NMF ,  conforme apresentado na Tabela 2 ,  foram os que mais se aproximaram das not ´ icias compartilhadas por outras fontes
+de informac ¸ ao  ( conforme ilustrado na Figur a  7 ( a )  )   .  ˜
+Topicos LDA  ´  Topicos NMF  ´  Topicos Kmeans  ´ 
+Marisa Lula operac ¸ ao ˜  diz Lula operac ¸ ao ˜  youtube video gostei
+Guido prisao horas  ˜  fase Mantega operac ¸ ao ˜  lula denuncia reu
+video youtube gostei justic ¸ a temer ministro Bernardo Gleise reu ´ 
+abafar operac ¸ ao Moro  ˜  Lula Moro reu ´  Lula operac ¸ ao diz  ˜ 
 lula denuncia denunciado youtube gostei video preso Mantega nova
-Tabela 2. Topicos extra´idos pelos algoritmos. ´
-Observamos durante os experimentos com esta abordagem que a base de dados possui outras informac¸oes que n ˜ ao estavam no contexto direto da Lava Jato. Essas ˜
-informac¸oes, que possuem maiores frequ ˜ encias dentro de uma ˆ bag-of-words acabam em
-sua maioria se tornando um topico coletado pelos algoritmos. Com isso, este cen ´ ario ´
-6http://paranaportal.uol.com.br/editoria/operacao-lava-jato/
-7http://infograficos.oglobo.globo.com/brasil/todas-as-fases-daoperacao-lava-jato.html
-8http://infograficos.estadao.com.br/public/politica/operacao-lavajato/fases/
-9http://www.pf.gov.br/imprensa/lava-jato/fases-da-operacao-lava-jato
-10http://politica.estadao.com.br/blogs/fausto-macedo/eike-batistarelatou-a-procuradoria-pedido-de-r-5-milhoes-ao-pt/
+Tabela 2 .  Topicos extra ´ idos pelos algoritmos .   ´ 
+Observamos durante  o s experimentos com esta abordagem que a base de dados possui outras informac ¸ oes que n ˜ ao estavam no contexto direto da Lava Jato .  Essas  ˜ 
+informac ¸ oes ,  que possuem maiores frequ  ˜  encias dentro de uma ˆ bag-of-words acabam em
+sua maioria se tornando um topico coletado pelos algoritmos .  Com isso ,  este cen  ´  ario  ´ 
+6http : //paranaportal . uol . com . br/editoria/operacao-lava-jato/
+7http : //infograficos . oglobo . globo . com/brasil/todas-as-fases-daoperacao-lava-jato . html
+8http : //infograficos . estadao . com . br/public/politica/operacao-lavajato/fases/
+9http : //www . pf . gov . br/imprensa/lava-jato/fases-da-operacao-lava-jato
+10http : //politica . estadao . com . br/blogs/fausto-macedo/eike-batistarelatou-a-procuradoria-pedido-de-r-5-milhoes-ao-pt/
 6º BraSNAM - Brazilian Workshop on Social Network
 Analysis and Mining
 563
 1 2 3 4 5 6 7 8 9 10 11
-Meses do Ano (JAN - NOV)
+Meses do Ano  ( JAN - NOV ) 
 0
 10
 20
@@ -438,13 +438,13 @@ Meses do Ano (JAN - NOV)
 80
 90
 100
-Percentual de acerto (%)
+Percentual de acerto  ( % ) 
 LDA
 NMF
 KMEANS
-(a) Pre-processamento tradicional. ´
+ ( a )  Pre-processamento tradicional .   ´ 
 1 2 3 4 5 6 7 8 9 10 11
-Meses do Ano (JAN - NOV)
+Meses do Ano  ( JAN - NOV ) 
 0
 10
 20
@@ -456,113 +456,113 @@ Meses do Ano (JAN - NOV)
 80
 90
 100
-Percentual de acerto (%)
+Percentual de acerto  ( % ) 
 LDA
 NMF
 KMEANS
-(b) Pre-processamento com reconhecimento de en- ´
-tidade.
-Figura 7. Resultado da validac¸ao de t ˜ opicos comparado com canais de not´icias. ´
-apesar de ter um pre-processamento robusto, n ´ ao apresentou bom desempenho, conforme ˜
-observado na Figura 7(a), tornando inviavel a utilizac¸ ´ ao deste padr ˜ ao para o monitora- ˜
-mento das not´icias relevantes de um acontecimento, devido a captura desses ru´idos pelos
-algoritmos aplicados neste trabalho.
-4.2. Cenario II ´
-Neste cenario, para fins de avaliac¸ ´ ao, ser ˜ a apresentado o mesmo m ´ es analisado no cen ˆ ario ´
-1. Aplicamos como pre-processamento o reconhecimento de entidade nomeada, onde ´
-para documento (tweet) pode existir uma ou mais entidades, conforme exemplo: “Tribunais Superiores derrubam 18 erros de Sergio Moro. ´ ”, tendo como resultado o reconhecimento da entidade “Sergio Moro”. Com isso, nossa ´ bag-of-words pode ser considerada
-como uma bag-of-entities, visto que essa regra foi aplicada a toda base de dados, com o
-objetivo de reconhecer quais foram as entidades mais citadas em um determinado mes. ˆ
-Como as not´icias ou relatos estao atreladas a uma determinada pessoa, grupos, empresas ˜
-ou locais, a utilizac¸ao dessa estrat ˜ egia torna-se vi ´ avel. ´
+ ( b )  Pre-processamento com reconhecimento de en-  ´ 
+tidade . 
+Figura 7 .  Resultado da validac ¸ ao de t  ˜  opicos comparado com canais de not ´ icias .   ´ 
+apesar de ter um pre-processamento robusto ,  n  ´  ao apresentou bom desempenho ,  conforme  ˜ 
+observado na Figura 7 ( a )  ,  tornando inviavel a utilizac ¸   ´  ao deste padr  ˜  ao para o moni t ora- ˜
+mento das not ´ icias relevantes de um acontecimento ,  devido a captura desses ru ´ idos pelos
+algoritmos aplicados neste trabalho . 
+4 . 2 .  Cenario II  ´ 
+Neste cenario ,  para fins de avaliac ¸   ´  ao ,  ser  ˜  a apresentado o mesmo m  ´  es analisado no cen ˆ ario  ´ 
+1 .  Aplicamos como pre-processamento o reconhecimento de entidade nomeada ,  onde  ´ 
+para documento  ( tweet )  pode existir uma ou mais entidades ,  conforme exemplo :  “Tribunais Superiores derrubam 18 erros de Sergio Moro .   ´  ” ,  tendo como resultado o reconhecimento da entidade “Sergio Moro” .  Com isso ,  nossa  ´  bag-of-words pode ser considerada
+como uma bag-of-entities ,  visto que essa regra foi aplicada a toda base de dados ,  com o
+objetivo de reconhecer quais foram as entidades mais citadas em um determinado mes .  ˆ
+Como as not ´ icias ou relatos estao atreladas a uma determinada pess o a ,  grupos ,  empresas ˜
+ou locais ,  a  u tilizac ¸ ao dessa estrat ˜ egia torna-se vi  ´  avel .   ´ 
 LDA NMF KMEANS
 MPF STF Moro Petrobras Mantega STF Palocci Antonio PF
 Palooci Eike Renan Lula Marisa MPF Lula PT Mantega
 PT Cunha PSDB Sergio Moro Bumlai Moro Lula Sergio
 Lula Marisa Temer Palocci Antonio Dilma Lula PT Curitiba
 Sergio Dilma Curitiba PT Paulo Gleise Lula Marisa MPF
-Tabela 3. Topicos extra´idos pelos algoritmos com reconhecimento de entidade. ´
-Durante esse pre-processamento, eliminamos entidades com frequ ´ encias menores ˆ
-que 20, com o intuito de igualar os parametros de acordo com o primeiro cen ˆ ario. Como ´
-resultado, observamos que o NMF apresentou um melhor desempenho (Figura 7(b)) na
-extrac¸ao de t ˜ opicos, quando comparado com os canais de not ´ ´icias, pois alem de eliminar ´
-os ru´idos da base dados, tambem reconheceu os indiv ´ ´iduos chaves de cada not´icia (Tabela
-3).
-Com isso, sumarizamos nossos resultados da seguinte forma:
-1. O pre-processamento tradicional aplicado a nossa arquitetura, apresentou um ´
-baixo rendimento na tarefa de extrac¸ao de t ˜ opicos para o monitoramento de ´
-not´icias sobre a Operac¸ao Lava Jato da Pol ˜ ´icia Federal do Brasil;
+Tabela 3 .  Topicos extra ´ idos pelos algoritmos com reconhecimento de entidade .   ´ 
+Durante esse pre-processamento ,  eliminamos entidades com frequ  ´  encias menores ˆ
+que 20 ,  com o intuito de igualar os parametros de acordo com o primeiro cen ˆ ario .  Como  ´ 
+resultado ,  observamos que o NMF apresentou um melhor desempenho  ( Figura 7 ( b )  )  na
+extrac ¸ ao de t  ˜  opicos ,  quando comparado com os canais de not  ´   ´ icias ,  pois alem de eliminar  ´ 
+os ru ´ idos da base dados ,  tambem reconheceu os indiv  ´   ´ iduos chaves de cada not ´ icia  ( Tabela
+3 )  . 
+Com isso ,  sumarizamos nossos resultados da seguinte forma : 
+1 .  O pre-processamento tradicional aplicado a nossa arquitetura ,  apresentou um  ´ 
+baixo rendimento na tarefa de extrac ¸ ao de t  ˜  opicos para o monitoramento de  ´ 
+not ´ icias sobre a Operac ¸ ao Lava Jato da Pol  ˜   ´ icia Federal do Brasil;
 XXXVII Congresso da Sociedade Brasileira de Computação
 564
-2. O pre-processamento com reconhecimento de entidade nomeada aplicado a nossa ´
-arquitetura, apresentou rendimento superior a 70% em todos os meses com o algoritmo NMF, comprovando a viabilidade de utilizar este modelo para monitorar
-o Twitter, com o objetivo de identificar as informac¸oes relevantes de um determi- ˜
-nado acontecimento, pois observar um evento monitorando diretamente as pessoas
-envolvidas se mostrou mais aplicavel; ´
-3. Apesar dos resultados alcanc¸ados na abordagem com pre-processamento de re- ´
-conhecimento de entidade serem mais representativos que a outra abordagem, o
-mesmo consome mais recursos computacionais para a execuc¸ao da extrac¸ ˜ ao de ˜
-topicos, onde identificamos que o ponto de maior consumo ´ e a classificac¸ ´ ao da ˜
+2 .  O pre-processamento com reconhecimento de entidade nomeada aplicado a nossa  ´ 
+arquitetura ,  apresentou rendimento superior a 70% em todos os meses com o algoritmo NMF ,  comprovando a viabilidade de utilizar este modelo para monitorar
+o Twitter ,  com o objetivo de identificar as informac ¸ oes relevantes de um det e rmi- ˜
+nado acontecimento ,  pois observar um evento monitorando diretamente as pessoas
+envolvidas se mostrou mais aplicavel;  ´ 
+3 .  Apesar dos resultados alcanc ¸ ados na abordagem com pre-processamento de re-  ´ 
+conhecimento de entidade serem mais representativos que a outra abordagem ,  o
+mesmo consome mais recursos computacionais para a execuc ¸ ao da extrac ¸   ˜  ao de  ˜ 
+topicos ,  onde identificamos que o ponto de   maior consumo  ´  e a classificac ¸   ´  ao da ˜
 entidade feita pelo algoritmo PolyGlot-Ner;
-5. Conclusao e Trabalhos Futuros ˜
-Neste trabalho, foram analisadas tecnicas n ´ ao-supervisionadas de aprendizagem de ˜
-maquina, a fim de descobrir t ´ opicos relevantes em dados compartilhados em redes soci- ´
-ais. Apesar de avanc¸os em tecnicas de detecc¸ ´ ao de eventos em ˜ streaming, observamos que
-uma aprendizagem offline, quando combinada com ferramentas que aceleram o processo
-de manipulac¸ao dos dados pode alcanc¸ar resultados no mesmo n ˜ ´ivel de outras tecnicas. ´
-Com isso, comparamos dois modelos para extrac¸ao de t ˜ opicos, combinando com os algo- ´
-ritmos de LDA, NMF e K-means, na tarefa de monitorarmos um determinado evento para
-descobrir quais foram as informac¸oes relevantes daquele m ˜ es. Al ˆ em disso, reduzimos a ´
-quantidade de informac¸oes extra ˜ ´idas utilizando a tecnica de ´ Silhouette, a fim de verificar
-a melhor quantidade de cluster para uma determinada amostra de dados.
-Esses modelos, foram avaliados em uma base de dados de tweets que relatavam
-informac¸oes sobre a Operac¸ ˜ ao Lava Jato da Pol ˜ ´icia Federal no ano de 2016. Os resultados mostraram que a nossa arquitetura, utilizando reconhecimento de entidade nomeada
-como pre-processamento, combinado com o algoritmo de NMF, s ´ ao os que apresentam ˜
-melhor resultado neste cenario. Como trabalhos futuros, pretendemos replicar nossos ex- ´
-perimentos, adequando nossa arquitetura ao cenario online, al ´ em utilizar outras t ´ ecnicas ´
-de cluster, como por exemplo, o uso de redes neurais.
-6. Referencias ˆ
-Aisopos, F., Papadakis, G., Tserpes, K., and Varvarigou, T. (2012). Content vs. context
-for sentiment analysis: a comparative analysis over microblogs. In Proceedings of the
-23rd ACM Conference on Hypertext and Social Media, pages 187–196. ACM.
-Al-Rfou, R., Kulkarni, V., Perozzi, B., and Skiena, S. (2015). Polyglot-ner: Massive
-multilingual named entity recognition. In Proceedings of the 2015 SIAM International
-Conference on Data Mining, Vancouver, British Columbia, Canada. SIAM.
-Allan, J., Carbonell, J. G., Doddington, G., Yamron, J., and Yang, Y. (1998). Topic
-detection and tracking pilot study final report.
-Atefeh, F. and Khreich, W. (2013). A survey of techniques for event detection in twitter.
-Computational Intelligence.
-Bolelli, L., Ertekin, S¸., and Giles, C. L. (2009). Topic and trend detection in text collections using latent dirichlet allocation. In Proceedings of the European Conference on
-Information Retrieval, pages 776–780. Springer.
+5 .  Conclusao e Trabalhos Futuros  ˜ 
+Neste trabalho ,  foram analisadas tecnicas n  ´  ao-supervisionadas de aprendizagem de  ˜ 
+maquina ,  a fim de descobrir t  ´  opicos relevantes em dados compartilhados em redes soci-  ´ 
+ais .  Apesar de avanc ¸ os em tecnicas de detecc ¸   ´  ao de eventos em  ˜  streaming ,  observamos que
+uma aprendizagem offline ,  quando combinada com ferramentas que aceleram o processo
+de manipulac ¸ ao dos dados pode alcanc ¸ ar resultados no mesmo n  ˜   ´ ivel de outras tecnicas .   ´ 
+Com isso ,  comparamos dois modelos para extrac ¸ ao de t  ˜  opicos ,  combinando com os algo-  ´ 
+ritmos de LDA ,  NMF e K-means ,  na tarefa de monitorarmos um determinado evento para
+descobrir quais foram as informac ¸ oes relevantes daquele m  ˜  es .  Al ˆ em disso ,  reduzimos a  ´ 
+quantidade de informac ¸ oes extra  ˜   ´ idas utilizando a tecnica de  ´  Silhouette ,  a fim de verificar
+a melhor quantidade de cluster para uma determinada amostra de dados . 
+Esses modelos ,  foram avaliados em uma base de dados de tweets que relatavam
+informac ¸ oes sobre a Operac ¸   ˜  ao   Lava Jato da Pol ˜  ´ icia Federal no ano de 2016 .  Os resultados mostraram que a nossa arquitetura ,  utilizando reconhecimento de entidade nomeada
+como pre-processamento ,  combinado com o algoritmo de NMF ,  s  ´  ao os que apresentam  ˜ 
+melhor resultado neste cenario .  Como trabalhos futuros ,  pretendemos replicar nossos ex-  ´ 
+perimentos ,  adequando nossa arquitetura ao cenario online ,  al  ´  em utilizar outras t  ´  ecnicas  ´ 
+de cluster ,  como por exemplo ,  o uso de redes neurais . 
+6 .  Referencias ˆ
+Aisopos ,  F .  ,  Papadakis ,  G .  ,  Tserpes ,  K .  ,  and Varvarigou ,  T .   ( 2012 )  .  Content vs .  context
+for sentiment analysis :  a comparative analysis over microblogs .  In Proceedings of the
+23rd ACM Conference on Hypertext and Social Media ,  pages 187 – 196 .  ACM . 
+Al-Rfou ,  R .  ,  Kulkarni ,  V .  ,  Perozzi ,  B .  ,  and Skiena ,  S .   ( 2015 )  .  Polyglot-ner :  Massive
+multilingual named entity recognition .  In Proceedings of the 2015 SIAM International
+Conference on Data Mining ,  Vancouver ,  British Columbia ,  Canada .  SIAM . 
+Allan ,  J .  ,  Carbonell ,  J .  G .  ,  Doddington ,  G .  ,  Yamron ,  J .  ,  and Yang ,  Y .   ( 1998 )  .  Topic
+detection and tracking pilot study final report . 
+Atefeh ,  F .  and Khreich ,  W .   ( 2013 )  .  A survey of techniques for event detection in twitter . 
+Computational Intelligence . 
+Bolelli ,  L .  ,  Ertekin ,  S ¸  .  ,  and Giles ,  C .  L .   ( 2009 )  .  Topic and trend detection in text collections using latent dirichlet allocation .  In Proceedings of the European Conference on
+Information Retrieval ,  pages 776 – 780 .  Springer . 
 6º BraSNAM - Brazilian Workshop on Social Network
 Analysis and Mining
 565
-Cataldi, M., Di Caro, L., and Schifanella, C. (2010). Emerging topic detection on twitter
-based on temporal and social terms evaluation. In Proceedings of the Tenth International Workshop on Multimedia Data Mining, page 4. ACM.
-Diao, Q., Jiang, J., Zhu, F., and Lim, E.-P. (2012). Finding bursty topics from microblogs. In Proceedings of the 50th Annual Meeting of the Association for Computational Linguistics: Long Papers-Volume 1, pages 536–544. Association for Computational
-Linguistics.
-Katragadda, S., Virani, S., Benton, R., and Raghavan, V. (2016). Detection of event
-onset using twitter. In Proceedings of 2016 International Joint Conference on Neural
-Networks (IJCNN), pages 1539–1546. IEEE.
-M. Zaharia, M. Chowdhury, M. J. F. S. S. and Stoica, I. (2010). Spark: cluster computing
-with working sets. In Proceedings of the 2nd USENIX Conference on Hot Topics in
-Cloud Computing.
-Ramos, P., Reis, J., and Benevenuto, F. (2016). Uma analise da polaridade expressa nas
-manchetes de noticias brasileiras.
-Sakaki, T., Okazaki, M., and Matsuo, Y. (2010). Earthquake shakes twitter users: realtime event detection by social sensors. In Proceedings of the 19th international conference on World wide web, pages 851–860. ACM.
-Shahnaz, F., Berry, M. W., Pauca, V. P., and Plemmons, R. J. (2006). Document clustering
-using nonnegative matrix factorization. In Proceedings of the Information Processing
-& Management, volume 42, pages 373–386. Elsevier.
-Souza, B. A., Almeida, T. G., Menezes, A. A., Nakamura, F. G., Figueiredo, C. M., and
-Nakamura, E. F. (2016). For or against?: Polarity analysis in tweets about impeachment process of brazil president. In Proceedings of the 22Nd Brazilian Symposium on
-Multimedia and the Web, Webmedia ’16, pages 335–338, New York, NY, USA. ACM.
-Stiilpen Junior, M. and Merschmann, L. H. C. (2016). A methodology to handle social
-media posts in brazilian portuguese for text mining applications. In Proceedings of the
-22nd Brazilian Symposium on Multimedia and the Web, pages 239–246. ACM.
-Suh, S., Choo, J., Lee, J., and Reddy, C. K. (2016). L-ensnmf: Boosted local topic
-discovery via ensemble of nonnegative matrix factorization.
-Xu, W., Liu, X., and Gong, Y. (2003). Document clustering based on non-negative matrix
-factorization. In Proceedings of the 26th annual international ACM SIGIR conference
-on Research and development in informaion retrieval, pages 267–273. ACM.
-Zhao, W. X., Jiang, J., Weng, J., He, J., Lim, E.-P., Yan, H., and Li, X. (2011). Comparing twitter and traditional media using topic models. In European Conference on
-Information Retrieval, pages 338–349. Springer.
+Cataldi ,  M .  ,  Di Caro ,  L .  ,  and Schifanella ,  C .   ( 2010 )  .  Emerging topic detection on twitter
+based on temporal and social terms evaluation .  In Proceedings of the Tenth International Workshop on Multimedia Data Mining ,  page 4 .  ACM . 
+Diao ,  Q .  ,  Jiang ,  J .  ,  Zhu ,  F .  ,  and Lim ,  E . -P .   ( 2012 )  .  Finding bursty topics from microblogs .  In Proceedings of the 50th Annual Meeting of the Association for Computational Linguistics :  Long Papers-Volume 1 ,  pages 536 – 544 .  Association for Computational
+Linguistics . 
+Katragadda ,  S .  ,  Virani ,  S .  ,  Benton ,  R .  ,  and Raghavan ,  V .   ( 2016 )  .  Detection of event
+onset using twitter .  In Proceedings of 2016 International Joint Conference on Neural
+Networks  ( IJCNN )  ,  pages 1539 – 1546 .  IEEE . 
+M .  Zaharia ,  M .  Chowdhury ,  M .  J .  F .  S .  S .  and Stoica ,  I .   ( 2010 )  .  Spark :  cluster computing
+with working sets .  In Proceedings of the 2nd USENIX Conference on Hot Topics in
+Cloud Computing . 
+Ramos ,  P .  ,  Reis ,  J .  ,  and Benevenuto ,  F .   ( 2016 )  .  Uma analise da polaridade expressa nas
+manchetes de noticias brasileiras . 
+Sakaki ,  T .  ,  Okazaki ,  M .  ,  and Matsuo ,  Y .   ( 2010 )  .  Earthquake shakes twitter users :  realtime event detection by social sensors .  In Proceedings of the 19th international conference on World wide web ,  pages 851 – 860 .  ACM . 
+Shahnaz ,  F .  ,  Berry ,  M .  W .  ,  Pauca ,  V .  P .  ,  and Plemmons ,  R .  J .   ( 2006 )  .  Document clustering
+using nonnegative matrix factorization .  In Proceedings of the Information Processing
+& Management ,  volume 42 ,  pages 373 – 386 .  Elsevier . 
+Souza ,  B .  A .  ,  Almeida ,  T .  G .  ,  Menezes ,  A .  A .  ,  Nakamura ,  F .  G .  ,  Figueiredo ,  C .  M .  ,  and
+Nakamura ,  E .  F .   ( 2016 )  .  For or against? :  Polarity analysis in tweets about impeachment process of brazil president .  In Proceedings of the 22Nd Brazilian Symposium on
+Multimedia and the Web ,  Webmedia ’16 ,  pages 335 – 338 ,  New York ,  NY ,  USA .  ACM . 
+Stiilpen Junior ,  M .  and Merschmann ,  L .  H .  C .   ( 2016 )  .  A methodology to handle social
+media posts in brazilian portuguese for text mining applications .  In Proceedings of the
+22nd Brazilian Symposium on Multimedia and the Web ,  pages 239 – 246 .  ACM . 
+Suh ,  S .  ,  Choo ,  J .  ,  Lee ,  J .  ,  and Reddy ,  C .  K .   ( 2016 )  .  L-ensnmf :  Boosted local topic
+discovery via ensemble of nonnegative matrix factorization . 
+Xu ,  W .  ,  Liu ,  X .  ,  and Gong ,  Y .   ( 2003 )  .  Document clustering based on non-negative matrix
+factorization .  In Proceedings of the 26th annual international ACM SIGIR conference
+on Research and development in informaion retrieval ,  pages 267 – 273 .  ACM . 
+Zhao ,  W .  X .  ,  Jiang ,  J .  ,  Weng ,  J .  ,  He ,  J .  ,  Lim ,  E . -P .  ,  Yan ,  H .  ,  and Li ,  X .   ( 2011 )  .  Comparing twitter and traditional media using topic models .  In European Conference on
+Information Retrieval ,  pages 338 – 349 .  Springer . 
