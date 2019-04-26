@@ -1,387 +1,387 @@
 Combinando Analise Bibliom ´ etrica e An ´ alise de Redes Sociais ´
 para a Avaliac¸ao de Grupos Acad ˜ emicos ˆ
 Lucas Leal Caparelli1
-, Luciano Antonio Digiampietri1
-1Escola de Artes, Ciencias e Humanidades – Universidade de S ˆ ao Paulo (USP) ˜
-Sao Paulo, SP – Brasil ˜
-lucas.caparelli@usp.br, digiampietri@usp.br
-Abstract. The characterization and evaluation of groups of researchers are relevant and complex activities. This paper aims to characterize Brazilian graduate programs in Computer Science according to different bibliometric and
-social networks analysis metrics. In order to do this, the four-year evaluation of
-the programs carried out by CAPES was taken as the object of study, trying to
-identify which classification method is the most appropriate for this task. Using
-machine learning algorithms, it was possible to produce a classification model
-of these programs, reaching an accuracy of 86.15%.
-Resumo. A caracterizac¸ao e a avaliac¸ ˜ ao de grupos de pesquisadores s ˜ ao ativi- ˜
-dades relevantes e complexas. Este artigo visa a caracterizar programas brasileiros de pos-graduac¸ ´ ao em Ci ˜ encia da Computac¸ ˆ ao de acordo com diferentes ˜
-medidas bibliometricas e oriundas da an ´ alise de redes sociais. Para tal, tomou- ´
+ , Luciano Antonio Digiampietri1
+1Escola de Artes , Ciencias e Humanidades – Universidade de S ˆ ao Paulo (USP) ˜
+Sao Paulo , SP – Brasil ˜
+lucas . caparelli@usp . br , digiampietri@usp . br
+Abstract .  The characterization and evaluation of groups of researchers are relevant and complex activities .  This paper aims to characterize Brazilian graduate programs in Computer Science according to different bibliometric and
+social networks analysis metrics .  In order to do this , the four-year evaluation of
+the programs carried out by CAPES was taken as the object of study , trying to
+identify which classification method is the most appropriate for this task .  Using
+machine learning algorithms , it was possible to produce a classification model
+of these programs , reaching an accuracy of 86 . 15% . 
+Resumo .  A caracterizac¸ao e a avaliac¸ ˜ ao de grupos de pesquisadores s ˜ ao ativi- ˜
+dades relevantes e complexas .  Este artigo visa a caracterizar programas brasileiros de pos-graduac¸ ´ ao em Ci ˜ encia da Computac¸ ˆ ao de acordo com diferentes ˜
+medidas bibliometricas e oriundas da an ´ alise de redes sociais .  Para tal , tomou- ´
 se como objeto de estudo a avaliac¸ao quadrienal dos programas feita pela CA- ˜
-PES, buscando identificar qual metodo de classificac¸ ´ ao˜ e o mais indicado para ´
-esta tarefa. Utilizando algoritmos de aprendizado de maquina foi poss ´ ´ivel produzir um modelo de classificac¸ao destes programas alcanc¸ando acur ˜ acia de ´
-86,15%.
-1. Introduc¸ao˜
+PES , buscando identificar qual metodo de classificac¸ ´ ao˜ e o mais indicado para ´
+esta tarefa .  Utilizando algoritmos de aprendizado de maquina foi poss ´ ´ivel produzir um modelo de classificac¸ao destes programas alcanc¸ando acur ˜ acia de ´
+86 ,15% . 
+1 .  Introduc¸ao˜
 A avaliac¸ao de grupos acad ˜ emicos ˆ e extremamente importante para tarefas como a con- ´
-cessao de financiamentos, an ˜ alise da viabilidade de projetos de pesquisa, entre outras. ´
-Essa avaliac¸ao combina diversas informac¸ ˜ oes diferentes, muitas das quais podem estar ˜
-distribu´idas em fontes de dados distintas, sendo muitas vezes subjetivas ou dif´iceis de
-quantificar.
-Na pos-graduac¸ ´ ao brasileira, a CAPES (Coordenac¸ ˜ ao de Aperfeic¸oamento de Pes- ˜
+cessao de financiamentos , an ˜ alise da viabilidade de projetos de pesquisa , entre outras .  ´
+Essa avaliac¸ao combina diversas informac¸ ˜ oes diferentes , muitas das quais podem estar ˜
+distribu´idas em fontes de dados distintas , sendo muitas vezes subjetivas ou dif´iceis de
+quantificar . 
+Na pos-graduac¸ ´ ao brasileira , a CAPES (Coordenac¸ ˜ ao de Aperfeic¸oamento de Pes- ˜
 soal de N´ivel Superior) realiza periodicamente a avaliac¸ao de todos os programas nacio- ˜
 nais de pos-graduac¸ ´ ao e os resultados dessa avaliac¸ ˜ ao indicam se um programa est ˜ a apto ´
-ou nao a oferecer turmas de mestrado e/ou doutorado, bem como indicam a quantidade ˜
+ou nao a oferecer turmas de mestrado e/ou doutorado , bem como indicam a quantidade ˜
 de recursos federais (para ajudar no financiamento do programa) e a quantidade de bolsas
-que serao reservados a cada programa. ˜
-Nas avaliac¸oes, cada uma das ˜ areas de conhecimento detalha os crit ´ erios e pesos ´
-utilizados. Tipicamente, estes criterios s ´ ao divididos em cinco eixos/quesitos: 1) ˜ Proposta
-do Programa que inclui coerencia, planejamento e infraestrutura; 2) ˆ Corpo Docente incluindo o perfil, titulac¸ao, distribuic¸ ˜ ao na execuc¸ ˜ ao d
+que serao reservados a cada programa .  ˜
+Nas avaliac¸oes , cada uma das ˜ areas de conhecimento detalha os crit ´ erios e pesos ´
+utilizados .  Tipicamente , estes criterios s ´ ao divididos em cinco eixos/quesitos: 1) ˜ Proposta
+do Programa que inclui coerencia , planejamento e infraestrutura; 2) ˆ Corpo Docente incluindo o perfil , titulac¸ao , distribuic¸ ˜ ao na execuc¸ ˜ ao d
 trabalho; 3) Corpo Discente que analisa a quantidade de teses e dissertac¸oes defendi- ˜
-das, distribuic¸ao das orientac¸ ˜ oes entre os docentes, qualidade da produc¸ ˜ ao dos discentes ˜
-e eficiencia do programa na formac¸ ˆ ao de mestres e doutores, 4) ˜ Produc¸ao Intelectual ˜ que
+das , distribuic¸ao das orientac¸ ˜ oes entre os docentes , qualidade da produc¸ ˜ ao dos discentes ˜
+e eficiencia do programa na formac¸ ˆ ao de mestres e doutores , 4) ˜ Produc¸ao Intelectual ˜ que
 analisa a quantidade e qualidade das publicac¸oes produzidas pelos discentes e docentes ˜
-do programa, a distribuic¸ao das publicac¸ ˜ oes entre os docentes, a participac¸ ˜ ao de discen- ˜
-tes nas publicac¸oes, e outros tipos de produc¸ ˜ oes intelectuais (por exemplo, patentes); 5) ˜
-Inserc¸ao Social ˜ que avalia a inserc¸ao e o impacto do programa, integrac¸ ˜ ao com outros ˜
-programas e a visibilidade do programa.
-Ao longo dos ultimos anos, diversos trabalhos tentaram caracterizar de ma- ´
-neira automatica grupos acad ´ emicos (como programas de p ˆ os-graduac¸ ´ ao, grupos de pes- ˜
-quisa ou departamentos), ou inferir o resultado de avaliac¸oes (de ranqueamentos naci- ˜
-onais ou internacionais, ou de programas de pos-graduac¸ ´ ao) [Digiampietri et al. 2014, ˜
-Mena-Chalco et al. 2014, Digiampietri et al. 2016, Silva et al. 2017, Linden et al. 2017].
+do programa , a distribuic¸ao das publicac¸ ˜ oes entre os docentes , a participac¸ ˜ ao de discen- ˜
+tes nas publicac¸oes , e outros tipos de produc¸ ˜ oes intelectuais (por exemplo , patentes); 5) ˜
+Inserc¸ao Social ˜ que avalia a inserc¸ao e o impacto do programa , integrac¸ ˜ ao com outros ˜
+programas e a visibilidade do programa . 
+Ao longo dos ultimos anos , diversos trabalhos tentaram caracterizar de ma- ´
+neira automatica grupos acad ´ emicos (como programas de p ˆ os-graduac¸ ´ ao , grupos de pes- ˜
+quisa ou departamentos) , ou inferir o resultado de avaliac¸oes (de ranqueamentos naci- ˜
+onais ou internacionais , ou de programas de pos-graduac¸ ´ ao) [Digiampietri et al .  2014 , ˜
+Mena-Chalco et al .  2014 , Digiampietri et al .  2016 , Silva et al .  2017 , Linden et al .  2017] . 
 O objetivo do presente trabalho e combinar an ´ alise bibliom ´ etrica com an ´ alise de ´
 redes sociais a fim de se analisar a importancia de diferentes atributos (ou m ˆ etricas) ´
-na avaliac¸ao dos programas brasileiros de p ˜ os-graduac¸ ´ ao em Ci ˜ encia da Computac¸ ˆ ao, ˜
+na avaliac¸ao dos programas brasileiros de p ˜ os-graduac¸ ´ ao em Ci ˜ encia da Computac¸ ˆ ao , ˜
 bem como avaliar a capacidade desses atributos na inferencia dos conceitos atribu ˆ ´idos
-pela CAPES. Este trabalho se diferencia dos trabalhos correlatos por analisar dados da
+pela CAPES .  Este trabalho se diferencia dos trabalhos correlatos por analisar dados da
 ultima avaliac¸ ´ ao da CAPES (quadri ˜ enio 2013 a 2016) e por combinar informac¸ ˆ oes de tr ˜ esˆ
-fontes diferentes: CAPES (Plataforma Sucupira), CNPq (Plataforma Lattes) e Google
-Academico ( ˆ Google Scholar).
-2. Materiais e metodos ´
+fontes diferentes: CAPES (Plataforma Sucupira) , CNPq (Plataforma Lattes) e Google
+Academico ( ˆ Google Scholar) . 
+2 .  Materiais e metodos ´
 Neste trabalho foram analisados os 66 programas academicos de p ˆ os-graduac¸ ´ ao em ˜
 Ciencia da Computac¸ ˆ ao que foram avaliados pela CAPES na ˜ ultima avaliac¸ ´ ao quadrie- ˜
 nal (per´iodo de 2013 a 2016) e que iniciaram suas atividades anteriormente ao per´iodo de
-avaliac¸ao. ˜
-Dos 66 programas avaliados, dois nao possu ˜ ´iam conceito atribu´ido na avaliac¸ao˜
-anterior, 45 mantiveram o mesmo conceito do trienio anterior, 16 tiveram sua avaliac¸ ˆ ao˜
-elevada em um ponto e tres tiveram seu conceito reduzido em um ponto. ˆ
-As informac¸oes b ˜ asicas dos programas (nome, conceito CAPES do ´ ultimo qua- ´
-drienio, conceito CAPES do tri ˆ enio anterior e lista de docentes) foi obtida manualmente a ˆ
-partir da Plataforma Sucupira1 no dia 15 de outubro de 2017. Com base na lista dos orientadores, foram identificados os curr´iculos Lattes de cada um dos orientadores por meio de
-um processo automatico [Digiampietri et al. 2012, Digiampietri et al. 2014] que foi pos- ´
-teriormente verificado manualmente para assegurar a correta identificac¸ao dos curr ˜ ´iculos.
-Ao todo foram identificados 1.608 curr´iculos de orientadores.
-Adicionalmente, para cada orientador foi buscado o respectivo perfil do Google Academico ˆ
+avaliac¸ao .  ˜
+Dos 66 programas avaliados , dois nao possu ˜ ´iam conceito atribu´ido na avaliac¸ao˜
+anterior , 45 mantiveram o mesmo conceito do trienio anterior , 16 tiveram sua avaliac¸ ˆ ao˜
+elevada em um ponto e tres tiveram seu conceito reduzido em um ponto .  ˆ
+As informac¸oes b ˜ asicas dos programas (nome , conceito CAPES do ´ ultimo qua- ´
+drienio , conceito CAPES do tri ˆ enio anterior e lista de docentes) foi obtida manualmente a ˆ
+partir da Plataforma Sucupira1 no dia 15 de outubro de 2017 .  Com base na lista dos orientadores , foram identificados os curr´iculos Lattes de cada um dos orientadores por meio de
+um processo automatico [Digiampietri et al .  2012 , Digiampietri et al .  2014] que foi pos- ´
+teriormente verificado manualmente para assegurar a correta identificac¸ao dos curr ˜ ´iculos . 
+Ao todo foram identificados 1 . 608 curr´iculos de orientadores . 
+Adicionalmente , para cada orientador foi buscado o respectivo perfil do Google Academico ˆ
 2 utilizando um procedimento automatico para identificac¸ ´ ao de per- ˜
-fis [Digiampietri et al. 2014, Digiampietri and Ferreira 2018] nos dias 15 e 16 de novembro de 2017. Este processo identificou o perfil de 1.093 orientadores.
-1Plataforma Sucupira: https://sucupira.capes.gov.br/sucupira/ , acessado em 29/01/2018
-2Google Academico: https://scholar.google.com.br/ , acessado em 29/01/2018 ˆ
+fis [Digiampietri et al .  2014 , Digiampietri and Ferreira 2018] nos dias 15 e 16 de novembro de 2017 .  Este processo identificou o perfil de 1 . 093 orientadores . 
+1Plataforma Sucupira: https://sucupira . capes . gov . br/sucupira/  , acessado em 29/01/2018
+2Google Academico: https://scholar . google . com . br/  , acessado em 29/01/2018 ˆ
 Anais do VII Brazilian Workshop on Social Network Analysis and Mining - BraSNAM 2018
 77
 Dois tipos de informac¸oes foram extra ˜ ´idas de cada programa: informac¸oes bi- ˜
-bliometricas e m ´ etricas da an ´ alise de redes sociais. A tabela 1 cont ´ em a lista e uma ´
-breve descric¸ao dos 29 atributos bibliom ˜ etricos utilizados. Os tr ´ es primeiros atributos, ˆ
-gerais de cada programa, foram obtidos com base nos dados da Plataforma Sucupira.
+bliometricas e m ´ etricas da an ´ alise de redes sociais .  A tabela 1 cont ´ em a lista e uma ´
+breve descric¸ao dos 29 atributos bibliom ˜ etricos utilizados .  Os tr ´ es primeiros atributos , ˆ
+gerais de cada programa , foram obtidos com base nos dados da Plataforma Sucupira . 
 Os 14 atributos relacionados a orientac¸oes e publicac¸ ˜ oes foram obtidos a partir de da- ˜
-dos dos curr´iculos da Plataforma Lattes, destacando-se que os atributos relacionados a
+dos dos curr´iculos da Plataforma Lattes , destacando-se que os atributos relacionados a
 “pontuac¸oes” das publicac¸ ˜ oes combinaram dados das publicac¸ ˜ oes com os valores associ- ˜
-ados a cada conceito Qualis definidos pelo Comite de ˆ Area da Ci ´ encia da Computac¸ ˆ ao. ˜
-Por fim, os 12 ultimos atributos desta tabela, relacionados ´ as citac¸ ` oes, foram extra ˜ ´idos
-dos perfis do Google Academico. ˆ
+ados a cada conceito Qualis definidos pelo Comite de ˆ Area da Ci ´ encia da Computac¸ ˆ ao .  ˜
+Por fim , os 12 ultimos atributos desta tabela , relacionados ´ as citac¸ ` oes , foram extra ˜ ´idos
+dos perfis do Google Academico .  ˆ
 A tabela 2 contem a lista e breve descric¸ ´ ao dos 14 atributos oriundos da an ˜ alise ´
-de redes sociais. No presente trabalho dois tipos de redes sociais baseadas nas relac¸oes ˜
+de redes sociais .  No presente trabalho dois tipos de redes sociais baseadas nas relac¸oes ˜
 de coautoria foram constru´idas (utilizando as informac¸oes das publicac¸ ˜ oes extra ˜ ´idas dos
-curr´iculos Lattes dos orientadores de cada programa). O primeiro tipo, composto por
-apenas uma rede, possui como nos os programas de p ´ os-graduac¸ ´ ao e como arestas as ˜
-relac¸oes de coautoria entre docentes de diferentes programas. Esta rede ˜ e utilizada para o ´
+curr´iculos Lattes dos orientadores de cada programa) .  O primeiro tipo , composto por
+apenas uma rede , possui como nos os programas de p ´ os-graduac¸ ´ ao e como arestas as ˜
+relac¸oes de coautoria entre docentes de diferentes programas .  Esta rede ˜ e utilizada para o ´
 calculo de quatro m ´ etricas de centralidade (ou import ´ ancia) de cada programa em relac¸ ˆ ao˜
-as ligac¸ ` oes com os demais. Adicionalmente, foi constru ˜ ´ida uma rede por programa, na
+as ligac¸ ` oes com os demais .  Adicionalmente , foi constru ˜ ´ida uma rede por programa , na
 qual cada no corresponde a um orientador e cada aresta corresponde a relac¸ ´ oes de coauto- ˜
-ria entre orientadores de um mesmo programa. A partir da rede de cada programa foram
-extra´idas 10 metricas globais de rede. ´
-Com base nos atributos extra´idos ou calculados, o objetivo deste trabalho foi analisar a importancia desses atributos em relac¸ ˆ ao ao Conceito CAPES obtido pelos pro- ˜
-gramas na ultima avaliac¸ ´ ao quadrienal. Dois tipos de an ˜ alise foram realizadas com este ´
+ria entre orientadores de um mesmo programa .  A partir da rede de cada programa foram
+extra´idas 10 metricas globais de rede .  ´
+Com base nos atributos extra´idos ou calculados , o objetivo deste trabalho foi analisar a importancia desses atributos em relac¸ ˆ ao ao Conceito CAPES obtido pelos pro- ˜
+gramas na ultima avaliac¸ ´ ao quadrienal .  Dois tipos de an ˜ alise foram realizadas com este ´
 proposito: an ´ alise da import ´ ancia dos atributos em relac¸ ˆ ao ao Conceito CAPES (base- ˜
 ada na correlac¸ao de valores e em algoritmos de selec¸ ˜ ao de atributos) e a capacidade ˜
 de se inferir o Conceito CAPES com base nos demais atributos utilizando algoritmos de
-classificac¸ao. ˜
+classificac¸ao .  ˜
 Tanto para a selec¸ao de atributos quanto para a classificac¸ ˜ ao dos programas ˜
 de pos-graduac¸ ´ ao em Ci ˜ encia Computac¸ ˆ ao das universidades brasileiras utilizou-se o ˜
-arcabouc¸o Weka, o qual foi criado pela Universidade de Waikato, na Nova Zelandia ˆ
-[Witten et al. 2016]. Este arcabouc¸o permite acesso a diversos metodos de classificac¸ ´ ao, ˜
+arcabouc¸o Weka , o qual foi criado pela Universidade de Waikato , na Nova Zelandia ˆ
+[Witten et al .  2016] .  Este arcabouc¸o permite acesso a diversos metodos de classificac¸ ´ ao , ˜
 dos quais fez-se uso em testes com o conjunto de dados a fim de se identificar o modelo
-de maior acuracia. ´
-Para selec¸ao de atributos fez-se uso de dois seletores de atributos: ˜ ChiSquaredAttributeEval e CFSSubsetEval. O seletor de atributos ChiSquaredAttributeEval avalia a
+de maior acuracia .  ´
+Para selec¸ao de atributos fez-se uso de dois seletores de atributos: ˜ ChiSquaredAttributeEval e CFSSubsetEval .  O seletor de atributos ChiSquaredAttributeEval avalia a
 importancia de um atributo a partir da estat ˆ ´istica de inferencia qui-quadrado que serve ˆ
 para avaliar quantitativamente a relac¸ao entre um resultado (no caso o conceito CAPES ˜
-atribu´ido aos programas) e a distribuic¸ao dos valores de um dado atributo. O m ˜ etodo ´
-para a identificac¸ao dos atributos mais importantes utilizado foi o ˜ Ranker que, neste caso,
-simplesmente ordena os atributos de acordo com o respectivo valor de qui-quadrado.
+atribu´ido aos programas) e a distribuic¸ao dos valores de um dado atributo .  O m ˜ etodo ´
+para a identificac¸ao dos atributos mais importantes utilizado foi o ˜ Ranker que , neste caso ,
+simplesmente ordena os atributos de acordo com o respectivo valor de qui-quadrado . 
 O seletor CFSSubsetEval avalia a qualidade de um subconjunto de atributos considerando sua habilidade de predic¸ao individual juntamente do grau de redund ˜ ancia entre ˆ
-os atributos deste subconjunto. Subconjuntos que possuem alta correlac¸ao com o atributo ˜
+os atributos deste subconjunto .  Subconjuntos que possuem alta correlac¸ao com o atributo ˜
 Anais do VII Brazilian Workshop on Social Network Analysis and Mining - BraSNAM 2018
 78
-Tabela 1. Atributos bibliometricos utilizados ´
+Tabela 1 .  Atributos bibliometricos utilizados ´
 Sigla utilizada Descric¸ao˜
-Conceito CAPES Conceito CAPES do programa para o quadrienio 2013-2016. ˆ
-Conceito CAPES Anterior Conceito CAPES do programa para o trienio 2010-2012. ˆ
-Pesquisadores Numero de pesquisadores em um dado programa. ´
+Conceito CAPES Conceito CAPES do programa para o quadrienio 2013-2016 .  ˆ
+Conceito CAPES Anterior Conceito CAPES do programa para o trienio 2010-2012 .  ˆ
+Pesquisadores Numero de pesquisadores em um dado programa .  ´
 Dissertac¸oes de mestrado ˜ Numero de dissertac¸ ´ oes defendidas orientadas pelos pesquisadores do ˜
-programa.
-Teses de doutorado Numero de teses defendidas orientadas pelos pesquisadores do programa. ´
+programa . 
+Teses de doutorado Numero de teses defendidas orientadas pelos pesquisadores do programa .  ´
 Supervisoes de p ˜ os- ´
 doutorado
 Numero de p ´ os-doutoramentos supervisionados pelos pesquisadores do ´
-programa.
+programa . 
 Dissertac¸oes de mes- ˜
 trado PP
-Numero de dissertac¸ ´ oes por pesquisador do programa. ˜
-Teses de doutorado PP Numero de teses por pesquisador do programa. ´
+Numero de dissertac¸ ´ oes por pesquisador do programa .  ˜
+Teses de doutorado PP Numero de teses por pesquisador do programa .  ´
 Supervisoes de p ˜ os- ´
 doutorado PP
-Numero de p ´ os-doutoramentos por pesquisador do programa. ´
+Numero de p ´ os-doutoramentos por pesquisador do programa .  ´
 Publicac¸oes - Totais ˜ Numero total de artigos completos em peri ´ odicos ou anais publicados pelo ´
-pesquisadores do programa.
-Publicac¸oes - Totais ˜ PP Numero de artigos por pesquisador do programa. ´
-Publicac¸oes - Pontuac¸ ˜ ao˜ Total de pontos obtidos pelas publicac¸oes dos pesquisadores do programa. ˜
-Publicac¸oes - Pontuac¸ ˜ ao˜ PP Total de pontos por pesquisador do programa.
+pesquisadores do programa . 
+Publicac¸oes - Totais ˜ PP Numero de artigos por pesquisador do programa .  ´
+Publicac¸oes - Pontuac¸ ˜ ao˜ Total de pontos obtidos pelas publicac¸oes dos pesquisadores do programa .  ˜
+Publicac¸oes - Pontuac¸ ˜ ao˜ PP Total de pontos por pesquisador do programa . 
 Publicac¸oes ˜
 ´Indice Restrito -
 Totais
 Numero total de publicac¸ ´ oes dos pesquisadores do programa em ve ˜ ´iculos
-de ´indice restrito (A1, A2 ou B1).
+de ´indice restrito (A1 , A2 ou B1) . 
 Publicac¸oes ˜
 ´Indice Restrito -
 Totais PP
 Publicac¸oes dos pesquisadores do programa em ve ˜ ´iculos e ´indice restrito
-por pesquisador.
+por pesquisador . 
 Publicac¸oes ˜
 ´Indice Restrito -
 Pontuac¸ao˜
 Total de pontos obtidos pelas publicac¸oes dos pesquisadores do programa ˜
-em ve´iculos de ´indice restrito.
+em ve´iculos de ´indice restrito . 
 Publicac¸oes ˜
 ´Indice Restrito -
 Pontuac¸ao˜ PP
-Total de pontos das publicac¸oes em ve ˜ ´iculos e ´indice restrito por pesquisador.
+Total de pontos das publicac¸oes em ve ˜ ´iculos e ´indice restrito por pesquisador . 
 Media das Citac¸ ´ oes ˜ Media das citac¸ ´ oes totais do Google Acad ˜ emico dos pesquisador do pro- ˆ
-grama.
+grama . 
 Media das Citac¸ ´ oes ˜ 5 Media das citac¸ ´ oes do Google Acad ˜ emico dos pesquisador do programa ˆ
-nos ultimos cinco anos. ´
+nos ultimos cinco anos .  ´
 Media do ´
-´Indice H Media do ´ ´indice H do Google Academico dos pesquisador do programa. ˆ
+´Indice H Media do ´ ´indice H do Google Academico dos pesquisador do programa .  ˆ
 Media do ´
 ´Indice H 5 Media do ´ ´indice H do Google Academico dos pesquisador do programa ˆ
-nos ultimos cinco anos. ´
+nos ultimos cinco anos .  ´
 Media do ´
-´Indice I10 Media do ´ ´indice H do Google Academico dos pesquisador do programa. ˆ
+´Indice I10 Media do ´ ´indice H do Google Academico dos pesquisador do programa .  ˆ
 Media do ´
 ´Indice I10 5 Media do ´ ´indice I10 do Google Academico dos pesquisador do programa ˆ
-nos ultimos cinco anos. ´
+nos ultimos cinco anos .  ´
 Mediana das Citac¸oes ˜ Mediana das citac¸oes totais do Google Acad ˜ emico dos pesquisador do ˆ
-programa.
+programa . 
 Mediana das Citac¸oes ˜ 5 Mediana das citac¸oes do Google Acad ˜ emico dos pesquisador do programa ˆ
-nos ultimos cinco anos. ´
+nos ultimos cinco anos .  ´
 Mediana do ´Indice H Mediana do ´indice H do Google Academico dos pesquisador do pro- ˆ
-grama.
+grama . 
 Mediana do ´Indice H 5 Mediana do ´indice H do Google Academico dos pesquisador do programa ˆ
-nos ultimos cinco anos. ´
+nos ultimos cinco anos .  ´
 Mediana do ´Indice I10 Mediana do ´indice H do Google Academico dos pesquisador do pro- ˆ
-grama.
+grama . 
 Mediana do ´Indice I10 5 Mediana do ´indice I10 do Google Academico dos pesquisador do pro- ˆ
-grama nos ultimos cinco anos. ´
-classe e baixa intercorrelac¸ao s ˜ ao prefer ˜ ´iveis [Hall 1998]. Este seletor trabalha associado
-a um metodo de busca. Fez-se uso do m ´ etodo ´ BestFirst, sendo que a versao utilizada ˜
+grama nos ultimos cinco anos .  ´
+classe e baixa intercorrelac¸ao s ˜ ao prefer ˜ ´iveis [Hall 1998] .  Este seletor trabalha associado
+a um metodo de busca .  Fez-se uso do m ´ etodo ´ BestFirst , sendo que a versao utilizada ˜
 Anais do VII Brazilian Workshop on Social Network Analysis and Mining - BraSNAM 2018
 79
-Tabela 2. Atributos de rede utilizados
+Tabela 2 .  Atributos de rede utilizados
 Metricas Locais - coautorias entre programas ´
 Sigla utilizada Descric¸ao˜
 Centralidade de grau Medida da importancia de um programa com base em seu grau na rede de coau- ˆ
-torias.
+torias . 
 Centralidade de
 intermediac¸ao˜
 Medida da importancia de um programa com base na quantidade de vezes que se ˆ
-encontra nos caminhos m´inimos entre programas na rede de coautorias.
+encontra nos caminhos m´inimos entre programas na rede de coautorias . 
 Centralidade de proximidade
 Medida da importancia de um programa com base na m ˆ edia de seus caminhos ´
-m´inimos com os demais programas na rede de coautorias.
+m´inimos com os demais programas na rede de coautorias . 
 Centralidade Page
 Rank
 Medida da importancia de um programa com base na medida Page Rank (medida ˆ
-que combina as relac¸oes de coautoria com a import ˜ ancia dos coautores). ˆ
+que combina as relac¸oes de coautoria com a import ˜ ancia dos coautores) .  ˆ
 Metricas Globais - coautorias inter-programas ´
 Sigla utilizada Descric¸ao˜
-Arestas Numero de arestas na rede de coautorias de cada programa. ´
+Arestas Numero de arestas na rede de coautorias de cada programa .  ´
 Media dos caminhos ´
 m´inimos
-Tamanho medio dos caminhos m ´ ´inimos na rede de coautorias de cada programa.
+Tamanho medio dos caminhos m ´ ´inimos na rede de coautorias de cada programa . 
 Coeficiente de agrupamento
-Medida de transitividade das relac¸oes de coautoria dentro de cada programa. ˜
+Medida de transitividade das relac¸oes de coautoria dentro de cada programa .  ˜
 Assortatividade de
 grau
 Medida da tendencia de haver relacionamentos entre autores com o mesmo grau ˆ
-na rede.
-Diametro ˆ Diametro (maior caminho m ˆ ´inimo) da rede de coautorias de cada programa.
+na rede . 
+Diametro ˆ Diametro (maior caminho m ˆ ´inimo) da rede de coautorias de cada programa . 
 Densidade Densidade (relac¸ao entre o n ˜ umero de arestas existentes e o n ´ umero de arestas ´
-poss´iveis) na rede de coautorias de cada programa.
+poss´iveis) na rede de coautorias de cada programa . 
 Componente Gigante Porcentagem de nos no componente gigante (maior componente conexo) da rede ´
-de cada programa.
+de cada programa . 
 Centralizac¸ao de ˜
 grau
 Medida da dependencia da rede de coautorias de cada programa em relac¸ ˆ ao ao ˜
-seu no mais importante (de acordo com o grau). ´
+seu no mais importante (de acordo com o grau) .  ´
 Centralizac¸ao de ˜
 intermediac¸ao˜
 Medida da dependencia da rede de coautorias de cada programa em relac¸ ˆ ao ao ˜
-seu no mais importante (de acordo com a intermediac¸ ´ ao). ˜
+seu no mais importante (de acordo com a intermediac¸ ´ ao) .  ˜
 Centralizac¸ao de pro- ˜
 ximidade
 Medida da dependencia da rede de coautorias de cada programa em relac¸ ˆ ao ao ˜
-seu no mais importante (de acordo com a proximidade). ´
-pelo arcabouc¸o Weka tambem foi proposta pelo mesmo autor [Hall 1998]. Este consiste ´
+seu no mais importante (de acordo com a proximidade) .  ´
+pelo arcabouc¸o Weka tambem foi proposta pelo mesmo autor [Hall 1998] .  Este consiste ´
 numa busca atraves do espac¸o dos subconjuntos de atributos fazendo uso de ´ hillclimbing
-e backtracking.
-Para a classificac¸ao, foram testados diferentes classificadores utilizando como es- ˜
-trategia de verificac¸ ´ ao dos resultados a validac¸ ˜ ao cruzada em dez subconjuntos. Dife- ˜
+e backtracking . 
+Para a classificac¸ao , foram testados diferentes classificadores utilizando como es- ˜
+trategia de verificac¸ ´ ao dos resultados a validac¸ ˜ ao cruzada em dez subconjuntos .  Dife- ˜
 rentes conjuntos de atributos foram utilizados (incluindo o uso de todos os atributos ou
-apenas daqueles selecionados pelos seletores de atributos). Os classificadores que atingiram os melhores resultados e compoe os modelos produzidos ao final dos testes foram: ˜
-BayesNet, NaiveBayes e RandomTree e os melhores resultados foram aqueles utilizando
-os atributos selecionados por CFSSubsetEval.
+apenas daqueles selecionados pelos seletores de atributos) .  Os classificadores que atingiram os melhores resultados e compoe os modelos produzidos ao final dos testes foram: ˜
+BayesNet , NaiveBayes e RandomTree e os melhores resultados foram aqueles utilizando
+os atributos selecionados por CFSSubsetEval . 
 Rede Bayesiana (BayesNet) corresponde a aplicac¸ ` ao do Teorema de Bayes a mo- ˜
-delos probabil´isticos representados por grafos ac´iclicos direcionados. A estruturac¸ao da ˜
+delos probabil´isticos representados por grafos ac´iclicos direcionados .  A estruturac¸ao da ˜
 rede pode ser feita de maneira automatica ao utilizar-se de um m ´ etodo de busca aliado ´
-a um sistema de avaliac¸ao [Korb and Nicholson 2010]. O algoritmo ˜ NaiveBayes, assim
-como o BayesNet, trata-se da aplicac¸ao do Teorema de Bayes a modelos probabil ˜ ´isticos.
-Entretanto, neste algoritmo aplica-se o teorema aos atributos do conjunto de dados assumindo forte independencia entre estes [John and Langley 1995]. ˆ RandomTree trata-se de
+a um sistema de avaliac¸ao [Korb and Nicholson 2010] .  O algoritmo ˜ NaiveBayes , assim
+como o BayesNet , trata-se da aplicac¸ao do Teorema de Bayes a modelos probabil ˜ ´isticos . 
+Entretanto , neste algoritmo aplica-se o teorema aos atributos do conjunto de dados assumindo forte independencia entre estes [John and Langley 1995] .  ˆ RandomTree trata-se de
 Anais do VII Brazilian Workshop on Social Network Analysis and Mining - BraSNAM 2018
 80
 um algoritmo de arvore de decis ´ ao no qual s ˜ ao escolhidos ˜ k atributos aleatorios a fim de ´
-realizar a classificac¸ao de uma inst ˜ ancia [Hastie et al. 2001]. ˆ
+realizar a classificac¸ao de uma inst ˜ ancia [Hastie et al .  2001] .  ˆ
 A proxima sec¸ ´ ao apresenta e discute os resultados da an ˜ alise dos atributos e ´
-classificac¸ao dos programas. ˜
-3. Resultados
-No Brasil, o oferecimento regular de programas de pos-graduac¸ ´ ao˜ e condicionado ´ a`
-obtenc¸ao de conceitos CAPES entre 3 e 7. Na avaliac¸ ˜ ao atual da CAPES, um programa ˜
-na area de Ci ´ encia da Computac¸ ˆ ao recebeu nota 2. Assim, dividiu-se o processo de ˜
+classificac¸ao dos programas .  ˜
+3 .  Resultados
+No Brasil , o oferecimento regular de programas de pos-graduac¸ ´ ao˜ e condicionado ´ a`
+obtenc¸ao de conceitos CAPES entre 3 e 7 .  Na avaliac¸ ˜ ao atual da CAPES , um programa ˜
+na area de Ci ´ encia da Computac¸ ˆ ao recebeu nota 2 .  Assim , dividiu-se o processo de ˜
 classificac¸ao em duas principais vertentes: uma fazendo uso do conjunto de dados in- ˜
 teiro incluindo-se o programa de nota 2 e outra incluindo apenas programas com notas de
-3 a 7.
+3 a 7 . 
 A figura 1 apresenta os valores de correlac¸ao entre cada um dos atributos extra ˜ ´idos
-ou calculados e o Conceito CAPES atual dos programas. Observa-se que os valores das
+ou calculados e o Conceito CAPES atual dos programas .  Observa-se que os valores das
 correlac¸oes considerando todos os programas ou apenas aqueles que possuem conceitos ˜
-entre 3 e 7 sao muito pr ˜ oximos. Nessa figura, os atributos est ´ ao ordenados de acordo com ˜
-o valor de suas correlac¸oes (do maior para o menor). Os valores elevados de correlac¸ ˜ ao˜
+entre 3 e 7 sao muito pr ˜ oximos .  Nessa figura , os atributos est ´ ao ordenados de acordo com ˜
+o valor de suas correlac¸oes (do maior para o menor) .  Os valores elevados de correlac¸ ˜ ao˜
 indicam que quanto maior o valor de um dado atributo ha maior chance do programa obter ´
-um conceito CAPES maior.
+um conceito CAPES maior . 
 O maior valor de correlac¸ao ocorre entre o Conceito CAPES atual (quadri ˜ enio ˆ
-2013 a 2016) e o Conceito CAPES anterior (trienio 2010 a 2012). As tr ˆ es correlac¸ ˆ oes se- ˜
+2013 a 2016) e o Conceito CAPES anterior (trienio 2010 a 2012) .  As tr ˆ es correlac¸ ˆ oes se- ˜
 guintes possuem valores muito proximos e est ´ ao ligadas ˜ as publicac¸ ` oes ou pontuac¸ ˜ oes ˜
-obtidas via publicac¸oes, s ˜ ao elas: Publicac¸ ˜ oes ˜
-´Indice Restrito - Totais, Publicac¸oes - ˜
-Pontuac¸ao, Publicac¸ ˜ oes ˜
-´Indice Restrito - Pontuac¸ao. A quarta maior correlac¸ ˜ ao ocorre ˜
-com o atributo Teses de doutorado. A sexta e a setima maiores correlac¸ ´ oes ocorrem com ˜
+obtidas via publicac¸oes , s ˜ ao elas: Publicac¸ ˜ oes ˜
+´Indice Restrito - Totais , Publicac¸oes - ˜
+Pontuac¸ao , Publicac¸ ˜ oes ˜
+´Indice Restrito - Pontuac¸ao .  A quarta maior correlac¸ ˜ ao ocorre ˜
+com o atributo Teses de doutorado .  A sexta e a setima maiores correlac¸ ´ oes ocorrem com ˜
 duas medidas de centralidade ao se considerar a rede em que cada programa corresponde
-a um no: Centralidade de grau e Centralidade Page Rank. ´
+a um no: Centralidade de grau e Centralidade Page Rank .  ´
 Apenas uma medida diretamente relacionada as citac¸ ` oes dos artigos dos orienta- ˜
 dores aparece entre as dez maiores correlac¸oes: M ˜ edia do ´
-´Indice H 5 (isto e, a m ´ edia do ´
-´indice H considerando-se as citac¸oes recebidas nos ˜ ultimos cinco anos). A nona maior ´
+´Indice H 5 (isto e , a m ´ edia do ´
+´indice H considerando-se as citac¸oes recebidas nos ˜ ultimos cinco anos) .  A nona maior ´
 correlac¸ao ocorre com o atributo Publicac¸ ˜ oes - Totais (n ˜ umero total de artigos publicados ´
-em anais de eventos ou periodicos). Por outro lado, a d ´ ecima maior correlac¸ ´ ao ocorre ˜
+em anais de eventos ou periodicos) .  Por outro lado , a d ´ ecima maior correlac¸ ´ ao ocorre ˜
 com uma medida “por pesquisador”: Publicac¸oes ˜
 ´Indice Restrito - Pontuac¸ao˜ PP que e a ´
-mesma medida que apresentou a quarta maior correlac¸ao, por ˜ em ponderada pelo n ´ umero ´
-de pesquisadores do programa. Destaca-se que todos os atributos avaliados “por pesquisador” apresentaram correlac¸oes inferiores do que aquelas obtidas pelo valor total (n ˜ ao˜
-ponderado) da respectiva medida.
-Apenas quatro atributos apresentaram correlac¸oes negativas, sendo que nenhuma ˜
-delas possui valor absoluto alto. Destaca-se apenas a correlac¸ao com valor mais alto, que ˜
-ocorreu com o atributo Densidade. Esta correlac¸ao, apesar de n ˜ ao possuir valor muito ˜
-alto, indica que ha uma relac¸ ´ ao entre a rede de coautorias do programa ser mais densa e o ˜
-programa possuir um conceito CAPES menor. Isto pode sugerir que programas cujas coautorias estao muito concentradas dentro do programa acabam tendo uma produc¸ ˜ ao mais ˜
-limitada do que aqueles cujas coautorias ocorrem mais frequentemente com colaboradores externos ao programa.
+mesma medida que apresentou a quarta maior correlac¸ao , por ˜ em ponderada pelo n ´ umero ´
+de pesquisadores do programa .  Destaca-se que todos os atributos avaliados “por pesquisador” apresentaram correlac¸oes inferiores do que aquelas obtidas pelo valor total (n ˜ ao˜
+ponderado) da respectiva medida . 
+Apenas quatro atributos apresentaram correlac¸oes negativas , sendo que nenhuma ˜
+delas possui valor absoluto alto .  Destaca-se apenas a correlac¸ao com valor mais alto , que ˜
+ocorreu com o atributo Densidade .  Esta correlac¸ao , apesar de n ˜ ao possuir valor muito ˜
+alto , indica que ha uma relac¸ ´ ao entre a rede de coautorias do programa ser mais densa e o ˜
+programa possuir um conceito CAPES menor .  Isto pode sugerir que programas cujas coautorias estao muito concentradas dentro do programa acabam tendo uma produc¸ ˜ ao mais ˜
+limitada do que aqueles cujas coautorias ocorrem mais frequentemente com colaboradores externos ao programa . 
 Anais do VII Brazilian Workshop on Social Network Analysis and Mining - BraSNAM 2018
 81
-Figura 1. Correlac¸oes entre os atributos utilizados e o conceito CAPES ˜
+Figura 1 .  Correlac¸oes entre os atributos utilizados e o conceito CAPES ˜
 atribu´idos aos programas
-As demais analises realizadas nesta sec¸ ´ ao foram divididas em duas subsec¸ ˜ oes, ˜
+As demais analises realizadas nesta sec¸ ´ ao foram divididas em duas subsec¸ ˜ oes , ˜
 uma considerando todos os programas avaliados e outra apenas para os programas com
-conceitos de 3 a 7.
-3.1. Analise para todos os programas avaliados ´
-A tabela 3 apresenta os dez atributos melhor ranqueados de acordo com o seletor de atributos ChiSquaredAttributeEval. Observa-se que seis dessas medidas (ou atributos) sao˜
-relacionadas as publicac¸ ` oes ou citac¸ ˜ oes, sendo duas relacionadas ˜ as pontuac¸ ` oes basea- ˜
+conceitos de 3 a 7 . 
+3 . 1 .  Analise para todos os programas avaliados ´
+A tabela 3 apresenta os dez atributos melhor ranqueados de acordo com o seletor de atributos ChiSquaredAttributeEval .  Observa-se que seis dessas medidas (ou atributos) sao˜
+relacionadas as publicac¸ ` oes ou citac¸ ˜ oes , sendo duas relacionadas ˜ as pontuac¸ ` oes basea- ˜
 das nos extratos Qualis atribu´idos aos ve´iculos nos quais os artigos foram publicados
 Anais do VII Brazilian Workshop on Social Network Analysis and Mining - BraSNAM 2018
 82
 (Publicac¸oes ˜
-´Indice Restrito - Pontuac¸ao e Publicac¸ ˜ oes - Pontuac¸ ˜ ao), ˜ a quantidade de ar- `
+´Indice Restrito - Pontuac¸ao e Publicac¸ ˜ oes - Pontuac¸ ˜ ao) , ˜ a quantidade de ar- `
 tigos publicados (Publicac¸oes ˜
 ´Indice Restrito - Totais e Publicac¸oes - Totais) e ˜ as citac¸ ` oes ˜
 recebidas pelos artigos dos orientadores do programa (Media do ´
 ´Indice H e Media do ´
-´Indice I10).
-Tabela 3. Atributos melhor ranqueados - metodo baseado no valor qui-quadrado ´
+´Indice I10) . 
+Tabela 3 .  Atributos melhor ranqueados - metodo baseado no valor qui-quadrado ´
 - programas notas 2 a 7
 Atributo Valor
-Conceito CAPES Anterior 113,06
-Dissertac¸oes de mestrado ˜ 111,52
+Conceito CAPES Anterior 113 ,06
+Dissertac¸oes de mestrado ˜ 111 ,52
 Publicac¸oes ˜
-´Indice Restrito - Totais 100,46
+´Indice Restrito - Totais 100 ,46
 Publicac¸oes ˜
-´Indice Restrito - Pontuac¸ao˜ 99,80
-Centralidade de Grau 97,46
-Publicac¸oes - Pontuac¸ ˜ ao˜ 96,17
+´Indice Restrito - Pontuac¸ao˜ 99 ,80
+Centralidade de Grau 97 ,46
+Publicac¸oes - Pontuac¸ ˜ ao˜ 96 ,17
 Media do ´
-´Indice H 86,95
-Publicac¸oes - Totais ˜ 79,99
-Teses de doutorado 79,78
+´Indice H 86 ,95
+Publicac¸oes - Totais ˜ 79 ,99
+Teses de doutorado 79 ,78
 Media do ´
-´Indice I10 79,67
+´Indice I10 79 ,67
 Os demais atributos melhor ranqueados sao o n ˜ umero total de Dissertac¸ ´ oes de ˜
 mestrado e de Teses de doutorado defendidas no quadrienio e Centralidade de Grau que ˆ e a ´
-unica m ´ etrica oriunda da an ´ alise de redes sociais entre os dez atributos listados, ocupando ´
-a quinta posic¸ao deste ranqueamento. ˜
-Destaca-se que o atributo melhor ranqueado foi Conceito CAPES Anterior,
+unica m ´ etrica oriunda da an ´ alise de redes sociais entre os dez atributos listados , ocupando ´
+a quinta posic¸ao deste ranqueamento .  ˜
+Destaca-se que o atributo melhor ranqueado foi Conceito CAPES Anterior ,
 lembrando-se que mais de dois terc¸os dos programas mantiveram a nota obtida no trienio ˆ
-anterior. Este atributo e seguido pelo n ´ umero total de Dissertac¸ ´ oes de mestrado defen- ˜
+anterior .  Este atributo e seguido pelo n ´ umero total de Dissertac¸ ´ oes de mestrado defen- ˜
 didas e Publicac¸oes ˜
-´Indice Restrito - Pontuac¸ao, isto ˜ e, a pontuac¸ ´ ao total obtida pelas ˜
-publicac¸oes no quadri ˜ enio em ve ˆ ´iculos classificados com Qualis A1, A2 e B1.
-O algoritmo CFSSubsetEval com metodo de busca ´ BestFirst tem por objetivo selecionar o subconjunto de atributos mais representativos, produzindo uma lista nao orde- ˜
-nada. Os atributos selecionados considerando os programas com conceito de 2 a 7 sao: ˜
-Publicac¸oes - Pontuac¸ ˜ ao˜ PP, Publicac¸oes ˜
-´Indice Restrito - Totais, Publicac¸oes ˜
-´Indice Restrito - Totais PP, Publicac¸oes ˜
-´Indice Restrito - Pontuac¸ao, M ˜ edia do ´
-´Indice H, Media do ´
-´Indice H 5, Centralidade de Grau, Diametro, Conceito CAPES Anterior. ˆ
-Dos nove atributos selecionados, cinco ja haviam sido selecionados pelo algoritmo ´
-ChiSquaredAttributeEval: Centralidade de Grau, Conceito CAPES Anterior, Media do ´
-´Indice H, Publicac¸oes ˜
+´Indice Restrito - Pontuac¸ao , isto ˜ e , a pontuac¸ ´ ao total obtida pelas ˜
+publicac¸oes no quadri ˜ enio em ve ˆ ´iculos classificados com Qualis A1 , A2 e B1 . 
+O algoritmo CFSSubsetEval com metodo de busca ´ BestFirst tem por objetivo selecionar o subconjunto de atributos mais representativos , produzindo uma lista nao orde- ˜
+nada .  Os atributos selecionados considerando os programas com conceito de 2 a 7 sao: ˜
+Publicac¸oes - Pontuac¸ ˜ ao˜ PP , Publicac¸oes ˜
+´Indice Restrito - Totais , Publicac¸oes ˜
+´Indice Restrito - Totais PP , Publicac¸oes ˜
+´Indice Restrito - Pontuac¸ao , M ˜ edia do ´
+´Indice H , Media do ´
+´Indice H 5 , Centralidade de Grau , Diametro , Conceito CAPES Anterior .  ˆ
+Dos nove atributos selecionados , cinco ja haviam sido selecionados pelo algoritmo ´
+ChiSquaredAttributeEval: Centralidade de Grau , Conceito CAPES Anterior , Media do ´
+´Indice H , Publicac¸oes ˜
 ´Indice Restrito - Pontuac¸ao e Publicac¸ ˜ oes ˜
-´Indice Restrito - Totais.
+´Indice Restrito - Totais . 
 Os atributos que nao haviam sido selecionados s ˜ ao Di ˜ ametro (da rede de coautorias in- ˆ
-terna de cada programa), Media do ´
-´Indice H 5, Publicac¸oes - Pontuac¸ ˜ ao˜ PP e Publicac¸oes ˜
-´Indice Restrito - Totais PP. Destaca-se que este algoritmo visa a identificar um subconjunto de atributos que seja mais significativo em relac¸ao ao Conceito CAPES atual (anali- ˜
-sados de maneira conjunta), o que e diferente de se observar os resultados anteriormente ´
-apresentados que sao focados nos atributos de maneira individual. ˜
+terna de cada programa) , Media do ´
+´Indice H 5 , Publicac¸oes - Pontuac¸ ˜ ao˜ PP e Publicac¸oes ˜
+´Indice Restrito - Totais PP .  Destaca-se que este algoritmo visa a identificar um subconjunto de atributos que seja mais significativo em relac¸ao ao Conceito CAPES atual (anali- ˜
+sados de maneira conjunta) , o que e diferente de se observar os resultados anteriormente ´
+apresentados que sao focados nos atributos de maneira individual .  ˜
 Observa-se que nos resultados do algoritmo CFSSubsetEval houve preferencia do ˆ
 uso das duas medias do ´ ´indice H (considerando todas as citac¸oes e apenas as citac¸ ˜ oes ˜
 Anais do VII Brazilian Workshop on Social Network Analysis and Mining - BraSNAM 2018
 83
-dos ultimos cinco anos), bem como da escolha de uma medida de rede que n ´ ao havia ˜
+dos ultimos cinco anos) , bem como da escolha de uma medida de rede que n ´ ao havia ˜
 sido selecionada anteriormente (Diametro) e tamb ˆ em de duas medidas “por pesquisa- ´
 dor”: Publicac¸oes - Pontuac¸ ˜ ao˜ PP e Publicac¸oes ˜
-´Indice Restrito - Totais PP. Isto revela
-que estes atributos, apesar de nao apresentarem as maiores correlac¸ ˜ oes com o Conceito ˜
-CAPES dos programas, sao relevantes para a atribuic¸ ˜ ao desses conceitos. ˜
+´Indice Restrito - Totais PP .  Isto revela
+que estes atributos , apesar de nao apresentarem as maiores correlac¸ ˜ oes com o Conceito ˜
+CAPES dos programas , sao relevantes para a atribuic¸ ˜ ao desses conceitos .  ˜
 Ao aplicar ao subconjunto obtido pelo algoritmo CFSSubsetEval o algoritmo de
-classificac¸ao˜ NaiveBayes foi poss´ivel classificar corretamente 81,82% das instancias. ˆ E´
+classificac¸ao˜ NaiveBayes foi poss´ivel classificar corretamente 81 ,82% das instancias .  ˆ E´
 importante salientar tambem que o erro de classificac¸ ´ ao em todos os casos foi de apenas ˜
-um ponto no conceito (por exemplo, todos programas de nota 4 foram classificados como
-programas de conceito 3, 4 ou 5), conforme pode ser observado na matriz de confusao˜
-(tabela 4), na qual a primeira linha representa as classificac¸oes do modelo e a ˜ ultima ´
-coluna apresenta o valor real do conceito daquele programa.
-Tabela 4. Matriz de Confusao - classificac¸ ˜ ao de todos os programas avaliados ˜
+um ponto no conceito (por exemplo , todos programas de nota 4 foram classificados como
+programas de conceito 3 , 4 ou 5) , conforme pode ser observado na matriz de confusao˜
+(tabela 4) , na qual a primeira linha representa as classificac¸oes do modelo e a ˜ ultima ´
+coluna apresenta o valor real do conceito daquele programa . 
+Tabela 4 .  Matriz de Confusao - classificac¸ ˜ ao de todos os programas avaliados ˜
 a b c d e f
 0 1 0 0 0 0 a = 2
 0 21 3 0 0 0 b = 3
@@ -389,72 +389,72 @@ a b c d e f
 0 0 2 5 0 0 d = 5
 0 0 0 0 2 1 e = 6
 0 0 0 0 1 6 f = 7
-Nao havendo conjunto de treinamento a parte para a criac¸ ˜ ao do modelo, foi uti- ˜
+Nao havendo conjunto de treinamento a parte para a criac¸ ˜ ao do modelo , foi uti- ˜
 lizado o metodo de validac¸ ´ ao cruzada em 10 ˜ folds para o treinamento e validac¸ao do ˜
-modelo gerado. Vale salientar que, por haver apenas um programa de nota 2, quando
-este era utilizado no subconjunto de treinamento, nenhuma instancia dessa classe seria ˆ
-utilizada como teste. Com isso, seria imposs´ivel para o algoritmo classificar corretamente
-este programa.
-3.2. Analise para os programas avaliados com conceitos de 3 a 7 ´
+modelo gerado .  Vale salientar que , por haver apenas um programa de nota 2 , quando
+este era utilizado no subconjunto de treinamento , nenhuma instancia dessa classe seria ˆ
+utilizada como teste .  Com isso , seria imposs´ivel para o algoritmo classificar corretamente
+este programa . 
+3 . 2 .  Analise para os programas avaliados com conceitos de 3 a 7 ´
 A tabela 5 apresenta os dez atributos melhor ranqueados de acordo com o seletor de
-atributos ChiSquaredAttributeEval. Observa-se que os atributos selecionados sao os mes- ˜
-mos presentes na tabela 3, ocorrendo apenas mudanc¸as na ordem de alguns atributos.
-Os quatro primeiros atributos aparecem em ordem diferente daqueles da tabela 3. Estas
-mudanc¸as ocorreram porque, ao excluir o programa com conceito 2 da analise, o atri- ´
+atributos ChiSquaredAttributeEval .  Observa-se que os atributos selecionados sao os mes- ˜
+mos presentes na tabela 3 , ocorrendo apenas mudanc¸as na ordem de alguns atributos . 
+Os quatro primeiros atributos aparecem em ordem diferente daqueles da tabela 3 .  Estas
+mudanc¸as ocorreram porque , ao excluir o programa com conceito 2 da analise , o atri- ´
 buto Publicac¸oes ˜
-´Indice Restrito - Pontuac¸ao subiu da quarta posic¸ ˜ ao para a primeira, ˜
-deslocando os tres atributos que haviam sido melhor ranqueados do que ele. ˆ
-Destaca-se, assim, que neste conjunto de dados o atributo melhor ranqueado foi
+´Indice Restrito - Pontuac¸ao subiu da quarta posic¸ ˜ ao para a primeira , ˜
+deslocando os tres atributos que haviam sido melhor ranqueados do que ele .  ˆ
+Destaca-se , assim , que neste conjunto de dados o atributo melhor ranqueado foi
 Publicac¸oes ˜
-´Indice Restrito - Pontuac¸ao, sendo melhor ranqueado do que o Conceito CA- ˜
-PES Anterior. Isto indica a importancia desta medida que combina a publicac¸ ˆ ao de artigos ˜
+´Indice Restrito - Pontuac¸ao , sendo melhor ranqueado do que o Conceito CA- ˜
+PES Anterior .  Isto indica a importancia desta medida que combina a publicac¸ ˆ ao de artigos ˜
 com a “qualidade” dos ve´iculos nos quais os artigos foram publicados considerando os
-extratos Qualis A1, A2 e B1. Observa-se ainda que este atributo considera a pontuac¸ao˜
-total do programa e nao aquela dividida pelo n ˜ umero de orientadores. ´
+extratos Qualis A1 , A2 e B1 .  Observa-se ainda que este atributo considera a pontuac¸ao˜
+total do programa e nao aquela dividida pelo n ˜ umero de orientadores .  ´
 Fazendo uso do seletor de atributos CFSSubsetEval com o algoritmo de busca
-BestFirst foi poss´ivel reduzir o numero de atributos a 10, sendo estes: Centralidade de ´
+BestFirst foi poss´ivel reduzir o numero de atributos a 10 , sendo estes: Centralidade de ´
 Anais do VII Brazilian Workshop on Social Network Analysis and Mining - BraSNAM 2018
 84
-Tabela 5. Atributos melhor ranqueados - metodo baseado no valor qui-quadrado ´
+Tabela 5 .  Atributos melhor ranqueados - metodo baseado no valor qui-quadrado ´
 - todos os programas
 Atributo Valor
 Publicac¸oes ˜
-´Indice Restrito - Pontuac¸ao˜ 112,91
-Conceito CAPES Anterior 110,65
-Dissertac¸oes de mestrado ˜ 109,72
+´Indice Restrito - Pontuac¸ao˜ 112 ,91
+Conceito CAPES Anterior 110 ,65
+Dissertac¸oes de mestrado ˜ 109 ,72
 Publicac¸oes ˜
-´Indice Restrito - Totais 98,64
-Centralidade de Grau 95,34
-Publicac¸oes - Pontuac¸ ˜ ao˜ 94,38
+´Indice Restrito - Totais 98 ,64
+Centralidade de Grau 95 ,34
+Publicac¸oes - Pontuac¸ ˜ ao˜ 94 ,38
 Media do ´
-´Indice H 84,32
-Publicac¸oes - Totais ˜ 78,45
-Teses de doutorado 78,36
+´Indice H 84 ,32
+Publicac¸oes - Totais ˜ 78 ,45
+Teses de doutorado 78 ,36
 Media do ´
-´Indice I10 77,94
-Grau, Conceito CAPES Anterior, Diametro, Dissertac¸ ˆ oes de mestrado M ˜ edia das Citac¸ ´ oes ˜
+´Indice I10 77 ,94
+Grau , Conceito CAPES Anterior , Diametro , Dissertac¸ ˆ oes de mestrado M ˜ edia das Citac¸ ´ oes ˜
 Media do ´
-´Indice H, Publicac¸oes - Pontuac¸ ˜ ao˜ PP, Publicac¸oes ˜
-´Indice Restrito - Pontuac¸ao, ˜
+´Indice H , Publicac¸oes - Pontuac¸ ˜ ao˜ PP , Publicac¸oes ˜
+´Indice Restrito - Pontuac¸ao , ˜
 Publicac¸oes ˜
-´Indice Restrito - Totais, Publicac¸oes ˜
-´Indice Restrito - Totais PP.
+´Indice Restrito - Totais , Publicac¸oes ˜
+´Indice Restrito - Totais PP . 
 Destacam-se as diferenc¸as ocorridas na selec¸ao atual e naquele que envolvia todos ˜
-os programas. Na selec¸ao atual, n ˜ ao consta o atributo M ˜ edia do ´
-´Indice H 5, o qual havia
-sido selecionado ao se considerar todos os programas. Por outro lado, ao se considerar
-apenas os programas com conceitos de 3 a 7, dois novos atributos foram selecionados:
+os programas .  Na selec¸ao atual , n ˜ ao consta o atributo M ˜ edia do ´
+´Indice H 5 , o qual havia
+sido selecionado ao se considerar todos os programas .  Por outro lado , ao se considerar
+apenas os programas com conceitos de 3 a 7 , dois novos atributos foram selecionados:
 Dissertac¸oes de mestrado (n ˜ umero de dissertac¸ ´ oes defendidas no quadri ˜ enio) e M ˆ edia das ´
-Citac¸oes (m ˜ edia das citac¸ ´ oes recebidas pelos orientadores ao longo de suas carreiras). ˜
+Citac¸oes (m ˜ edia das citac¸ ´ oes recebidas pelos orientadores ao longo de suas carreiras) .  ˜
 O melhor resultado da classificac¸ao considerando-se os programas com conceitos ˜
-de 3 a 7 ocorreu utilizando-se o conjunto de atributos selecionados pelo CFSSubsetEval.
-Foi realizada uma classificac¸ao em dois n ˜ ´iveis. Inicialmente separou-se os programas de
-nota 6 e 7 dos demais e depois classificaram-se os demais programas. O classificador
-RandomTree foi capaz de classificar com 100% de acerto todos programas com conceitos 6 e 7, sem nenhum falso-positivo. Desta forma, e poss ´ ´ivel utilizar o resultado deste
+de 3 a 7 ocorreu utilizando-se o conjunto de atributos selecionados pelo CFSSubsetEval . 
+Foi realizada uma classificac¸ao em dois n ˜ ´iveis .  Inicialmente separou-se os programas de
+nota 6 e 7 dos demais e depois classificaram-se os demais programas .  O classificador
+RandomTree foi capaz de classificar com 100% de acerto todos programas com conceitos 6 e 7 , sem nenhum falso-positivo .  Desta forma , e poss ´ ´ivel utilizar o resultado deste
 classificador para separar os programas com conceitos 6 e 7 e entao usar uma nova abor- ˜
-dagem para classificar os programas restantes. A tabela 6 apresenta a matriz de confusao˜
-referente a esta classificac¸ao. ˜
-Tabela 6. Matriz de Confusao - primeiro n´ivel de classificac¸ ˜ ao dos programas ˜
+dagem para classificar os programas restantes .  A tabela 6 apresenta a matriz de confusao˜
+referente a esta classificac¸ao .  ˜
+Tabela 6 .  Matriz de Confusao - primeiro n´ivel de classificac¸ ˜ ao dos programas ˜
 com conceitos de 3 a 7
 a b c d e
 16 7 1 0 0 a = 3
@@ -466,82 +466,82 @@ Para os programas com conceitos entre 3 e 5 foi realizada uma nova selec¸ao de ˜
 atributos (utilizando a mesma tecnica citada anteriormente) que resultou no seguinte sub- ´
 Anais do VII Brazilian Workshop on Social Network Analysis and Mining - BraSNAM 2018
 85
-conjunto: Centralidade de Grau, Conceito CAPES Anterior, Dissertac¸oes de mestrado ˜
+conjunto: Centralidade de Grau , Conceito CAPES Anterior , Dissertac¸oes de mestrado ˜
 Media das Citac¸ ´ oes ˜ 5 Media do ´
-´Indice H, Media dos caminhos m ´ ´inimos, Publicac¸oes ˜
-- Pontuac¸ao˜ PP, Publicac¸oes ˜
-´Indice Restrito - Pontuac¸ao, Publicac¸ ˜ oes ˜
+´Indice H , Media dos caminhos m ´ ´inimos , Publicac¸oes ˜
+- Pontuac¸ao˜ PP , Publicac¸oes ˜
+´Indice Restrito - Pontuac¸ao , Publicac¸ ˜ oes ˜
 ´Indice Restrito -
-Totais, Publicac¸oes ˜
-´Indice Restrito - Totais PP.
-Esta selec¸ao de atributos difere da anterior em dois atributos. O atributo M ˜ edia ´
+Totais , Publicac¸oes ˜
+´Indice Restrito - Totais PP . 
+Esta selec¸ao de atributos difere da anterior em dois atributos .  O atributo M ˜ edia ´
 das Citac¸oes ˜ 5 esta substituindo o atributo M ´ edia das Citac¸ ´ oes que havia sido selecionado ˜
-anteriormente, indicando que para o conjunto de programas com conceitos de 3 a 5 a
+anteriormente , indicando que para o conjunto de programas com conceitos de 3 a 5 a
 media das citac¸ ´ oes recebidas nos ˜ ultimos cinco anos ´ e mais importante do que a m ´ edia de ´
-todas as citac¸oes recebidas. A outra diferenc¸a ocorre com o atributo M ˜ edia dos caminhos ´
-m´inimos que foi selecionado no lugar do Diametro. ˆ
+todas as citac¸oes recebidas .  A outra diferenc¸a ocorre com o atributo M ˜ edia dos caminhos ´
+m´inimos que foi selecionado no lugar do Diametro .  ˆ
 Aplicando o classificador BayesNet a esse novo conjunto (considerando-se apenas
-os programas com conceitos de 3 a 5) obteve-se ´indice de acerto de 83,64%. A tabela 7
-apresenta a matriz de confusao referente a esta classificac¸ ˜ ao. ˜
-Tabela 7. Matriz de Confusao - programas com conceitos de 3 a 5 ˜
+os programas com conceitos de 3 a 5) obteve-se ´indice de acerto de 83 ,64% .  A tabela 7
+apresenta a matriz de confusao referente a esta classificac¸ ˜ ao .  ˜
+Tabela 7 .  Matriz de Confusao - programas com conceitos de 3 a 5 ˜
 a b c
 7 0 0 a = 3
 1 18 5 b = 4
 0 3 21 c = 5
-Com esta classificac¸ao em duas etapas, ao analisar os programas de nota 3 a 7, ˜
+Com esta classificac¸ao em duas etapas , ao analisar os programas de nota 3 a 7 , ˜
 obteve-se 56 classificac¸oes corretas num total de 65 programas resultando num modelo ˜
-com acuracia de 86,15%. ´
-4. Conclusoes ˜
-Neste trabalho foram medidos e analisados diferentes atributos ou caracter´isticas dos programas brasileiros de pos-graduac¸ ´ ao em Ci ˜ encia da Computac¸ ˆ ao do Brasil. Analisou-se ˜
+com acuracia de 86 ,15% .  ´
+4 .  Conclusoes ˜
+Neste trabalho foram medidos e analisados diferentes atributos ou caracter´isticas dos programas brasileiros de pos-graduac¸ ´ ao em Ci ˜ encia da Computac¸ ˆ ao do Brasil .  Analisou-se ˜
 a importancia desses atributos em relac¸ ˆ ao aos conceitos atribu ˜ ´idos pela CAPES em sua
-avaliac¸ao quadrienal, bem como a capacidade de se inferir o conceito com base nestes ˜
-atributos.
-Observando-se os resultados alcanc¸ados, e poss ´ ´ivel verificar que, dentre os
-metodos analisados, obteve-se melhores resultados ao se utilizar classificadores Baye- ´
+avaliac¸ao quadrienal , bem como a capacidade de se inferir o conceito com base nestes ˜
+atributos . 
+Observando-se os resultados alcanc¸ados , e poss ´ ´ivel verificar que , dentre os
+metodos analisados , obteve-se melhores resultados ao se utilizar classificadores Baye- ´
 sianos sobre subconjuntos de atributos selecionados tendo como objetivo a minimizac¸ao˜
 da correlac¸ao entre estes e a maximizac¸ ˜ ao da correlac¸ ˜ ao de cada atributo com o atributo ˜
-classe, visando assim a eliminac¸ao de redund ˜ ancias. ˆ
-Com o modelo obtido e poss ´ ´ivel, por exemplo, automatizar parte do processo
-de avaliac¸ao destes programas, bem como utiliz ˜ a-lo para auto-avaliac¸ ´ ao por parte das ˜
+classe , visando assim a eliminac¸ao de redund ˜ ancias .  ˆ
+Com o modelo obtido e poss ´ ´ivel , por exemplo , automatizar parte do processo
+de avaliac¸ao destes programas , bem como utiliz ˜ a-lo para auto-avaliac¸ ´ ao por parte das ˜
 universidades responsaveis pelos programas em janelas de tempo diferentes daquela em ´
-uso pela CAPES.
+uso pela CAPES . 
 Como trabalhos futuros pretende-se explorar outras estrategias de selec¸ ´ ao de atri- ˜
-butos e classificac¸ao, bem como estender a an ˜ alise realizada para programas avaliados por ´
-outros comites. ˆ
+butos e classificac¸ao , bem como estender a an ˜ alise realizada para programas avaliados por ´
+outros comites .  ˆ
 Anais do VII Brazilian Workshop on Social Network Analysis and Mining - BraSNAM 2018
 86
 Agradecimentos
 Este trabalho foi parcialmente financiado pelo Programa de Educac¸ao Tutorial (PET) do ˜
-Ministerio da Educac¸ ´ ao e pelo CNPq. ˜
+Ministerio da Educac¸ ´ ao e pelo CNPq .  ˜
 Referencias ˆ
-Digiampietri, L., Linden, R., and Barbosa, L. (2016). Caracterizando departamentos
-e programas de computac¸ao utilizando an ˜ alise de redes sociais e bibliometria. In ´ V
-Brazilian Workshop on Social Network Analysis and Mining (BraSNAM 2016).
-Digiampietri, L. A. and Ferreira, J. E. (2018). Desambiguac¸ao de nomes de autores para ˜
-a identificac¸ao autom ˜ atica de perfis acad ´ emicos. ˆ Em Questao˜ , pages 1–12.
-Digiampietri, L. A., Mena-Chalco, J., de Jesus Perez-Alcazar, J., Tuesta, E. F., Delgado,
-K., and Mugnaini, R. (2012). Minerando e caracterizando dados de curr´iculos Lattes.
-In Brazilian Workshop on Social Network Analysis and Mining (BraSNAM 2012).
-Digiampietri, L. A., Mena-Chalco, J. P., Vaz de Melo, P. O. S., Malheiro, A. P. R., Meira,
-D. N. O., Franco, L. F., and Oliveira, L. B. (2014). Brax-ray: An x-ray of the brazilian
-computer science graduate programs. PLOS ONE, 9(4):1–12.
-Hall, M. A. (1998). Correlation-based Feature Subset Selection for Machine Learning.
-PhD thesis, University of Waikato, Hamilton, New Zealand.
-Hastie, T., Tibshirani, R., and Friedman, J. (2001). The Elements of Statistical Learning.
-Springer Series in Statistics. Springer New York Inc., New York, NY, USA.
-John, G. H. and Langley, P. (1995). Estimating continuous distributions in bayesian classifiers. In Eleventh Conference on Uncertainty in Artificial Intelligence, pages 338–345,
-San Mateo. Morgan Kaufmann.
-Korb, K. B. and Nicholson, A. E. (2010). Bayesian Artificial Intelligence, Second Edition.
-CRC Press, Inc., Boca Raton, FL, USA, 2nd edition.
-Linden, R., Barbosa, L. F., and Digiampietri, L. A. (2017). “Brazilian style science”
+Digiampietri , L .  , Linden , R .  , and Barbosa , L .  (2016) .  Caracterizando departamentos
+e programas de computac¸ao utilizando an ˜ alise de redes sociais e bibliometria .  In ´ V
+Brazilian Workshop on Social Network Analysis and Mining (BraSNAM 2016) . 
+Digiampietri , L .  A .  and Ferreira , J .  E .  (2018) .  Desambiguac¸ao de nomes de autores para ˜
+a identificac¸ao autom ˜ atica de perfis acad ´ emicos .  ˆ Em Questao˜  , pages 1–12 . 
+Digiampietri , L .  A .  , Mena-Chalco , J .  , de Jesus Perez-Alcazar , J .  , Tuesta , E .  F .  , Delgado ,
+K .  , and Mugnaini , R .  (2012) .  Minerando e caracterizando dados de curr´iculos Lattes . 
+In Brazilian Workshop on Social Network Analysis and Mining (BraSNAM 2012) . 
+Digiampietri , L .  A .  , Mena-Chalco , J .  P .  , Vaz de Melo , P .  O .  S .  , Malheiro , A .  P .  R .  , Meira ,
+D .  N .  O .  , Franco , L .  F .  , and Oliveira , L .  B .  (2014) .  Brax-ray: An x-ray of the brazilian
+computer science graduate programs .  PLOS ONE , 9(4):1–12 . 
+Hall , M .  A .  (1998) .  Correlation-based Feature Subset Selection for Machine Learning . 
+PhD thesis , University of Waikato , Hamilton , New Zealand . 
+Hastie , T .  , Tibshirani , R .  , and Friedman , J .  (2001) .  The Elements of Statistical Learning . 
+Springer Series in Statistics .  Springer New York Inc .  , New York , NY , USA . 
+John , G .  H .  and Langley , P .  (1995) .  Estimating continuous distributions in bayesian classifiers .  In Eleventh Conference on Uncertainty in Artificial Intelligence , pages 338–345 ,
+San Mateo .  Morgan Kaufmann . 
+Korb , K .  B .  and Nicholson , A .  E .  (2010) .  Bayesian Artificial Intelligence , Second Edition . 
+CRC Press , Inc .  , Boca Raton , FL , USA , 2nd edition . 
+Linden , R .  , Barbosa , L .  F .  , and Digiampietri , L .  A .  (2017) .  “Brazilian style science”
 – an analysis of the difference between Brazilian and international computer science
-departments and graduate programs using social networks analysis and bibliometrics.
-Social Network Analysis and Mining, 7(1):44.
-Mena-Chalco, J. P., Digiampietri, L. A., Lopes, F. M., and Cesar, R. M. (2014). Brazilian bibliometric coauthorship networks. Journal of the Association for Information
-Science and Technology, 65:1424–1445.
-Silva, T. H. P., Laender, A. H. F., Davis, C. A., da Silva, A. P. C., and Moro, M. M.
-(2017). A profile analysis of the top Brazilian computer science graduate programs.
-Scientometrics, 113(1):237–255.
-Witten, I. H., Frank, E., Hall, M. A., and Pal, C. J. (2016). Data Mining, Fourth Edition:
-Practical Machine Learning Tools and Techniques. Morgan Kaufmann Publishers Inc.,
-San Francisco, CA, USA, 4th edition.
+departments and graduate programs using social networks analysis and bibliometrics . 
+Social Network Analysis and Mining , 7(1):44 . 
+Mena-Chalco , J .  P .  , Digiampietri , L .  A .  , Lopes , F .  M .  , and Cesar , R .  M .  (2014) .  Brazilian bibliometric coauthorship networks .  Journal of the Association for Information
+Science and Technology , 65:1424–1445 . 
+Silva , T .  H .  P .  , Laender , A .  H .  F .  , Davis , C .  A .  , da Silva , A .  P .  C .  , and Moro , M .  M . 
+(2017) .  A profile analysis of the top Brazilian computer science graduate programs . 
+Scientometrics , 113(1):237–255 . 
+Witten , I .  H .  , Frank , E .  , Hall , M .  A .  , and Pal , C .  J .  (2016) .  Data Mining , Fourth Edition:
+Practical Machine Learning Tools and Techniques .  Morgan Kaufmann Publishers Inc .  ,
+San Francisco , CA , USA , 4th edition . 

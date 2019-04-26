@@ -1,310 +1,310 @@
 Interdisciplinaridade e Teoria de Redes: rede semântica de
 cliques baseada em ementas
 Júlia Carvalho Andrade1
-, Renata Souza Freitas Dantas Barreto2
-, Núbia Moura
+ , Renata Souza Freitas Dantas Barreto2
+ , Núbia Moura
 Ribeiro1
-, Hernane Borges de Barros Pereira1,2
+ , Hernane Borges de Barros Pereira1 ,2
 1Doutorado Multi-Institucional e Multidisciplinar em Difusão do Conhecimento –
-Universidade Federal da Bahia (UFBA) – Salvador – BA – Brasil
+Universidade Federal da Bahia ( UFBA ) – Salvador – BA – Brasil
 2
 Programa de Pós-Graduação em Modelagem Computacional e Tecnologia Industrial
-(SENAI-CIMATEC) – Salvador – BA – Brasil
-juliacarvalhoandrade@yahoo.com.br,{nubiamouraribeiro,
-renatasouzabarreto, hernanebbpereira}@gmail.com
-Abstract. This work proposes to investigate the semantic networks of cliques
-based to the courses descriptions of a doctoral postgraduate program. A total
-of 46 courses descriptions were compiled. Using some indexes of social and
-complex networks as a starting point, it was observed that the centralities of
-degree, closeness and betweeness are adequate indexes to perceive the
+( SENAI-CIMATEC ) – Salvador – BA – Brasil
+juliacarvalhoandrade@yahoo .com .br ,{nubiamouraribeiro ,
+renatasouzabarreto , hernanebbpereira}@gmail .com
+Abstract . This work proposes to investigate the semantic networks of cliques
+based to the courses descriptions of a doctoral postgraduate program . A total
+of 46 courses descriptions were compiled . Using some indexes of social and
+complex networks as a starting point , it was observed that the centralities of
+degree , closeness and betweeness are adequate indexes to perceive the
 coherence and consistency of the proposal of a program with its set of courses
-descriptions. And the identification of the common topics in the courses
+descriptions . And the identification of the common topics in the courses
 descriptions helps in the perception of the interactions between the courses of
-a program.
-Resumo. Este trabalho propõe investigar a rede semântica de cliques baseada
-em ementas de um programa de pós-graduação de doutorado. Foram
-coletadas 46 ementas de componentes curriculares. Usando alguns índices de
-redes sociais e complexas como ponto de partida, observou-se que as
-centralidades de grau, proximidade e intermediação são índices adequados
+a program .
+Resumo . Este trabalho propõe investigar a rede semântica de cliques baseada
+em ementas de um programa de pós-graduação de doutorado . Foram
+coletadas 46 ementas de componentes curriculares . Usando alguns índices de
+redes sociais e complexas como ponto de partida , observou-se que as
+centralidades de grau , proximidade e intermediação são índices adequados
 para perceber a coerência e consistência da proposta de um programa com
-seu ementário. E a identificação dos temas em comum às ementas auxilia na
-percepção das interações entre os componentes curriculares de um programa.
-1. Introdução
+seu ementário . E a identificação dos temas em comum às ementas auxilia na
+percepção das interações entre os componentes curriculares de um programa .
+1 . Introdução
 Os componentes curriculares da matriz curricular de um programa de pós-graduação
-(PPG) têm como objetivo proporcionar os conhecimentos necessários ao aprendizado
-proposto pelo PPG. Cada componente curricular possui uma ementa, que consiste em
-uma descrição discursiva e resumida do seu conteúdo teórico (conceitual) ou teóricometodológico (conceitual/procedimental). Neste sentido, o ementário de um PPG pode
-ser considerado um discurso escrito, o qual deve refletir sua proposta para o
-aprendizado. Ademais, cada ementa pode ser considerada uma sentença do discurso e o
-universo de palavras das ementas representa o vocabulário do discurso do PPG.
- No Brasil, os programas de pós-graduação são avaliados e reconhecidos pela
-Coordenação de Aperfeiçoamento de Pessoal de Nível Superior (CAPES), e
-classificados em áreas de concentração, dentro de áreas de avaliação. Segundo a
+( PPG ) têm como objetivo proporcionar os conhecimentos necessários ao aprendizado
+proposto pelo PPG . Cada componente curricular possui uma ementa , que consiste em
+uma descrição discursiva e resumida do seu conteúdo teórico ( conceitual ) ou teóricometodológico ( conceitual/procedimental ) . Neste sentido , o ementário de um PPG pode
+ser considerado um discurso escrito , o qual deve refletir sua proposta para o
+aprendizado . Ademais , cada ementa pode ser considerada uma sentença do discurso e o
+universo de palavras das ementas representa o vocabulário do discurso do PPG .
+ No Brasil , os programas de pós-graduação são avaliados e reconhecidos pela
+Coordenação de Aperfeiçoamento de Pessoal de Nível Superior ( CAPES ) , e
+classificados em áreas de concentração , dentro de áreas de avaliação . Segundo a
 Anais do VII Brazilian Workshop on Social Network Analysis and Mining - BraSNAM 2018
 136
-CAPES (2013), a estrutura curricular de um PPG deve ser adequada à formação de
-mestres e doutores, e constituída por um conjunto de componentes curriculares
-congruente com as áreas de concentração e as linhas de pesquisa. Desta forma, os text
-educação matemática, em inglês e português. Já Teixeira et al. (2010), Lopes et al.
-(2015) e Lima-Neto et al. (2018) utilizaram redes semânticas de cliques para analisar a
-relação entre as palavras que emergem em discursos orais.
- Ademais, Fadigas e Pereira (2013) propuseram um conjunto de índices para
+CAPES ( 2013 ) , a estrutura curricular de um PPG deve ser adequada à formação de
+mestres e doutores , e constituída por um conjunto de componentes curriculares
+congruente com as áreas de concentração e as linhas de pesquisa . Desta forma , os text
+educação matemática , em inglês e português . Já Teixeira et al . ( 2010 ) , Lopes et al .
+( 2015 ) e Lima-Neto et al . ( 2018 ) utilizaram redes semânticas de cliques para analisar a
+relação entre as palavras que emergem em discursos orais .
+ Ademais , Fadigas e Pereira ( 2013 ) propuseram um conjunto de índices para
 capturar as propriedades de redes semânticas de cliques e um método para caracterizar
-o fenômeno mundo pequeno nestas redes, utilizando como fonte de dados RST. E Grilo
-et al. (2017) investigaram a robustez de redes semânticas de cliques.
-3. Metodologia
-O fluxograma do processo metodológico é apresentado na Figura 2.
-Figura 2: Fluxograma do processo metodológico. Fonte: Autores.
- Para modelagem da rede de ementas foi definido como cenário um PPG, em
-nível de doutorado, da área de avaliação interdisciplinar da CAPES. O corpus de
+o fenômeno mundo pequeno nestas redes , utilizando como fonte de dados RST . E Grilo
+et al . ( 2017 ) investigaram a robustez de redes semânticas de cliques .
+3 . Metodologia
+O fluxograma do processo metodológico é apresentado na Figura 2 .
+Figura 2: Fluxograma do processo metodológico . Fonte: Autores .
+ Para modelagem da rede de ementas foi definido como cenário um PPG , em
+nível de doutorado , da área de avaliação interdisciplinar da CAPES . O corpus de
 análise da sua proposta é constituído pelo texto descritivo da sua área de concentração –
 “Modelagem da Geração e Difusão do Conhecimento” e pelos títulos das três linhas de
-pesquisa – 1. Construção do Conhecimento: Cognição, Linguagens e Informação / 2.
-Difusão do Conhecimento: Informação, Comunicação e Gestão / 3. Cultura e
-Conhecimento: Transversalidade, Interseccionalidade e (In)formação. Estas
-informações foram obtidas na Plataforma Sucupira. E o ementário com 46 ementas foi
-disponibilizado pelo colegiado do PPG estudado, que autorizou a pesquisa por meio da
-assinatura de Carta de Anuência. Vale salientar que este trabalho foi apreciado e
+pesquisa – 1 . Construção do Conhecimento: Cognição , Linguagens e Informação / 2 .
+Difusão do Conhecimento: Informação , Comunicação e Gestão / 3 . Cultura e
+Conhecimento: Transversalidade , Interseccionalidade e ( In )formação . Estas
+informações foram obtidas na Plataforma Sucupira . E o ementário com 46 ementas foi
+disponibilizado pelo colegiado do PPG estudado , que autorizou a pesquisa por meio da
+assinatura de Carta de Anuência . Vale salientar que este trabalho foi apreciado e
 aprovado pelo Comitê de Ética em Pesquisa da Escola de Nutrição da Universidade
-Federal da Bahia (Número do parecer: 2.487.366).
+Federal da Bahia ( Número do parecer: 2 .487 .366 ) .
  Os processos “Definição dos temas-chave” e “Definição do vocabulário de
-controle” (Figura 2) foram realizados de forma manual, seguindo as etapas: (1) Préanálise do corpus a partir da leitura para familiarização com o texto descritivo da área
-de concentração, títulos das linhas de pesquisa e ementas; (2) Identificação dos temasAnais do VII Brazilian Workshop on Social Network Analysis and Mining - BraSNAM 2018
+controle” ( Figura 2 ) foram realizados de forma manual , seguindo as etapas: ( 1 ) Préanálise do corpus a partir da leitura para familiarização com o texto descritivo da área
+de concentração , títulos das linhas de pesquisa e ementas; ( 2 ) Identificação dos temasAnais do VII Brazilian Workshop on Social Network Analysis and Mining - BraSNAM 2018
 138
 chave no texto descritivo da área de concentração e nos títulos das linhas de pesquisa
 que representassem o conteúdo teórico ou teórico-metodológico da proposta de
-aprendizagem do PPG investigado; (3) Identificação de palavras relacionadas
-semanticamente aos temas-chave nas ementas; (4) Quantificação da frequência de
+aprendizagem do PPG investigado; ( 3 ) Identificação de palavras relacionadas
+semanticamente aos temas-chave nas ementas; ( 4 ) Quantificação da frequência de
 aparição das palavras relacionadas aos temas-chave nas ementas a fim de selecionar
-aquelas de maior ocorrência, que foram escolhidas para representar os temas-chave.
- Após essas etapas, foram identificados 15 temas-chave e palavras relacionadas
-que compõem o vocabulário de controle usado no tratamento das ementas (Tabela 1).
-Cabe ressaltar que os temas-chave “conhecimento”, “construção do conhecimento”,
-“difusão do conhecimento” e “geração do conhecimento”, apesar de estarem
-estreitamente relacionados entre si, possuem significados distintos.
-Tabela 1: Vocabulário de controle. Entre parêntese, a frequência de aparição
-das palavras relacionadas aos temas-chave nas ementas. E em negrito, as
-palavras de maior ocorrência por tema-chave.
-TEMAS-CHAVE (T) PALAVRAS RELACIONADAS
-T1 Metodologia Método (7), metodologias (2), aspectos metodológicos (1),
-metodologias participativas (1), recorte teórico-metodológico (1)
-T2 Cognição Análise cognitiva (2), ciências cognitivas (2), analista cognitivo (1),
-cognição (1), cognólogo (1), processos cognitivos (1)
-T3 Complexidade Complexidade (5), redes complexas (1), sistemas complexos (1)
-T4 Comunicação Comunicação (2), canais de comunicação (1), cenário comunicativo
-(1), comunicação não verbal (1), relações comunicativas (1)
+aquelas de maior ocorrência , que foram escolhidas para representar os temas-chave .
+ Após essas etapas , foram identificados 15 temas-chave e palavras relacionadas
+que compõem o vocabulário de controle usado no tratamento das ementas ( Tabela 1 ) .
+Cabe ressaltar que os temas-chave “conhecimento” , “construção do conhecimento” ,
+“difusão do conhecimento” e “geração do conhecimento” , apesar de estarem
+estreitamente relacionados entre si , possuem significados distintos .
+Tabela 1: Vocabulário de controle . Entre parêntese , a frequência de aparição
+das palavras relacionadas aos temas-chave nas ementas . E em negrito , as
+palavras de maior ocorrência por tema-chave .
+TEMAS-CHAVE ( T ) PALAVRAS RELACIONADAS
+T1 Metodologia Método ( 7 ) , metodologias ( 2 ) , aspectos metodológicos ( 1 ) ,
+metodologias participativas ( 1 ) , recorte teórico-metodológico ( 1 )
+T2 Cognição Análise cognitiva ( 2 ) , ciências cognitivas ( 2 ) , analista cognitivo ( 1 ) ,
+cognição ( 1 ) , cognólogo ( 1 ) , processos cognitivos ( 1 )
+T3 Complexidade Complexidade ( 5 ) , redes complexas ( 1 ) , sistemas complexos ( 1 )
+T4 Comunicação Comunicação ( 2 ) , canais de comunicação ( 1 ) , cenário comunicativo
+( 1 ) , comunicação não verbal ( 1 ) , relações comunicativas ( 1 )
 T5 Ciência
-Ciência (7), desenvolvimento científico (1), difusão da ciência (1),
-disseminação da ciência (1), divulgação da ciência (1), invenção (1),
-científica (1), pesquisa científica (1), popularização da ciência (1),
-produção científica (1)
+Ciência ( 7 ) , desenvolvimento científico ( 1 ) , difusão da ciência ( 1 ) ,
+disseminação da ciência ( 1 ) , divulgação da ciência ( 1 ) , invenção ( 1 ) ,
+científica ( 1 ) , pesquisa científica ( 1 ) , popularização da ciência ( 1 ) ,
+produção científica ( 1 )
 T6 Tecnologia
-Tecnologia (4), desenvolvimento tecnológico (1), dimensão
-tecnológica (1), inovação tecnológica (1), tecnologias da comunicação
-(1), tecnologias da informação (2), transferência de tecnologia (1)
+Tecnologia ( 4 ) , desenvolvimento tecnológico ( 1 ) , dimensão
+tecnológica ( 1 ) , inovação tecnológica ( 1 ) , tecnologias da comunicação
+( 1 ) , tecnologias da informação ( 2 ) , transferência de tecnologia ( 1 )
 T7 Conhecimento
-Conhecimento (11), gestão do conhecimento (3), padronização do
-conhecimento (2), bases de conhecimento (1), campos de conhecimento
-(1), controle do conhecimento (1), disseminação do conhecimento (1),
-divulgação do conhecimento (1), popularização do conhecimento (1)
+Conhecimento ( 11 ) , gestão do conhecimento ( 3 ) , padronização do
+conhecimento ( 2 ) , bases de conhecimento ( 1 ) , campos de conhecimento
+( 1 ) , controle do conhecimento ( 1 ) , disseminação do conhecimento ( 1 ) ,
+divulgação do conhecimento ( 1 ) , popularização do conhecimento ( 1 )
 T8 Construção do
-conhecimento Construção do conhecimento (3)
+conhecimento Construção do conhecimento ( 3 )
 T9 Cultura
-Cultura (4), cibercultura (2), abordagens culturais (1), antropologia
-cultural (1), contextos culturais (1), cultura brasileira (1), culturalismo
-(1), diversidade cultural (1), indústria cultural (1), matrizes culturais
-(1), pluralismo cultural (1), politicas culturais (1), produção cultural (1)
+Cultura ( 4 ) , cibercultura ( 2 ) , abordagens culturais ( 1 ) , antropologia
+cultural ( 1 ) , contextos culturais ( 1 ) , cultura brasileira ( 1 ) , culturalismo
+( 1 ) , diversidade cultural ( 1 ) , indústria cultural ( 1 ) , matrizes culturais
+( 1 ) , pluralismo cultural ( 1 ) , politicas culturais ( 1 ) , produção cultural ( 1 )
 T10 Difusão do
-conhecimento Difusão do conhecimento (11)
-T11 Epistemologia Epistemologia (1), bases epistemológicas (1), correntes
-epistemológicas (1), escolhas epistemológicas (1)
+conhecimento Difusão do conhecimento ( 11 )
+T11 Epistemologia Epistemologia ( 1 ) , bases epistemológicas ( 1 ) , correntes
+epistemológicas ( 1 ) , escolhas epistemológicas ( 1 )
 T12 Geração do
-conhecimento Geração do conhecimento (2)
-T13 Informação Informação (3), disseminação da informação (1)
-T14 Linguagem Linguagem (5)
-T15 Modelagem Modelo (9), modelagem (3), modelagem computacional (2)
+conhecimento Geração do conhecimento ( 2 )
+T13 Informação Informação ( 3 ) , disseminação da informação ( 1 )
+T14 Linguagem Linguagem ( 5 )
+T15 Modelagem Modelo ( 9 ) , modelagem ( 3 ) , modelagem computacional ( 2 )
 
 Anais do VII Brazilian Workshop on Social Network Analysis and Mining - BraSNAM 2018
 139
-Na construção de uma rede semântica de cliques baseada em ementas, cada
-ementa é considerada uma sentença de um discurso escrito, que, por sua vez, forma
-uma clique. As palavras de cada ementa são os vértices de uma clique e as arestas são
-as conexões entre as palavras que aparecem na mesma ementa. As palavras em comum
-às ementas são os vértices em comum às cliques, que fazem a justaposição e
-sobreposição das cliques, formando, assim, a rede de ementas (Figura 3).
-Figura 3: Excerto de uma rede de ementas. Fonte: Autores.
+Na construção de uma rede semântica de cliques baseada em ementas , cada
+ementa é considerada uma sentença de um discurso escrito , que , por sua vez , forma
+uma clique . As palavras de cada ementa são os vértices de uma clique e as arestas são
+as conexões entre as palavras que aparecem na mesma ementa . As palavras em comum
+às ementas são os vértices em comum às cliques , que fazem a justaposição e
+sobreposição das cliques , formando , assim , a rede de ementas ( Figura 3 ) .
+Figura 3: Excerto de uma rede de ementas . Fonte: Autores .
  A Figura 3 mostra a rede semântica de cliques resultante das ementas das
 disciplinas “EDCA93 - Gestão do Conhecimento e Aprendizagem Colaborativa” e
-“EDCA94 - Infoeducação e Educação à Distância”. As palavras "processo", “difusão do
-conhecimento” e “geração do conhecimento” são as palavras em comuns às ementas,
-que atuam como vértices de conexão fazendo a sobreposição entre as duas cliques.
+“EDCA94 - Infoeducação e Educação à Distância” . As palavras "processo" , “difusão do
+conhecimento” e “geração do conhecimento” são as palavras em comuns às ementas ,
+que atuam como vértices de conexão fazendo a sobreposição entre as duas cliques .
  Os processos de “Tratamento das ementas” e “Construção da rede semântica de
-cliques baseada em ementas” (Figura 2) foram realizados conforme as etapas a seguir:
- (1) União das ementas em um único discurso, sendo cada ementa inserida em
-uma linha em um arquivo de formato .txt.
- (2) Tratamento manual das ementas, que consistiu na aplicação de 11 regras
-gerais propostas por Pereira et al. (2011) e aplicação de uma nova regra devido a uma
-especificidade deste estudo, a saber: Em alguns casos, foi necessária a introdução de
-palavras de maior ocorrência por temas-chave nas ementas que tratavam dos temaschave, mas que não as continham. Isto propiciou a conexão entre as cliques que
-tratavam do mesmo tema-chave.
- Por exemplo, havia ementas que explanavam sobre vários tipos de métodos (e.g.
-método analítico simplex, método de Householder e métodos estocásticos), e, seguindo
-o tratamento manual, estas palavras foram convertidas em “métodoanalíticosimplex”,
-“métododehouseholder” e “métodosestocásticos”, respectivamente. Como neste caso
-não aparecia a palavra “método” sozinha na ementa, a clique não iria se conectar a
-outras que tratassem do tema “T1: Metodologia” (Tabela 1), fazendo-se necessária a
-aplicação desta nova regra.
+cliques baseada em ementas” ( Figura 2 ) foram realizados conforme as etapas a seguir:
+ ( 1 ) União das ementas em um único discurso , sendo cada ementa inserida em
+uma linha em um arquivo de formato  .txt .
+ ( 2 ) Tratamento manual das ementas , que consistiu na aplicação de 11 regras
+gerais propostas por Pereira et al . ( 2011 ) e aplicação de uma nova regra devido a uma
+especificidade deste estudo , a saber: Em alguns casos , foi necessária a introdução de
+palavras de maior ocorrência por temas-chave nas ementas que tratavam dos temaschave , mas que não as continham . Isto propiciou a conexão entre as cliques que
+tratavam do mesmo tema-chave .
+ Por exemplo , havia ementas que explanavam sobre vários tipos de métodos ( e .g .
+método analítico simplex , método de Householder e métodos estocásticos ) , e , seguindo
+o tratamento manual , estas palavras foram convertidas em “métodoanalíticosimplex” ,
+“métododehouseholder” e “métodosestocásticos” , respectivamente . Como neste caso
+não aparecia a palavra “método” sozinha na ementa , a clique não iria se conectar a
+outras que tratassem do tema “T1: Metodologia” ( Tabela 1 ) , fazendo-se necessária a
+aplicação desta nova regra .
 Anais do VII Brazilian Workshop on Social Network Analysis and Mining - BraSNAM 2018
 140
  Outra situação para aplicação dessa regra ocorre quando a ementa apresenta
-pelo menos uma palavra relacionada ao tema-chave, segundo o vocabulário de controle
-(Tabela 1), mas não apresenta a palavra de maior ocorrência, sendo esta introduzida na
-ementa com o intuito de proporcionar a conexão das cliques por temas-chave.
- (3) Após essa etapa, foi feito o tratamento computacional das ementas. As
+pelo menos uma palavra relacionada ao tema-chave , segundo o vocabulário de controle
+( Tabela 1 ) , mas não apresenta a palavra de maior ocorrência , sendo esta introduzida na
+ementa com o intuito de proporcionar a conexão das cliques por temas-chave .
+ ( 3 ) Após essa etapa , foi feito o tratamento computacional das ementas . As
 ementas passaram por um conjunto de programas da UNITEX [Paumier 2008] para
-classificação, modificação e eliminação, quando necessária, das palavras. Também foi
-utilizado o conjunto de ferramentas computacionais desenvolvido por Caldeira et al.
-(2005), que permite, dentre outras coisas, identificar a classe gramatical de cada palavra
-utilizada na criação da rede. Ao final do tratamento computacional foram gerados dois
-arquivos de formato .txt: um contendo o vocabulário e a classificação gramatical das
-palavras; e outro com os pares de palavras, frequência de aparição das palavras e dos
-pares nas ementas, o qual permite identificar os vértices em comum às cliques.
- (4) Um arquivo no formato .net, também gerado na etapa anterior, foi utilizado
-para construção e análise da rede de ementas no software Gephi, versão 0.9.1. Para
-caracterizar a rede, foram empregados os índices: número de vértices (n = |V|), número
-de arestas (m = |E|), grau médio (<k>), diâmetro (D), coeficiente de aglomeração médio
-(C), caminho mínimo médio (L) e densidade (?). Estes índices foram calculados para a
-rede de ementas e para a rede aleatória correspondente, a qual foi construída para
-caracterização topológica da rede de ementas. A rede aleatória foi gerada com o mesmo
-número de vértices e grau médio da rede de ementas. E os índices empregados para
-medir a importância dos vértices foram: centralidade de grau (CG), centralidade de
-proximidade (CP) e centralidade de intermediação (CI).
-4. Resultados e Discussão
-Nesta rede de ementas, os vértices são as palavras empregadas nas ementas para
-descrever o conteúdo teórico (conceitual) ou teórico-metodológico (conceitual/
-procedimental) dos componentes curriculares. Desta forma, os vértices representam
-conceitos e as arestas representam as conexões entre estes conceitos. Para reforçar essa
-afirmação, em revisão sistemática sobre redes semânticas, Rosa (2016) observou que,
-para a maioria dos estudos analisados (80%), um vértice de uma rede semântica
+classificação , modificação e eliminação , quando necessária , das palavras . Também foi
+utilizado o conjunto de ferramentas computacionais desenvolvido por Caldeira et al .
+( 2005 ) , que permite , dentre outras coisas , identificar a classe gramatical de cada palavra
+utilizada na criação da rede . Ao final do tratamento computacional foram gerados dois
+arquivos de formato  .txt: um contendo o vocabulário e a classificação gramatical das
+palavras; e outro com os pares de palavras , frequência de aparição das palavras e dos
+pares nas ementas , o qual permite identificar os vértices em comum às cliques .
+ ( 4 ) Um arquivo no formato  .net , também gerado na etapa anterior , foi utilizado
+para construção e análise da rede de ementas no software Gephi , versão 0 .9 .1 . Para
+caracterizar a rede , foram empregados os índices: número de vértices ( n = |V| ) , número
+de arestas ( m = |E| ) , grau médio ( <k> ) , diâmetro ( D ) , coeficiente de aglomeração médio
+( C ) , caminho mínimo médio ( L ) e densidade ( ? ) . Estes índices foram calculados para a
+rede de ementas e para a rede aleatória correspondente , a qual foi construída para
+caracterização topológica da rede de ementas . A rede aleatória foi gerada com o mesmo
+número de vértices e grau médio da rede de ementas . E os índices empregados para
+medir a importância dos vértices foram: centralidade de grau ( CG ) , centralidade de
+proximidade ( CP ) e centralidade de intermediação ( CI ) .
+4 . Resultados e Discussão
+Nesta rede de ementas , os vértices são as palavras empregadas nas ementas para
+descrever o conteúdo teórico ( conceitual ) ou teórico-metodológico ( conceitual/
+procedimental ) dos componentes curriculares . Desta forma , os vértices representam
+conceitos e as arestas representam as conexões entre estes conceitos . Para reforçar essa
+afirmação , em revisão sistemática sobre redes semânticas , Rosa ( 2016 ) observou que ,
+para a maioria dos estudos analisados ( 80% ) , um vértice de uma rede semântica
 representa conceitos ou objetos e as arestas não dirigidas de uma rede semântica
-representam relações entre estes conceitos ou objetos. Considerar os vértices da rede
+representam relações entre estes conceitos ou objetos . Considerar os vértices da rede
 semântica de ementas como conceitos é importante na interpretação dos índices de
-centralidade de proximidade e intermediação, a seguir.
- A rede de ementas do PPG investigado é constituída por 766 vértices e 17.201
-arestas. É considerada esparsa (? = 0,059) e as palavras estão conectadas em média a
-aproximadamente 45 outras palavras (<k> = 44,91). Isto sugere que as ementas
-possuem um vocabulário restrito para expressar os conhecimentos pretendidos.
+centralidade de proximidade e intermediação , a seguir .
+ A rede de ementas do PPG investigado é constituída por 766 vértices e 17 .201
+arestas . É considerada esparsa ( ? = 0 ,059 ) e as palavras estão conectadas em média a
+aproximadamente 45 outras palavras ( <k> = 44 ,91 ) . Isto sugere que as ementas
+possuem um vocabulário restrito para expressar os conhecimentos pretendidos .
  A densidade é a razão entre o número de arestas existentes e o número máximo
-de arestas de uma dada rede. Em geral, percebe-se que a densidade da rede de ementas
-é maior que as observadas em RST (e.g. Pereira et al. 2016). Isto ocorre pelo fato de
+de arestas de uma dada rede . Em geral , percebe-se que a densidade da rede de ementas
+é maior que as observadas em RST ( e .g . Pereira et al . 2016 ) . Isto ocorre pelo fato de
 haver menor diversidade de palavras nas ementas do que entre as palavras dos títulos de
-artigos científicos. Quanto mais justaposições e sobreposições ocorram, maior
-densidade e maior coesão entre as ementas.
+artigos científicos . Quanto mais justaposições e sobreposições ocorram , maior
+densidade e maior coesão entre as ementas .
 Anais do VII Brazilian Workshop on Social Network Analysis and Mining - BraSNAM 2018
 141
  O coeficiente de aglomeração é um índice que mede o quanto os vértices
-vizinhos de um vértice estão conectados entre si. No caso da rede investigada, o
-coeficiente de aglomeração médio é considerado alto (C = 0,92), o que indica que os
-vizinhos dos vértices têm muitos vizinhos entre si, havendo muitas conexões entre os
-vértices. Isto pode ser explicado pelo próprio método de construção de redes semânticas
-de cliques e também pela grande quantidade de vértices em comum às ementas. Assim,
+vizinhos de um vértice estão conectados entre si . No caso da rede investigada , o
+coeficiente de aglomeração médio é considerado alto ( C = 0 ,92 ) , o que indica que os
+vizinhos dos vértices têm muitos vizinhos entre si , havendo muitas conexões entre os
+vértices . Isto pode ser explicado pelo próprio método de construção de redes semânticas
+de cliques e também pela grande quantidade de vértices em comum às ementas . Assim ,
 o coeficiente de aglomeração médio alto pode ser um indicativo de menor diversidade
-de palavras e maior ocorrência de justaposição e sobreposição.
- O diâmetro da rede investigada é igual a quatro (D = 4). O caminho mínimo
-médio informa que, em média, a distância entre as palavras é de 2,302. I, o que significa
-que as palavras são muito próximas. Isto acontece pela quantidade de justaposições e
-sobreposições entre as ementas, refletindo no maior compartilhamento de conceitos em
-comum, o que pode ser um indício de interdisciplinaridade.
- Quanto à caracterização topológica, pode-se afirmar que a rede de ementas
-(RE) apresenta o fenômeno mundo pequeno, já que possui coeficiente de aglomeração
-médio elevado em relação ao da rede aleatória (RA) correspondente (CRE = 0,92 >> CRA
-= 0,03) e caminho mínimo médio similar ao da rede aleatória correspondente (LRE =
-2,302 ~ LRA = 2,382), segundo o método de Watts e Strogatz (1998). Além disto,
+de palavras e maior ocorrência de justaposição e sobreposição .
+ O diâmetro da rede investigada é igual a quatro ( D = 4 ) . O caminho mínimo
+médio informa que , em média , a distância entre as palavras é de 2 ,302 . I , o que significa
+que as palavras são muito próximas . Isto acontece pela quantidade de justaposições e
+sobreposições entre as ementas , refletindo no maior compartilhamento de conceitos em
+comum , o que pode ser um indício de interdisciplinaridade .
+ Quanto à caracterização topológica , pode-se afirmar que a rede de ementas
+( RE ) apresenta o fenômeno mundo pequeno , já que possui coeficiente de aglomeração
+médio elevado em relação ao da rede aleatória ( RA ) correspondente ( CRE = 0 ,92 >> CRA
+= 0 ,03 ) e caminho mínimo médio similar ao da rede aleatória correspondente ( LRE =
+2 ,302 ~ LRA = 2 ,382 ) , segundo o método de Watts e Strogatz ( 1998 ) . Além disto ,
 também foram observadas outras condições necessárias para que a rede investigada
-fosse considerada rede de mundo pequeno [Watts 1999], a saber: não dirigida, não
-ponderada, simples, esparsa e conectada (i.e. possui apenas um componente).
- Considerando a análise de redes sociais, investigou-se também a importância
-dos vértices por meio dos índices de centralidade. As treze palavras da rede de ementas
-mais importantes em termo de centralidade de grau, em ordem decrescente, são:
-“conhecimento”, “teoria”, “abordagem”, “difusão do conhecimento”, “sociedade”,
-“análise”, “processo”, “complexidade”, “pesquisa”, “aplicação”, “rede”, “método” e
-“modelo”. Dentre estas, cinco representam temas-chave, e as outras, apesar de
-conceitualmente não representarem a proposta do PPG investigado, possuem
-significados relevantes para um curso de doutorado.
+fosse considerada rede de mundo pequeno [Watts 1999] , a saber: não dirigida , não
+ponderada , simples , esparsa e conectada ( i .e . possui apenas um componente ) .
+ Considerando a análise de redes sociais , investigou-se também a importância
+dos vértices por meio dos índices de centralidade . As treze palavras da rede de ementas
+mais importantes em termo de centralidade de grau , em ordem decrescente , são:
+“conhecimento” , “teoria” , “abordagem” , “difusão do conhecimento” , “sociedade” ,
+“análise” , “processo” , “complexidade” , “pesquisa” , “aplicação” , “rede” , “método” e
+“modelo” . Dentre estas , cinco representam temas-chave , e as outras , apesar de
+conceitualmente não representarem a proposta do PPG investigado , possuem
+significados relevantes para um curso de doutorado .
 Tabela 2: Medidas de centralidades dos vértices que são as palavras de maior
-ocorrência por temas-chave.
+ocorrência por temas-chave .
 TEMAS-CHAVE: VÉRTICES CG CP CI
-T7: Conhecimento 277 0,6105 0,0720
-T10: Difusão do conhecimento 240 0,5930 0,0508
-T3: Complexidade 210 0,5795 0,0306
-T1: Método 190 0,5709 0,0585
-T15: Modelo 179 0,5429 0,0353
-T5: Ciência 150 0,5488 0,0172
-T14: Linguagem 143 0,5422 0,0305
-T9: Cultura 132 0,5387 0,0125
-T11: Epistemologia 89 0,5222 0,0000
-T13: Informação 76 0,4713 0,0054
-T8: Construção do conhecimento 67 0,4926 0,0021
-T4: Comunicação 60 0,4468 0,0022
-T6: Tecnologia 48 0,4885 0,0031
-T12: Geração do conhecimento 29 0,4279 0,0003
-T2: Análise cognitiva 25 0,4540 0,0003
+T7: Conhecimento 277 0 ,6105 0 ,0720
+T10: Difusão do conhecimento 240 0 ,5930 0 ,0508
+T3: Complexidade 210 0 ,5795 0 ,0306
+T1: Método 190 0 ,5709 0 ,0585
+T15: Modelo 179 0 ,5429 0 ,0353
+T5: Ciência 150 0 ,5488 0 ,0172
+T14: Linguagem 143 0 ,5422 0 ,0305
+T9: Cultura 132 0 ,5387 0 ,0125
+T11: Epistemologia 89 0 ,5222 0 ,0000
+T13: Informação 76 0 ,4713 0 ,0054
+T8: Construção do conhecimento 67 0 ,4926 0 ,0021
+T4: Comunicação 60 0 ,4468 0 ,0022
+T6: Tecnologia 48 0 ,4885 0 ,0031
+T12: Geração do conhecimento 29 0 ,4279 0 ,0003
+T2: Análise cognitiva 25 0 ,4540 0 ,0003
 Anais do VII Brazilian Workshop on Social Network Analysis and Mining - BraSNAM 2018
 142
- Do ponto de vista da importância dos vértices de maior ocorrência por temaschave nas ementas, pode-se observar que o vértice de maior centralidade de grau é
-“conhecimento” (CG = 277), seguido pelo vértice “difusão do conhecimento” (CG =
-240) (Tabela 2). Parece razoável afirmar que este fato é resultante da própria área de
-concentração em que o PPG está inserido, indicando assim que existe coerência e
+ Do ponto de vista da importância dos vértices de maior ocorrência por temaschave nas ementas , pode-se observar que o vértice de maior centralidade de grau é
+“conhecimento” ( CG = 277 ) , seguido pelo vértice “difusão do conhecimento” ( CG =
+240 ) ( Tabela 2 ) . Parece razoável afirmar que este fato é resultante da própria área de
+concentração em que o PPG está inserido , indicando assim que existe coerência e
 consistência entre a proposta do PPG e suas ementas em relação aos temas-chave “T7:
-Conhecimento” e “T10: Difusão do conhecimento”.
- Por outro lado, as palavras “análise cognitiva” (CG = 25) e “geração do
-conhecimento” (CG = 29) são os vértices que tiveram menor centralidade de grau e
-ambas aparecem em apenas duas ementas (Tabela 2). Esta constatação sugere que esses
+Conhecimento” e “T10: Difusão do conhecimento” .
+ Por outro lado , as palavras “análise cognitiva” ( CG = 25 ) e “geração do
+conhecimento” ( CG = 29 ) são os vértices que tiveram menor centralidade de grau e
+ambas aparecem em apenas duas ementas ( Tabela 2 ) . Esta constatação sugere que esses
 são os temas-chave menos abordados pelos componentes curriculares em comparação
-aos outros. Porém, deveriam ganhar maior destaque nas ementas, uma vez que “análise
+aos outros . Porém , deveriam ganhar maior destaque nas ementas , uma vez que “análise
 cognitiva” é o tema-chave central da linha de pesquisa três e a “geração do
-conhecimento” é almejada pela área de concentração do PPG investigado.
+conhecimento” é almejada pela área de concentração do PPG investigado .
  A centralidade de proximidade está relacionada com a distância total de um
-vértice em relação a todos os demais vértices do grafo [Freeman 1979]. Na rede de
-ementas, os vértices de maior centralidade de proximidade são os conceitos mais
-próximos, mais centrais aos outros no conjunto de ementas. Na rede investigada, os
-conceitos mais próximos aos outros são “conhecimento” (CP = 0,6105) e “difusão do
-conhecimento” (CP = 0,5930), respectivamente (Tabela 2), o que já era de se esperar
-uma vez que estes vértices representam os temas-chave centrais do PPG investigado.
+vértice em relação a todos os demais vértices do grafo [Freeman 1979] . Na rede de
+ementas , os vértices de maior centralidade de proximidade são os conceitos mais
+próximos , mais centrais aos outros no conjunto de ementas . Na rede investigada , os
+conceitos mais próximos aos outros são “conhecimento” ( CP = 0 ,6105 ) e “difusão do
+conhecimento” ( CP = 0 ,5930 ) , respectivamente ( Tabela 2 ) , o que já era de se esperar
+uma vez que estes vértices representam os temas-chave centrais do PPG investigado .
  Já a centralidade de intermediação mede quantos caminhos mais curtos entre
-todos os pares de vértices do grafo passam por um determinado vértice [Freeman 1979].
+todos os pares de vértices do grafo passam por um determinado vértice [Freeman 1979] .
 Este índice avalia a frequência de ocorrência de um determinado vértice entre pares de
-outros vértices em caminhos mais curtos que os conectam. Na rede de ementas, os
-vértices com maior centralidade de intermediação são “conhecimento” (CI = 0,0720) e
-“método” (CI = 0,0585). Estes vértices estabelecem pontes entre vários outros conceitos
-na rede de ementas (Tabela 2).
+outros vértices em caminhos mais curtos que os conectam . Na rede de ementas , os
+vértices com maior centralidade de intermediação são “conhecimento” ( CI = 0 ,0720 ) e
+“método” ( CI = 0 ,0585 ) . Estes vértices estabelecem pontes entre vários outros conceitos
+na rede de ementas ( Tabela 2 ) .
 Na rede de ementas foram observadas 10 comunidades com o índice de
-modularidade igual a 0,619 (Figura 4). Newman e Girvan (2004) definem comunidades
-como grupos de vértices densamente conectados. Em redes semânticas, os vértices que
+modularidade igual a 0 ,619 ( Figura 4 ) . Newman e Girvan ( 2004 ) definem comunidades
+como grupos de vértices densamente conectados . Em redes semânticas , os vértices que
 compõem as comunidades formam grupos de palavras bem integrados ou
-semanticamente relacionados. Este fato também é observado em redes semânticas de
-cliques, mas, não necessariamente, as comunidades refletem as cliques, pois as
-justaposições e sobreposições entre as cliques aumentam a densidade das comunidades.
+semanticamente relacionados . Este fato também é observado em redes semânticas de
+cliques , mas , não necessariamente , as comunidades refletem as cliques , pois as
+justaposições e sobreposições entre as cliques aumentam a densidade das comunidades .
 Observa-se na Figura 4 que a comunidade azul claro agrupa os seguintes
-vértices: “conhecimento”, “difusão do conhecimento”, “geração do conhecimento”,
-“construção do conhecimento” e “cognição”. Estas palavras possuem significados
-distintos, mas correlacionados entre si, e fazem parte do processo de “Modelagem da
-Geração e Difusão do Conhecimento”, área de concentração do PPG investigado. Por
-isso, esta comunidade representa um importante núcleo semântico do PPG investigado.
+vértices: “conhecimento” , “difusão do conhecimento” , “geração do conhecimento” ,
+“construção do conhecimento” e “cognição” . Estas palavras possuem significados
+distintos , mas correlacionados entre si , e fazem parte do processo de “Modelagem da
+Geração e Difusão do Conhecimento” , área de concentração do PPG investigado . Por
+isso , esta comunidade representa um importante núcleo semântico do PPG investigado .
 Também pode-se observar que os vértices que representam os temas-chave “difusão do
-conhecimento”, “ciência”, “complexidade” e “tecnologia” são vértices que atuam como
-“pontes” entre comunidades, ligando, assim, o que pode ser mais um indício da
-importância destes conceitos na promoção de interdisciplinaridade.
+conhecimento” , “ciência” , “complexidade” e “tecnologia” são vértices que atuam como
+“pontes” entre comunidades , ligando , assim , o que pode ser mais um indício da
+importância destes conceitos na promoção de interdisciplinaridade .
 Anais do VII Brazilian Workshop on Social Network Analysis and Mining - BraSNAM 2018
 143
-Figura 4. Rede de ementas, com destaque para os vértices de maior
-centralidade de grau e distribuição espacial por comunidades. Fonte: Autores.
+Figura 4 . Rede de ementas , com destaque para os vértices de maior
+centralidade de grau e distribuição espacial por comunidades . Fonte: Autores .
  A identificação dos temas-chave nas ementas permitiu agrupar os componentes
-curriculares por temas-chave (Tabela 3), e, a partir disto, foi construída a rede de
-componentes curriculares (Figura 5). Apesar da discussão sobre este tipo de rede estar
-fora do escopo deste artigo, far-se-á uma análise preliminar a seu respeito.
-Tabela 3: Agrupamento dos componentes curriculares por temas-chave.
-TEMAS-CHAVE (T) COMPONENTES CURRICULARES
+curriculares por temas-chave ( Tabela 3 ) , e , a partir disto , foi construída a rede de
+componentes curriculares ( Figura 5 ) . Apesar da discussão sobre este tipo de rede estar
+fora do escopo deste artigo , far-se-á uma análise preliminar a seu respeito .
+Tabela 3: Agrupamento dos componentes curriculares por temas-chave .
+TEMAS-CHAVE ( T ) COMPONENTES CURRICULARES
 T1 Metodologia EDCA91; EDCA86; EDCA98; EDCA99; EDCB04; EDCB09; EDCB76
 T2 Cognição EDCE31; EDCC42
 T3 Complexidade EDCA85; EDCA87; EDCA89; EDCB05; EDCB09
@@ -329,112 +329,112 @@ T15 Modelagem EDCA85; EDCA88; EDCA89; EDCA91; EDCA92; EDCA95;
 EDCB03; EDCB04; EDCB76
 Anais do VII Brazilian Workshop on Social Network Analysis and Mining - BraSNAM 2018
 144
- Na Tabela 3, observa-se o agrupamento dos componentes curriculares por
-temas-chave (i.e. principais conceitos extraídos a proposta de aprendizagem do PPG
-investigado). Isto pode auxiliar os discentes na identificação de componentes
-curriculares importantes para o desenvolvimento de suas teses.
- Na rede de componentes curriculares apresentada na Figura 5, o tamanho dos
-vértices é proporcional ao seu grau. Este índice indica a quantidade de componentes
+ Na Tabela 3 , observa-se o agrupamento dos componentes curriculares por
+temas-chave ( i .e . principais conceitos extraídos a proposta de aprendizagem do PPG
+investigado ) . Isto pode auxiliar os discentes na identificação de componentes
+curriculares importantes para o desenvolvimento de suas teses .
+ Na rede de componentes curriculares apresentada na Figura 5 , o tamanho dos
+vértices é proporcional ao seu grau . Este índice indica a quantidade de componentes
 curriculares adjacentes com que cada um deles se relaciona por meio de conceitos em
-comum. O grau também sofre influência do peso das arestas. Neste estudo, foram
-atribuídos pesos às arestas, equivalentes à quantidade de temas-chave em comum às
-disciplinas. Os pares de vértices com maior peso são aqueles que possuem mais temaschave em comum. Por exemplo, os vértices “EDCA85 - Epistemologia e Construção do
+comum . O grau também sofre influência do peso das arestas . Neste estudo , foram
+atribuídos pesos às arestas , equivalentes à quantidade de temas-chave em comum às
+disciplinas . Os pares de vértices com maior peso são aqueles que possuem mais temaschave em comum . Por exemplo , os vértices “EDCA85 - Epistemologia e Construção do
 Conhecimento” e “EDCA89 - Processos de Construção do conhecimento” se conectam
-com peso quatro, uma vez que compartilham quatro temas-chave: “modelagem”,
-“conhecimento”, “complexidade” e “ciência” (Tabela 3).
-Figura 5. Rede de componentes curriculares do PPG investigado, com
-destaque para os vértices de maior centralidade de grau. Fonte: Autores.
-Os vértices com as maiores centralidades de grau (EDCA89, EDCA85 e
-EDCA92) (Figura 5) são os componentes curriculares potenciais para a implementação
-de projetos de ensino interdisciplinaridade. Esta afirmação é corroborada pelo
+com peso quatro , uma vez que compartilham quatro temas-chave: “modelagem” ,
+“conhecimento” , “complexidade” e “ciência” ( Tabela 3 ) .
+Figura 5 . Rede de componentes curriculares do PPG investigado , com
+destaque para os vértices de maior centralidade de grau . Fonte: Autores .
+Os vértices com as maiores centralidades de grau ( EDCA89 , EDCA85 e
+EDCA92 ) ( Figura 5 ) são os componentes curriculares potenciais para a implementação
+de projetos de ensino interdisciplinaridade . Esta afirmação é corroborada pelo
 pressuposto que a interdisciplinaridade como uma abordagem de ensino propõe a
-interação entre duas ou mais disciplinas por meio de conceitos (e.g. temas-chave)
-compartilhados ou relacionados entre si. Segundo Japiassu e Marcondes (1993), a
+interação entre duas ou mais disciplinas por meio de conceitos ( e .g . temas-chave )
+compartilhados ou relacionados entre si . Segundo Japiassu e Marcondes ( 1993 ) , a
 interdisciplinaridade consiste em um método de pesquisa e de ensino que possibilita
-que duas ou mais disciplinas interajam entre si, seja por meio da comunicação de
-ideias, integração mútua de conceitos, epistemologias, terminologias, metodologias,
-procedimentos e dados, ou pela forma de organização da pesquisa.
+que duas ou mais disciplinas interajam entre si , seja por meio da comunicação de
+ideias , integração mútua de conceitos , epistemologias , terminologias , metodologias ,
+procedimentos e dados , ou pela forma de organização da pesquisa .
 Anais do VII Brazilian Workshop on Social Network Analysis and Mining - BraSNAM 2018
 145
-5. Considerações Finais
+5 . Considerações Finais
 A rede semântica de cliques baseada em ementas permitiu avaliar a coerência e a
 consistência entre a proposta de aprendizado baseada nas áreas de concentração e nas
-linhas de pesquisa de um PPG e o ementário relativo à sua matriz curricular.
- Neste estudo, a coerência e a consistência confirmam-se apenas em relação a
-alguns dos 15 temas-chave. Os vértices “conhecimento” e “difusão do conhecimento”
-apresentaram os maiores valores de centralidade de grau, proximidade e intermediação,
-denotando sua importância nas ementas. Esta relevância, porém, não foi observada em
-relação aos vértices “análise cognitiva” e “geração do conhecimento”. Além disso, foi
+linhas de pesquisa de um PPG e o ementário relativo à sua matriz curricular .
+ Neste estudo , a coerência e a consistência confirmam-se apenas em relação a
+alguns dos 15 temas-chave . Os vértices “conhecimento” e “difusão do conhecimento”
+apresentaram os maiores valores de centralidade de grau , proximidade e intermediação ,
+denotando sua importância nas ementas . Esta relevância , porém , não foi observada em
+relação aos vértices “análise cognitiva” e “geração do conhecimento” . Além disso , foi
 constatado que os processos de justaposição e sobreposição impactam sobremaneira nos
 índices da rede semântica de cliques baseada em ementas repercutindo em suas
-características topológicas e na preeminência dos vértices.
- A partir da identificação dos temas-chave nas ementas, foi possível agrupar os
-componentes curriculares por temas-chave e, a partir disto, construiu-se a rede de
-componentes curriculares. Este tipo de rede demostra a integração entre os
-componentes curriculares por meio de conceitos relevantes (i.e. temas-chave).
+características topológicas e na preeminência dos vértices .
+ A partir da identificação dos temas-chave nas ementas , foi possível agrupar os
+componentes curriculares por temas-chave e , a partir disto , construiu-se a rede de
+componentes curriculares . Este tipo de rede demostra a integração entre os
+componentes curriculares por meio de conceitos relevantes ( i .e . temas-chave ) .
  As redes de ementas e de componentes curriculares sugerem que a teoria de
 redes pode ser empregada para análise de conexões entre palavras das ementas e entre
-componentes curriculares da matriz curricular. A análise das conexões entre os
+componentes curriculares da matriz curricular . A análise das conexões entre os
 conceitos pode auxiliar na busca de conceitos relacionados ao objeto de pesquisa dos
 discentes de forma mais eficiente e na identificação do vocabulário relacionado a estes
-conceitos. Já a análise das conexões entre os componentes curriculares pode auxiliar no
-estabelecimento de critérios de pré-requisitos entre eles.
- Desta forma, sendo a teoria de redes uma ferramenta que auxilia no estudo de
-sistemas compostos por elementos que se conectam, auxiliando na visão da
-complexidade do todo, pode auxilia na percepção da complexidade de um PPG.
-Ademais, espera-se que este trabalho contribua para elaboração de um modelo
+conceitos . Já a análise das conexões entre os componentes curriculares pode auxiliar no
+estabelecimento de critérios de pré-requisitos entre eles .
+ Desta forma , sendo a teoria de redes uma ferramenta que auxilia no estudo de
+sistemas compostos por elementos que se conectam , auxiliando na visão da
+complexidade do todo , pode auxilia na percepção da complexidade de um PPG .
+Ademais , espera-se que este trabalho contribua para elaboração de um modelo
 computacional baseado na teoria de redes capaz de apoiar o planejamento e avaliação
-de programas de pós-graduação.
+de programas de pós-graduação .
 Referências
-Caldeira, S. M. G. (2005) “Caracterização da rede de signos linguísticos: Um modelo
-baseado no aparelho psíquico de Freud”. Mestrado Interdisciplinar em Modelagem
-Computacional, Fundação Visconde de Cairu, Salvador.
-Caldeira, S. M. G., Petit Lobão, T. C., Andrade, R. F. S, Neme, A. e Miranda, J. G. V.
-(2006). The network of concepts in written texts. In The European Physical Journal
-B - Condensed Matter and Complex Systems, 49(4):523–529.
-Coordenação de Aperfeiçoamento de Pessoal de Nível Superior (CAPES). (2013)
-Diretoria de Avaliação. “Avaliação Trienal 2013”. In: Documento de Área. Área de
-Avaliação: Interdisciplinar.
-Fadigas, I. S. e Pereira, H. B. B. (2013). A network approach based on cliques. In
-Physica A: Statistical Mechanics and its Applications, 392(10):2576 – 2587.
+Caldeira , S . M . G . ( 2005 ) “Caracterização da rede de signos linguísticos: Um modelo
+baseado no aparelho psíquico de Freud” . Mestrado Interdisciplinar em Modelagem
+Computacional , Fundação Visconde de Cairu , Salvador .
+Caldeira , S . M . G . , Petit Lobão , T . C . , Andrade , R . F . S , Neme , A . e Miranda , J . G . V .
+( 2006 ) . The network of concepts in written texts . In The European Physical Journal
+B - Condensed Matter and Complex Systems , 49( 4 ):523–529 .
+Coordenação de Aperfeiçoamento de Pessoal de Nível Superior ( CAPES ) . ( 2013 )
+Diretoria de Avaliação . “Avaliação Trienal 2013” . In: Documento de Área . Área de
+Avaliação: Interdisciplinar .
+Fadigas , I . S . e Pereira , H . B . B . ( 2013 ) . A network approach based on cliques . In
+Physica A: Statistical Mechanics and its Applications , 392( 10 ):2576 – 2587 .
 Anais do VII Brazilian Workshop on Social Network Analysis and Mining - BraSNAM 2018
 146
-Fadigas, I. S., Henrique, T., Pereira, H. B. B., Senna, V. e Moret, M. (2009). Análise de
+Fadigas , I . S . , Henrique , T . , Pereira , H . B . B . , Senna , V . e Moret , M . ( 2009 ) . Análise de
 redes semânticas baseada em títulos de artigos de periódicos científicos: o caso dos
-periódicos de divulgação em educação matemática. In Educação Matemática
-Pesquisa, 11(1):167–193.
-Freeman, L. C. (1979). Centrality in Social Networks: Conceptual clarification. In
-Social Networks, 1(3):215-239.
-Grilo, M., Fadigas, I. S., Miranda, J. G. V., Cunha, M. V., Monteiro, R. L. S. e Pereira,
-H. B. B. (2017). Robustness in semantic networks based on cliques. In Physica. A
-(Print), 472:94-102.
-Henrique, T., Fadigas, I. S., Rosa, M. G. e Pereira, H. B. B. (2014). Mathematics
-education semantic networks. In Social Network Analysis and Mining, 4:200.
-Japiassu, H. e Marcondes, D. (1993) “Dicionário básico de filosofia”. In: Zahar, Rio de
-Janeiro.
-Lima-Neto, J. L. A., Cunha, M. V. e Pereira, H. B. B. (2018). Redes semânticas de
-discursos orais de membros de grupos de ajuda mútua. In Obra Digital: Journal Of
-Communication And Technology, 14: 51-66.
-Lopes, C. R. S., Cardoso, J. P., Meira, S. S., Casotti, C. A., Vilela, A. B. A. e Pereira, H.
-B. B. (2015). Significado de corresidência na visão de idosos: uma estratégia para
-análise cognitiva com uso de redes semânticas. In Revista Saúde.com, 11:174-182.
-Newman, M. E. J. e Girvan, M. (2004). Finding and evaluating community structure in
-networks. In Phys. Rev. E., 69(2):026113.
-Paumier, S. (2008) UNITEX 2.0. “User Manual”, Université Paris-Est Marne-la-Vallée,
-http://unitexgramlab.org/releases/2.0/man/Unitex-GramLab-2.0-usermanual-en.pdf
-Pereira, H. B. B, Fadigas, I., Senna, V. e Moret, M. (2011). Semantic networks based on
-titles of scientific papers. In Physica A: Statistical Mechanics and its Applications,
-390(6):1192–1197.
-Pereira, H. B. B, Fadigas, I. S., Monteiro, R. L. S., Cordeiro, A. J. A. e Moret, M. A.
-(2016). Density: A measure of the diversity of concepts addressed in semantic
-networks. In Physica. A (Print), 441:81-84.
-Rosa, M. G. (2016) “Modelo empírico para analisar a robustez de redes semânticas”.
-Doutorado Multidisciplinar e Multi-institucional em Difusão do Conhecimento.
-Universidade Federal da Bahia, Salvador.
-Teixeira, G., Aguiar, M., Pereira, H., Miranda, J., Cunha, M., Morais, J., Carvalho, C. e
-Dantas, D. (2010). Complex semantics networks. In International Journal of Modern
-Physics C, 21(3):333–347.
-Watts, D. J. (1999) “Small Worlds: The dynamics of Networks between Order and
-Randomness”, Princetown University Press, New Jersey.
-Watts, D. J. e Strogatz, S. H. (1998). Collective dynamics of small-world networks. In
-Nature, 393(4):440-442. 
+periódicos de divulgação em educação matemática . In Educação Matemática
+Pesquisa , 11( 1 ):167–193 .
+Freeman , L . C . ( 1979 ) . Centrality in Social Networks: Conceptual clarification . In
+Social Networks , 1( 3 ):215-239 .
+Grilo , M . , Fadigas , I . S . , Miranda , J . G . V . , Cunha , M . V . , Monteiro , R . L . S . e Pereira ,
+H . B . B . ( 2017 ) . Robustness in semantic networks based on cliques . In Physica . A
+( Print ) , 472:94-102 .
+Henrique , T . , Fadigas , I . S . , Rosa , M . G . e Pereira , H . B . B . ( 2014 ) . Mathematics
+education semantic networks . In Social Network Analysis and Mining , 4:200 .
+Japiassu , H . e Marcondes , D . ( 1993 ) “Dicionário básico de filosofia” . In: Zahar , Rio de
+Janeiro .
+Lima-Neto , J . L . A . , Cunha , M . V . e Pereira , H . B . B . ( 2018 ) . Redes semânticas de
+discursos orais de membros de grupos de ajuda mútua . In Obra Digital: Journal Of
+Communication And Technology , 14: 51-66 .
+Lopes , C . R . S . , Cardoso , J . P . , Meira , S . S . , Casotti , C . A . , Vilela , A . B . A . e Pereira , H .
+B . B . ( 2015 ) . Significado de corresidência na visão de idosos: uma estratégia para
+análise cognitiva com uso de redes semânticas . In Revista Saúde .com , 11:174-182 .
+Newman , M . E . J . e Girvan , M . ( 2004 ) . Finding and evaluating community structure in
+networks . In Phys . Rev . E . , 69( 2 ):026113 .
+Paumier , S . ( 2008 ) UNITEX 2 .0 . “User Manual” , Université Paris-Est Marne-la-Vallée ,
+http://unitexgramlab .org/releases/2 .0/man/Unitex-GramLab-2 .0-usermanual-en .pdf
+Pereira , H . B . B , Fadigas , I . , Senna , V . e Moret , M . ( 2011 ) . Semantic networks based on
+titles of scientific papers . In Physica A: Statistical Mechanics and its Applications ,
+390( 6 ):1192–1197 .
+Pereira , H . B . B , Fadigas , I . S . , Monteiro , R . L . S . , Cordeiro , A . J . A . e Moret , M . A .
+( 2016 ) . Density: A measure of the diversity of concepts addressed in semantic
+networks . In Physica . A ( Print ) , 441:81-84 .
+Rosa , M . G . ( 2016 ) “Modelo empírico para analisar a robustez de redes semânticas” .
+Doutorado Multidisciplinar e Multi-institucional em Difusão do Conhecimento .
+Universidade Federal da Bahia , Salvador .
+Teixeira , G . , Aguiar , M . , Pereira , H . , Miranda , J . , Cunha , M . , Morais , J . , Carvalho , C . e
+Dantas , D . ( 2010 ) . Complex semantics networks . In International Journal of Modern
+Physics C , 21( 3 ):333–347 .
+Watts , D . J . ( 1999 ) “Small Worlds: The dynamics of Networks between Order and
+Randomness” , Princetown University Press , New Jersey .
+Watts , D . J . e Strogatz , S . H . ( 1998 ) . Collective dynamics of small-world networks . In
+Nature , 393( 4 ):440-442 . 

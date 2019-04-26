@@ -1,464 +1,464 @@
 Analise da estrutura da rede de frames da FrameNet Brasil ´
 M´iria Bob´ o´
 1
-, Victor Stroele ¨
+ , Victor Stroele ¨
 1
-, Ely Edison da Silva Matos2
-, Regina Braga1
-,
+ , Ely Edison da Silva Matos2
+ , Regina Braga1
+ ,
 Fernanda Campos1
-, Jose Maria N. David ´
+ , Jose Maria N . David ´
 1
-, Tiago Timponi Torrent2
+ , Tiago Timponi Torrent2
 1Departamento da Ciencia da Computac¸ ˆ ao – Universidade Federal de Juiz de Fora (UFJF) ˜
-Caixa Postal 20.006 – 36.016-970 – Juiz de Fora – MG – Brazil
+Caixa Postal 20 .006 – 36 .016-970 – Juiz de Fora – MG – Brazil
 2FrameNet Brasil – Universidade Federal de Juiz de Fora (UFJF)
-Caixa Postal 20.006 – 36.016-970 – Juiz de Fora – MG – Brazil
-{miria.luisa,victor.stroele,jose.nazar}@ice.ufjf.br,
-{ely.matos,regina.braga,fernanda.campos,tiago.torrent}@ufjf.edu.br
-Abstract. FrameNet Brazil is a computational lexicography project that aims to
-use frames for the description of the meaning of the word. It generates a network
-of frames that bind to specific relationships. The process of creating or updating
-a frame can pass through more than one Linguistic expert at different times,
+Caixa Postal 20 .006 – 36 .016-970 – Juiz de Fora – MG – Brazil
+{miria .luisa ,victor .stroele ,jose .nazar}@ice .ufjf .br ,
+{ely .matos ,regina .braga ,fernanda .campos ,tiago .torrent}@ufjf .edu .br
+Abstract . FrameNet Brazil is a computational lexicography project that aims to
+use frames for the description of the meaning of the word . It generates a network
+of frames that bind to specific relationships . The process of creating or updating
+a frame can pass through more than one Linguistic expert at different times ,
 which can generate a change in the network structure that does not reflect the
-conceptual model of the project. The objective of the work is to make an analysis
+conceptual model of the project . The objective of the work is to make an analysis
 of the frame network structure of FrameNet Brazil and to identify critical points
-that may reflect in violations of the constraints of the its conceptual model. The
+that may reflect in violations of the constraints of the its conceptual model . The
 results found were analyzed by a specialist in the field of Linguistics and his
 considerations indicate that the proposed solution is viable in the analysis of
-the network of FrameNet Brazil.
-Resumo. A FrameNet Brasil e um projeto de lexicografia computacional que ´
-tem como objetivo usar frames para a descric¸ao de significados de palavras. ˜
-Ela gera uma rede de frames que se ligam com relacionamentos espec´ificos.
+the network of FrameNet Brazil .
+Resumo . A FrameNet Brasil e um projeto de lexicografia computacional que ´
+tem como objetivo usar frames para a descric¸ao de significados de palavras . ˜
+Ela gera uma rede de frames que se ligam com relacionamentos espec´ificos .
 O processo de criac¸ao ou atualizac¸ ˜ ao de um frame pode passar por mais de ˜
-um especialista da Lingu´istica, em momentos diferentes, o que pode gerar uma
-mudanc¸a na estrutura da rede que nao reflete o modelo conceitual do projeto. ˜
+um especialista da Lingu´istica , em momentos diferentes , o que pode gerar uma
+mudanc¸a na estrutura da rede que nao reflete o modelo conceitual do projeto . ˜
 O objetivo do trabalho e fazer uma an ´ alise da estrutura da rede de frames da ´
 FrameNet Brasil e identificar pontos cr´iticos que possam refletir em violac¸oes ˜
-de restric¸oes do modelo conceitual da mesma. Os resultados encontrados foram ˜
+de restric¸oes do modelo conceitual da mesma . Os resultados encontrados foram ˜
 analisados por um especialista da area da Lingu ´ ´istica e as suas considerac¸oes ˜
 indicam que a soluc¸ao proposta ˜ e vi ´ avel no que se refere ´ a an ` alise da rede da ´
-FrameNet Brasil.
-1. Introduc¸ao˜
+FrameNet Brasil .
+1 . Introduc¸ao˜
 Redes complexas podem ser definidas como grafos que apresentam topologias complexas
-[Barabasi et al. 2000]. Elas podem ser usadas como abstrac¸ ´ oes para representar situac¸ ˜ oes ˜
-do mundo real onde existam relacionamentos entre pares de entidades envolvidas, como
-por exemplo palavras de uma frase e as ligac¸oes entre elas. ˜
+[Barabasi et al . 2000] . Elas podem ser usadas como abstrac¸ ´ oes para representar situac¸ ˜ oes ˜
+do mundo real onde existam relacionamentos entre pares de entidades envolvidas , como
+por exemplo palavras de uma frase e as ligac¸oes entre elas . ˜
 A FrameNet Brasil1
-e um laborat ´ orio de Lingu ´ ´istica Computacional, cuja missao˜
+e um laborat ´ orio de Lingu ´ ´istica Computacional , cuja missao˜
 e desenvolver soluc¸ ´ oes computacionais para problemas de Processamento de Linguagem ˜
-1http://www.ufjf.br/framenetbr/
+1http://www .ufjf .br/framenetbr/
 Anais do VII Brazilian Workshop on Social Network Analysis and Mining - BraSNAM 2018
 16
-Natural, usando Semantica de ˆ frames. O projeto central do laboratorio ´ e a manutenc¸ ´ ao˜
+Natural , usando Semantica de ˆ frames . O projeto central do laboratorio ´ e a manutenc¸ ´ ao˜
 da FrameNet2
-, que e uma rede complexa formada por ´ frames - estruturas cognitivas que
-definem situac¸oes, objetos ou eventos atrav ˜ es de cen ´ arios - e seus relacionamentos. ´
-A criac¸ao de ˜ frames e feita por linguistas, atrav ´ es de softwares espec ´ ´ificos.
-Contudo, devido a caracter´isticas inerentes ao projeto, um frame pode ser atualizado por
-diferentes especialistas. As mudanc¸as efetuadas podem violar as restric¸oes do modelo ˜
-conceitual da FrameNet, visto que parte do processo de criac¸ao e/ou atualizac¸ ˜ ao dos ˜
-frames apela para a intuic¸ao do linguista [Fillmore et al. 2003b]. Assim sendo, este ˜
-artigo se propoe a fazer uma an ˜ alise da estrutura da rede de ´ frames, com o objetivo de
+ , que e uma rede complexa formada por ´ frames - estruturas cognitivas que
+definem situac¸oes , objetos ou eventos atrav ˜ es de cen ´ arios - e seus relacionamentos . ´
+A criac¸ao de ˜ frames e feita por linguistas , atrav ´ es de softwares espec ´ ´ificos .
+Contudo , devido a caracter´isticas inerentes ao projeto , um frame pode ser atualizado por
+diferentes especialistas . As mudanc¸as efetuadas podem violar as restric¸oes do modelo ˜
+conceitual da FrameNet , visto que parte do processo de criac¸ao e/ou atualizac¸ ˜ ao dos ˜
+frames apela para a intuic¸ao do linguista [Fillmore et al . 2003b] . Assim sendo , este ˜
+artigo se propoe a fazer uma an ˜ alise da estrutura da rede de ´ frames , com o objetivo de
 identificar situac¸oes que possam refletir em violac¸ ˜ oes de restric¸ ˜ oes do modelo conceitual ˜
-da FrameNet Brasil. As caracter´isticas identificadas foram avaliadas por um especialista
-como uma forma de avaliac¸ao da soluc¸ ˜ ao proposta. ˜
+da FrameNet Brasil . As caracter´isticas identificadas foram avaliadas por um especialista
+como uma forma de avaliac¸ao da soluc¸ ˜ ao proposta . ˜
 Como contribuic¸oes deste trabalho podemos destacar: (i) a concepc¸ ˜ ao de uma ˜
-abordagem para analise da FrameNet Brasil, possibilitando a identificac¸ ´ ao de pontos ˜
+abordagem para analise da FrameNet Brasil , possibilitando a identificac¸ ´ ao de pontos ˜
 cr´iticos que devem ser analisados pelos especialistas; (ii) a caracterizac¸ao dos elementos ˜
 dessa rede; e (iii) o uso de metricas de redes complexas para extrair informac¸ ´ oes sobre a ˜
-estrutura da rede.
+estrutura da rede .
 O restante do artigo esta organizado da seguinte forma: na sec¸ ´ ao 2 s ˜ ao˜
-contextualizados o projeto FrameNet bem como os conceitos associados a ele. O Modelo
-Conceitual e descrito na sec¸ ´ ao 3 e a proposta do artigo na sec¸ ˜ ao 4. As considerac¸ ˜ oes finais ˜
-e trabalhos futuros sao apresentados na sec¸ ˜ ao 5. ˜
-2. Referencial Teorico ´
-Nesta sec¸ao˜ e apresentada a FrameNet, projeto precursor da FrameNet Brasil, e s ´ ao˜
-definidos os conceitos necessarios para o entendimento deste artigo. ´
-2.1. FrameNet
-A FrameNet, tambem chamada de FameNet de Berkeley, ´ e um ´
+contextualizados o projeto FrameNet bem como os conceitos associados a ele . O Modelo
+Conceitual e descrito na sec¸ ´ ao 3 e a proposta do artigo na sec¸ ˜ ao 4 . As considerac¸ ˜ oes finais ˜
+e trabalhos futuros sao apresentados na sec¸ ˜ ao 5 . ˜
+2 . Referencial Teorico ´
+Nesta sec¸ao˜ e apresentada a FrameNet , projeto precursor da FrameNet Brasil , e s ´ ao˜
+definidos os conceitos necessarios para o entendimento deste artigo . ´
+2 .1 . FrameNet
+A FrameNet , tambem chamada de FameNet de Berkeley , ´ e um ´
 “projeto de lexicografia computacional que extrai informac¸oes sobre links ˜
 semanticos e sint ˆ aticos vinculados ´ as palavras em ingl ` es de grandes corpus ˆ
-de textos eletronicos, usando procedimentos manuais e autom ˆ aticos, e ´
+de textos eletronicos , usando procedimentos manuais e autom ˆ aticos , e ´
 apresenta esta informac¸ao em uma variedade de relat ˜ orios baseados na ´
-web” [Fillmore et al. 2003a, p. 1].
-Ela foi criada em 1997, liderada por Charles J. Fillmore, e surgiu do cruzamento
-da Semantica de ˆ Frame com Lexicografia (gerac¸ao de dicion ˜ ario). Atualmente ela foi ´
-expandida para outras l´inguas como Espanhol, Alemao, Sueco, Let ˜ ao, Japon ˜ es, Chin ˆ es, ˆ
-Coreano e Portugues brasileiro. ˆ
+web” [Fillmore et al . 2003a , p . 1] .
+Ela foi criada em 1997 , liderada por Charles J . Fillmore , e surgiu do cruzamento
+da Semantica de ˆ Frame com Lexicografia (gerac¸ao de dicion ˜ ario) . Atualmente ela foi ´
+expandida para outras l´inguas como Espanhol , Alemao , Sueco , Let ˜ ao , Japon ˜ es , Chin ˆ es , ˆ
+Coreano e Portugues brasileiro . ˆ
 O projeto tem como objetivo organizar as descric¸oes lexicogr ˜ aficas por ´ frames
 e usar os dados extra´idos de corpus para descobrir todas as func¸oes sem ˜ anticas e ˆ
 propriedades gramaticais das palavras - unidades lexicais - que evocam o mesmo frame
-[Salomao 2009].
-A Semantica de ˆ Frames, ou semantica da compreens ˆ ao, foi gerada como ˜
+[Salomao 2009] .
+A Semantica de ˆ Frames , ou semantica da compreens ˆ ao , foi gerada como ˜
 uma abordagem para solucionar problemas da semantica lexical (dar significados as ˆ
-2http://webtool.framenetbr.ufjf.br/index.php/fnbr/report/frame/main
+2http://webtool .framenetbr .ufjf .br/index .php/fnbr/report/frame/main
 Anais do VII Brazilian Workshop on Social Network Analysis and Mining - BraSNAM 2018
 17
-palavras) [Salomao 2009]. A ideia central e que os significados das palavras devem ´
-ser descritos em relac¸ao aos ˜ frames semanticos, que s ˆ ao “representac¸ ˜ oes esquem ˜ aticas ´
-das estruturas conceituais e padroes de crenc¸as, pr ˜ aticas, instituic¸ ´ oes, imagens, ˜
-etc., que fornecem uma base para uma interac¸ao significativa em uma determinada ˜
-comunidade de fala” [Fillmore et al. 2003a]. Neste sentido, os frames sao pacotes de ˜
+palavras) [Salomao 2009] . A ideia central e que os significados das palavras devem ´
+ser descritos em relac¸ao aos ˜ frames semanticos , que s ˆ ao “representac¸ ˜ oes esquem ˜ aticas ´
+das estruturas conceituais e padroes de crenc¸as , pr ˜ aticas , instituic¸ ´ oes , imagens , ˜
+etc . , que fornecem uma base para uma interac¸ao significativa em uma determinada ˜
+comunidade de fala” [Fillmore et al . 2003a] . Neste sentido , os frames sao pacotes de ˜
 conhecimento que moldam e permitem que os humanos deem sentido as suas experi ` encias ˆ
-[Fillmore and Baker 2010]. Os frames que sao evocados se baseiam no conhecimento ˜
-que temos sobre os fenomenos e sua associac¸ ˆ ao com os valores culturais. Um exemplo ˜ e´
+[Fillmore and Baker 2010] . Os frames que sao evocados se baseiam no conhecimento ˜
+que temos sobre os fenomenos e sua associac¸ ˆ ao com os valores culturais . Um exemplo ˜ e´
 descrito a seguir:
-Mary foi convidada para a festa de Jack. Ela se perguntou se ele gostaria de um
-brinquedo.
+Mary foi convidada para a festa de Jack . Ela se perguntou se ele gostaria de um
+brinquedo .
 Os frames evocados na frase acima estao ancorados ao verbo ˜ convidar - que
-indica um relacionamento envolvendo um anfitriao, um convidado e uma ocasi ˜ ao - ˜
-e ao substantivo festa - que evoca um evento social geralmente com um anfitriao, ˜
-convidados e uma ocasiao. O trecho ˜ festa de Jack remete a uma festa na qual o Jack
-e o anfitri ´ ao ou na qual Jack ˜ e celebrado. N ´ ao se verificam implicac¸ ˜ oes lingu ˜ ´isticas
+indica um relacionamento envolvendo um anfitriao , um convidado e uma ocasi ˜ ao - ˜
+e ao substantivo festa - que evoca um evento social geralmente com um anfitriao , ˜
+convidados e uma ocasiao . O trecho ˜ festa de Jack remete a uma festa na qual o Jack
+e o anfitri ´ ao ou na qual Jack ˜ e celebrado . N ´ ao se verificam implicac¸ ˜ oes lingu ˜ ´isticas
 que evoquem diretamente o frame festa de anivers´ario porem o substantivo ´
-brinquedo, a preocupac¸ao˜ se o Jack iria gostar de um e os outros detalhes fornecidos
-pela linguagem, permitem que o leitor infira que o Jack e o aniversariante, que brinquedo ´
-e o presente de anivers ´ ario, que a Mary ´ e a convidada e assim por diante. ´
-2.2. Estrutura semantica da FrameNet ˆ
-A FrameNet e constitu ´ ´ida por unidades lexicais, frames, elementos de frame e
-relacionamentos. Nesta sec¸ao ser ˜ ao apresentados, de forma detalhada, cada um destes ˜
-elementos, que sao usados na descric¸ ˜ ao da rede formada pela FrameNet Brasil. ˜
+brinquedo , a preocupac¸ao˜ se o Jack iria gostar de um e os outros detalhes fornecidos
+pela linguagem , permitem que o leitor infira que o Jack e o aniversariante , que brinquedo ´
+e o presente de anivers ´ ario , que a Mary ´ e a convidada e assim por diante . ´
+2 .2 . Estrutura semantica da FrameNet ˆ
+A FrameNet e constitu ´ ´ida por unidades lexicais , frames , elementos de frame e
+relacionamentos . Nesta sec¸ao ser ˜ ao apresentados , de forma detalhada , cada um destes ˜
+elementos , que sao usados na descric¸ ˜ ao da rede formada pela FrameNet Brasil . ˜
 i) Unidade Lexical (UL)
 Uma Unidade Lexical - UL e a palavra quando lhe ´ e atribu ´ ´ida um dos seus
-significados, ou seja, e um emparelhamento de uma palavra com um significado ´
-que pertence a um frame [Ruppenhofer et al. 2016]. Uma palavra com quatro
-significados e tratada como quatro unidades lexicais e, na maioria dos casos, ela ´
-pode pertencer a mais de um frame [Fillmore et al. 2004]. Dizemos que a palavra
-evoca um frame quando o significado dela e baseado no ´ frame.
-A meta e que toda ´ UL evoque um frame porem, ela deve destacar algum ´
-elemento desse frame de forma particular [Salomao 2009]. Por exemplo, o frame
-Aplicar-Calor e o que descreve uma situac¸ ´ ao envolvendo cozinha, comida e ˜
-um instrumento de aquecimento, e ele e evocado pelas palavras ´ assar, cozer, ferver,
-secar, borbulhar, corar, dourar, grelhar, vapor, etc. Essas palavras sao chamadas de ˜
-Unidade Lexicais.
+significados , ou seja , e um emparelhamento de uma palavra com um significado ´
+que pertence a um frame [Ruppenhofer et al . 2016] . Uma palavra com quatro
+significados e tratada como quatro unidades lexicais e , na maioria dos casos , ela ´
+pode pertencer a mais de um frame [Fillmore et al . 2004] . Dizemos que a palavra
+evoca um frame quando o significado dela e baseado no ´ frame .
+A meta e que toda ´ UL evoque um frame porem , ela deve destacar algum ´
+elemento desse frame de forma particular [Salomao 2009] . Por exemplo , o frame
+Aplicar-Calor e o que descreve uma situac¸ ´ ao envolvendo cozinha , comida e ˜
+um instrumento de aquecimento , e ele e evocado pelas palavras ´ assar , cozer , ferver ,
+secar , borbulhar , corar , dourar , grelhar , vapor , etc . Essas palavras sao chamadas de ˜
+Unidade Lexicais .
 ii) Frames
 Um Frame e uma “estrutura conceitual que descreve um tipo particular de ´
-situac¸ao, objeto ou evento, juntamente com seus participantes e aderec¸os” ˜
-[Ruppenhofer et al. 2016]. E um sistema de conceitos relacionados de modo que ´
-para compreender qualquer um deles, e necess ´ ario compreender o sistema como ´
-um todo. Ele e composto por elementos que ajudam a completar o seu significado ´
+situac¸ao , objeto ou evento , juntamente com seus participantes e aderec¸os” ˜
+[Ruppenhofer et al . 2016] . E um sistema de conceitos relacionados de modo que ´
+para compreender qualquer um deles , e necess ´ ario compreender o sistema como ´
+um todo . Ele e composto por elementos que ajudam a completar o seu significado ´
 Anais do VII Brazilian Workshop on Social Network Analysis and Mining - BraSNAM 2018
 18
-(Elementos de Frame), evocado por uma Unidade Lexical e se liga a outros frames
-com relacionamentos espec´ificos.
+(Elementos de Frame) , evocado por uma Unidade Lexical e se liga a outros frames
+com relacionamentos espec´ificos .
 iii) Elementos de Frames (EF)
 Os Elementos de Frame - EF sao atributos usados como etiquetas para as palavras ˜
 ou frases que estao na construc¸ ˜ ao gramatical com as ˜ UL que evocam o frame
-[Fillmore et al. 2004]. Sao os pap ˜ eis sem ´ anticos das entidades envolvidas em cada ˆ
-frame [Fillmore et al. 2003a].
-Os EF existem na estrutura do frame porem, podem ou n ´ ao estar representados na ˜
-frase em que o frame e evocado. Por exemplo o ´ frame Danificar - que e definido ´
+[Fillmore et al . 2004] . Sao os pap ˜ eis sem ´ anticos das entidades envolvidas em cada ˆ
+frame [Fillmore et al . 2003a] .
+Os EF existem na estrutura do frame porem , podem ou n ´ ao estar representados na ˜
+frase em que o frame e evocado . Por exemplo o ´ frame Danificar - que e definido ´
 como um Agente que afeta um Paciente de modo que este mude para um estado
 nao-can ˜ onico - possui como principais ˆ EFs os atributos:
-• Agente: A entidade consciente, geralmente uma pessoa, que realiza a ac¸ao˜
+• Agente: A entidade consciente , geralmente uma pessoa , que realiza a ac¸ao˜
 intencional que resulta no dano ao Paciente;
-• Paciente: A entidade que e afetada pelo ´ Agente, para que esteja danificada;
-• Causa: Um evento que leva ao dano do Paciente.
+• Paciente: A entidade que e afetada pelo ´ Agente , para que esteja danificada;
+• Causa: Um evento que leva ao dano do Paciente .
 iv) Tipos Semanticos ˆ
 O principal objetivo de usar Tipos Semanticos ˆ na FrameNet e de demonstrar ´
 informac¸oes que n ˜ ao s ˜ ao bem representadas na hierarquia de ˜ frames
-[Fillmore et al. 2003a]. Eles tambem podem ser usados para expressar ´
+[Fillmore et al . 2003a] . Eles tambem podem ser usados para expressar ´
 importantes diferenc¸as semanticas entre ˆ ULs que se repetem em varios ´
-frames [Ruppenhofer et al. 2016]. Por exemplo, as ULs de um frame podem
-possuir avaliac¸oes positivas - ˜ louvar do frame Julgamento, gostar do frame
-Sujeito experimentador - ou negativas - criticar do frame Julgamento,
-detestar do frame Sujeito experimentador.
-Atualmente a FrameNet cobre mais de 13.000 Unidades Lexicais, distribu´idas em
-mais de 1.200 Frames e atestadas por mais de 200.000 frases anotadas.
-2.3. Relacionamentos
+frames [Ruppenhofer et al . 2016] . Por exemplo , as ULs de um frame podem
+possuir avaliac¸oes positivas - ˜ louvar do frame Julgamento , gostar do frame
+Sujeito experimentador - ou negativas - criticar do frame Julgamento ,
+detestar do frame Sujeito experimentador .
+Atualmente a FrameNet cobre mais de 13 .000 Unidades Lexicais , distribu´idas em
+mais de 1 .200 Frames e atestadas por mais de 200 .000 frases anotadas .
+2 .3 . Relacionamentos
 A FrameNet e uma rede de ´ frames em que as ligac¸oes ocorrem atrav ˜ es de relac¸ ´ oes ˜
-espec´ificas (Heranc¸a, Perspectiva, Uso, Subframe e Precedencia ˆ ). As relac¸oes s ˜ ao˜
+espec´ificas (Heranc¸a , Perspectiva , Uso , Subframe e Precedencia ˆ ) . As relac¸oes s ˜ ao˜
 usadas para melhorar a compreensao dos ˜ frames e proporcionar robustez (visto que
-frames semanticamente similares podem estar associados, apesar de estarem separados)
-[Ruppenhofer et al. 2016]. A Figura 1 ilustra relacionamentos entre frames e seguir sao˜
-descritos cada um deles.
+frames semanticamente similares podem estar associados , apesar de estarem separados)
+[Ruppenhofer et al . 2016] . A Figura 1 ilustra relacionamentos entre frames e seguir sao˜
+descritos cada um deles .
 i) Heranc¸a
-E o relacionamento mais forte na FrameNet [Ruppenhofer et al. 2016]. Ocorre ´
-entre um frame pai e um frame filho, onde frame filho herda todos ou parte
-dos EFs, subframes e tipos semanticos do pai. Os ˆ EFs do frame filho nao t ˜ em, ˆ
-necessariamente, os mesmos nomes dos EFs do pai e podem ser adicionados outros,
-dadas as especificidades do frame filho. Por exemplo, o frame Fornecer herda do
-frame Dar e, alem de possuir os ´ EFs Tema e Destinatario ´ , ele tambem especifica ´
-que o doador e um ´ Fornecedor e que tem que haver o Objetivo do tema proposto.
+E o relacionamento mais forte na FrameNet [Ruppenhofer et al . 2016] . Ocorre ´
+entre um frame pai e um frame filho , onde frame filho herda todos ou parte
+dos EFs , subframes e tipos semanticos do pai . Os ˆ EFs do frame filho nao t ˜ em , ˆ
+necessariamente , os mesmos nomes dos EFs do pai e podem ser adicionados outros ,
+dadas as especificidades do frame filho . Por exemplo , o frame Fornecer herda do
+frame Dar e , alem de possuir os ´ EFs Tema e Destinatario ´  , ele tambem especifica ´
+que o doador e um ´ Fornecedor e que tem que haver o Objetivo do tema proposto .
 Anais do VII Brazilian Workshop on Social Network Analysis and Mining - BraSNAM 2018
 19
-Figura 1. Relacionamentos do frame Dar com os outros frames
+Figura 1 . Relacionamentos do frame Dar com os outros frames
 ii) Uso
 E a relac¸ ´ ao usada quando parte do cen ˜ ario evocado pelo ´ frame filho se refere a um
-frame pai. E um tipo de relacionamento de heranc¸a, onde o ´ frame filho pode usar
-(herdar de) multiplos ´ frames pai. Por exemplo, o frame Oferta usa o frame Dar,
+frame pai . E um tipo de relacionamento de heranc¸a , onde o ´ frame filho pode usar
+(herdar de) multiplos ´ frames pai . Por exemplo , o frame Oferta usa o frame Dar ,
 ja que o ´ Ofertante oferece um Tema para um Potencial Destinatario ´ e somente
-quando o Potencial Destinatario ´ aceita a oferta e que a ´ Transferˆencia ocorre.
+quando o Potencial Destinatario ´ aceita a oferta e que a ´ Transferˆencia ocorre .
 iii) Perspectiva
-Esta relac¸ao˜ e semelhante a de ´ Uso e consiste em indicar, pelo menos, dois pontos
-de vista de um frame neutro. Por exemplo, o frame Dar e uma perspectiva do ´ frame
-Transferˆencia, uma vez que os verbos dar e receber expressam o ponto de
-vantagem da cena (do Doador ou do Destinatario ´ respectivamente).
+Esta relac¸ao˜ e semelhante a de ´ Uso e consiste em indicar , pelo menos , dois pontos
+de vista de um frame neutro . Por exemplo , o frame Dar e uma perspectiva do ´ frame
+Transferˆencia , uma vez que os verbos dar e receber expressam o ponto de
+vantagem da cena (do Doador ou do Destinatario ´ respectivamente) .
 iv) Subframe
 Essa relac¸ao˜ e usada para representar sub-eventos ou subpartes de um ´ frame
-complexo. Os subframes comumente se referem a sequ ` encia de passos ou transac¸ ˆ oes ˜
-e podem ser descritos, separadamente, por frames. Por exemplo, o frame Dar
+complexo . Os subframes comumente se referem a sequ ` encia de passos ou transac¸ ˆ oes ˜
+e podem ser descritos , separadamente , por frames . Por exemplo , o frame Dar
 juntamente com os frames Pr´e Doac¸˜ao e P´os Doac¸˜ao sao˜ subframes do frame
-Cen´ario Doac¸˜ao.
+Cen´ario Doac¸˜ao .
 v) Precedencia ˆ
 Essa relac¸ao ocorre apenas entre dois ˜ subframes de um frame complexo para
-especificar a sequencia dos eventos de um certo cen ˆ ario. Este ´ e o ´ unico ´
-relacionamento que pode formar ciclos. No frame Cen´ario Doac¸˜ao, o
+especificar a sequencia dos eventos de um certo cen ˆ ario . Este ´ e o ´ unico ´
+relacionamento que pode formar ciclos . No frame Cen´ario Doac¸˜ao , o
 relacionamento Precedencia ˆ e usado para conectar o ´ frame Pr´e Doac¸˜ao ao frame
-Dar e o frame Dar ao frame P´os Doac¸˜ao, pois eles devem ocorrer em ordem.
-2.4. FrameNet Brasil
+Dar e o frame Dar ao frame P´os Doac¸˜ao , pois eles devem ocorrer em ordem .
+2 .4 . FrameNet Brasil
 A extensao do projeto inicial para outras l ˜ ´inguas inclui o uso do estrutura definida no
-Ingles - ˆ Unidades Lexicais, Frames, Elementos de Frames e suas conexoes ˜ - alem da ´
-implementac¸ao de novas funcionalidades. A FrameNet Brasil focou no desenvolvimento ˜
-de um lexico, de um ´ Construction, de um banco de dados tril´ingue para o dom´inio do
+Ingles - ˆ Unidades Lexicais , Frames , Elementos de Frames e suas conexoes ˜ - alem da ´
+implementac¸ao de novas funcionalidades . A FrameNet Brasil focou no desenvolvimento ˜
+de um lexico , de um ´ Construction , de um banco de dados tril´ingue para o dom´inio do
 Anais do VII Brazilian Workshop on Social Network Analysis and Mining - BraSNAM 2018
 20
-esporte e turismo, e de uma FrameNet Brasil WebTool.
+esporte e turismo , e de uma FrameNet Brasil WebTool .
 a) Lexico ´
 O Lexico ´ e uma expans ´ ao da FrameNet e possui uma rede que relaciona ˜ frames
-a unidades lexicais. Alguns frames nao foram alterados no processo de expans ˜ ao˜
-da FrameNet para a FrameNet Brasil, como e o caso do ´ frame Giving que em
-portugues pode ser evocado pela ˆ unidade lexical Dar, onde seus elementos de frame
-(entre outras caracter´isticas) se mantiveram intactos. A Figura 2 mostra o mesmo
-frame evocado pelas unidades lexicais Giving e Dar.
+a unidades lexicais . Alguns frames nao foram alterados no processo de expans ˜ ao˜
+da FrameNet para a FrameNet Brasil , como e o caso do ´ frame Giving que em
+portugues pode ser evocado pela ˆ unidade lexical Dar , onde seus elementos de frame
+(entre outras caracter´isticas) se mantiveram intactos . A Figura 2 mostra o mesmo
+frame evocado pelas unidades lexicais Giving e Dar .
 (a) Unidade Lexical Giving (b) Unidade Lexical DAR
-Figura 2. Frame Giving
+Figura 2 . Frame Giving
 b) Construction
-O Construction e um reposit ´ orio de construc¸ ´ oes gramaticais do Portugu ˜ es brasileiro. ˆ
-As construc¸oes se assemelham a estrutura dos ˜ frames, contendo uma definic¸ao˜
+O Construction e um reposit ´ orio de construc¸ ´ oes gramaticais do Portugu ˜ es brasileiro . ˆ
+As construc¸oes se assemelham a estrutura dos ˜ frames , contendo uma definic¸ao˜
 em prosa e um conjunto de Elementos de Construc¸ao˜ que sao os componentes da ˜
-construc¸ao. A principal contribuic¸ ˜ ao do ˜ Construction da FrameNet Brasil foi a
-criac¸ao de dois tipos de relacionamentos e 5 tipos de restric¸ ˜ oes na base de dados. Foi ˜
-gerado o relacionamento Heranc¸a entre os construtores e o relacionamento Evoca,
-que liga o construtor ao frame que ele evoca.
+construc¸ao . A principal contribuic¸ ˜ ao do ˜ Construction da FrameNet Brasil foi a
+criac¸ao de dois tipos de relacionamentos e 5 tipos de restric¸ ˜ oes na base de dados . Foi ˜
+gerado o relacionamento Heranc¸a entre os construtores e o relacionamento Evoca ,
+que liga o construtor ao frame que ele evoca .
 c) Base de dados tril´ingue
-Uma FrameNet de dom´inio espec´ifico multilingual foi desenvolvida, como
+Uma FrameNet de dom´inio espec´ifico multilingual foi desenvolvida , como
 prova de que frames podem ser usados como representac¸oes interlinguais ˜
 em um dicionario eletr ´ onico tril ˆ ´ingue (portugues-ingl ˆ es-espanhol) para o ˆ
-Turismo e para Copa do Mundo de Futebol [Torrent et al. 2014]. O dicionario ´
-(http://framenetbrazildictionary.com) possui 128 frames tril´ingues,
-1.125 unidades lexicais e mais de 13.000 frases anotadas gerando, automaticamente,
+Turismo e para Copa do Mundo de Futebol [Torrent et al . 2014] . O dicionario ´
+(http://framenetbrazildictionary .com) possui 128 frames tril´ingues ,
+1 .125 unidades lexicais e mais de 13 .000 frases anotadas gerando , automaticamente ,
 uma lista de traduc¸ao equivalente para todos os verbos e substantivos que ˜
-indicavam eventos . A Figura 3 mostra a interface do aplicativo do dicionario ´
-(http://www.dicionariodacopa.com.br/).
+indicavam eventos  . A Figura 3 mostra a interface do aplicativo do dicionario ´
+(http://www .dicionariodacopa .com .br/) .
 Anais do VII Brazilian Workshop on Social Network Analysis and Mining - BraSNAM 2018
 21
-Figura 3. Telas do aplicativo dicionario tril´ingue ´
+Figura 3 . Telas do aplicativo dicionario tril´ingue ´
 d) FrameNet Brasil WebTool
-O WebTool e o sistema de gerenciamento e anotac¸ ´ ao do banco de dados. Usa um banco ˜
-de dados relacional, atualmente implementado no MySQL, que mantem os mesmos ´
-conceitos e estrutura usados na FrameNet, para facilitar a migrac¸ao e o alinhamento ˜
-de dados.
-3. Modelo conceitual da FrameNet Brasil
+O WebTool e o sistema de gerenciamento e anotac¸ ´ ao do banco de dados . Usa um banco ˜
+de dados relacional , atualmente implementado no MySQL , que mantem os mesmos ´
+conceitos e estrutura usados na FrameNet , para facilitar a migrac¸ao e o alinhamento ˜
+de dados .
+3 . Modelo conceitual da FrameNet Brasil
 A FrameNet procura capturar os insights humanos em estruturas semanticas de forma ˆ
-eficiente [Baker et al. 1998]. O processo comec¸a com a caracterizac¸ao do ˜ frame que a UL
-evoca, definindo o tipo de entidade, situac¸ao ou objeto que ele representa, escolhendo os ˜
-rotulos dos ´ EFs e a lista de ULs vinculadas a ele [Fillmore et al. 2003b].
+eficiente [Baker et al . 1998] . O processo comec¸a com a caracterizac¸ao do ˜ frame que a UL
+evoca , definindo o tipo de entidade , situac¸ao ou objeto que ele representa , escolhendo os ˜
+rotulos dos ´ EFs e a lista de ULs vinculadas a ele [Fillmore et al . 2003b] .
 Quatro etapas de processamento foram necessarias produzir o banco de dados da ´
 FrameNet Brasil:
-• Preparac¸ao: ˜ descric¸oes iniciais dos ˜ frames, ULs e EFs e verificac¸ao do padr ˜ ao˜
-sintatico de cada um, para o uso em consultas do subcorpus e anotac¸ ´ ao˜
-[Baker et al. 1998];
+• Preparac¸ao: ˜ descric¸oes iniciais dos ˜ frames , ULs e EFs e verificac¸ao do padr ˜ ao˜
+sintatico de cada um , para o uso em consultas do subcorpus e anotac¸ ´ ao˜
+[Baker et al . 1998];
 • Extrac¸ao de subcorpus: ˜ gerac¸ao de boas frases de exemplos atrav ˜ es de ´
 ferramentas da lingu´istica computacional;
 • Anotac¸ao: ˜ marcac¸ao (a m ˜ ao) dos ˜ EFs detectados no subcorpus e identificac¸ao de ˜
 padroes de exemplos e frases com problemas; ˜
-• Escrita da Entrada: adic¸ao dos dados ˜ as tabelas do banco. `
+• Escrita da Entrada: adic¸ao dos dados ˜ as tabelas do banco . `
 Os anotadores humanos sao os que escolhem os termos que far ˜ ao parte da lista ˜
-de ULs, examinam o uso dos EFs e determinam os contextos sintaticos e colocacionais ´
-do significado do frame [Fillmore et al. 2003a] consultando dicionarios eletr ´ onicos e ˆ
-tesauros. Eles podem, em qualquer etapa de processamento, modificar uma decisao˜
+de ULs , examinam o uso dos EFs e determinam os contextos sintaticos e colocacionais ´
+do significado do frame [Fillmore et al . 2003a] consultando dicionarios eletr ´ onicos e ˆ
+tesauros . Eles podem , em qualquer etapa de processamento , modificar uma decisao˜
 anterior (tomadas ou nao por eles) com base em evid ˜ encias do corpus e continuar o ˆ
-processo a partir desse ponto [Fillmore et al. 2003b]. Essas mudanc¸as tambem podem ´
-implicar na alterac¸ao de ˜ frames ja existentes e seus relacionamentos, podendo gerar um ´
-loop de alterac¸oes. ˜
-As relac¸oes entre os ˜ frames sao implementadas no banco de dados, contendo as ˜
-tabelas frame, ULs, EFs e relacionamento [Fillmore et al. 2004]. As tabelas e as relac¸oes ˜
-entre elas procuram refletir a base teorica do projeto [Fillmore et al. 2003a]. ´
-4. Analise da Rede de ´ frames da FrameNet Brasil
+processo a partir desse ponto [Fillmore et al . 2003b] . Essas mudanc¸as tambem podem ´
+implicar na alterac¸ao de ˜ frames ja existentes e seus relacionamentos , podendo gerar um ´
+loop de alterac¸oes . ˜
+As relac¸oes entre os ˜ frames sao implementadas no banco de dados , contendo as ˜
+tabelas frame , ULs , EFs e relacionamento [Fillmore et al . 2004] . As tabelas e as relac¸oes ˜
+entre elas procuram refletir a base teorica do projeto [Fillmore et al . 2003a] . ´
+4 . Analise da Rede de ´ frames da FrameNet Brasil
 Nesta sec¸ao˜ e apresentada a estrutura da rede de ´ frames da FrameNet Brasil e as metricas ´
-de analise em redes complexas, com o intuito de mostrar como essa an ´ alise se reflete no ´
+de analise em redes complexas , com o intuito de mostrar como essa an ´ alise se reflete no ´
 Anais do VII Brazilian Workshop on Social Network Analysis and Mining - BraSNAM 2018
 22
-modelo conceitual da rede. Usou-se o software Gephi3 para analise e visualizac¸ ´ ao da rede ˜
-e o software yEd4 para a gerac¸ao das ˜ arvores de ´ frames (que serao descritas na sec¸ ˜ ao 4.4). ˜
-4.1. Caracterizac¸ao da rede de ˜ frames
+modelo conceitual da rede . Usou-se o software Gephi3 para analise e visualizac¸ ´ ao da rede ˜
+e o software yEd4 para a gerac¸ao das ˜ arvores de ´ frames (que serao descritas na sec¸ ˜ ao 4 .4) . ˜
+4 .1 . Caracterizac¸ao da rede de ˜ frames
 A rede de frames e um grafo onde os v ´ ertices s ´ ao os ˜ frames e as arestas sao os ˜
-relacionamentos entre eles. Possui 1359 nos e 1960 arestas. O grafo ´ e dirigido pois ´
-os relacionamentos indicam uma certa hierarquia na rede. Existem frames mais genericos ´
-que possuem muitos outros frames conectados a eles, gerando assim nucleos ou ´ clusters
-bem definidos no grafo. Esses mesmos frames podem ser observados como pais das
-arvores geradas por suas conex ´ oes, onde quanto maior o n ˜ ´ivel do no na ´ arvore mais ´
-espec´ifico e o´ frame. Assim sendo, o grafo da FrameNet Brasil pode ser considerado como
-uma floresta de frames (vide sec¸ao 4.4) em que: os pais das ˜ arvores descrevem cen ´ arios ´
-mais gerais, os nos folha cen ´ arios mais espec ´ ´ificos, os vertices podem se relacionar como ´
+relacionamentos entre eles . Possui 1359 nos e 1960 arestas . O grafo ´ e dirigido pois ´
+os relacionamentos indicam uma certa hierarquia na rede . Existem frames mais genericos ´
+que possuem muitos outros frames conectados a eles , gerando assim nucleos ou ´ clusters
+bem definidos no grafo . Esses mesmos frames podem ser observados como pais das
+arvores geradas por suas conex ´ oes , onde quanto maior o n ˜ ´ivel do no na ´ arvore mais ´
+espec´ifico e o´ frame . Assim sendo , o grafo da FrameNet Brasil pode ser considerado como
+uma floresta de frames (vide sec¸ao 4 .4) em que: os pais das ˜ arvores descrevem cen ´ arios ´
+mais gerais , os nos folha cen ´ arios mais espec ´ ´ificos , os vertices podem se relacionar como ´
 irmaos e a altura da ˜ arvore pode ser um indicativo de qu ´ ao bem estudado (aprofundado) ˜
-foi o assunto em questao. A Figura 4 ilustra o grafo da FrameNet Brasil. ˜
-Figura 4. Grafo da rede de frames da FrameNet Brasil. O tamanho do vertice foi ´
-determinado pelo seu grau. As cores assinalam as componentes conexas.
-4.2. Medidas de Centralidade
+foi o assunto em questao . A Figura 4 ilustra o grafo da FrameNet Brasil . ˜
+Figura 4 . Grafo da rede de frames da FrameNet Brasil . O tamanho do vertice foi ´
+determinado pelo seu grau . As cores assinalam as componentes conexas .
+4 .2 . Medidas de Centralidade
 Foram aplicadas medidas de centralidade com o objetivo de detectar vertices de maior ´
-importancia no grafo. A Tabela 1 lista essas medidas e o intervalo em que seus valores ˆ
-ocorrem.
-Tabela 1. Medidas de centralidade e o intervalo de valores. O Closeness,
-Betweenness e o Eigenvector possuem os valores contidos entre [0,1]
-Intervalo Grau G. Entrada G. Sa´ida Closeness Betweenness Eigenvector
-Menor 0 0 0 0.0 0.0 0.0
-Maior 54 6 53 1.0 0.001601 1.0
-3https://gephi.org/
-4https://www.yworks.com/products/yed
+importancia no grafo . A Tabela 1 lista essas medidas e o intervalo em que seus valores ˆ
+ocorrem .
+Tabela 1 . Medidas de centralidade e o intervalo de valores . O Closeness ,
+Betweenness e o Eigenvector possuem os valores contidos entre [0 ,1]
+Intervalo Grau G . Entrada G . Sa´ida Closeness Betweenness Eigenvector
+Menor 0 0 0 0 .0 0 .0 0 .0
+Maior 54 6 53 1 .0 0 .001601 1 .0
+3https://gephi .org/
+4https://www .yworks .com/products/yed
 Anais do VII Brazilian Workshop on Social Network Analysis and Mining - BraSNAM 2018
 23
-O grau do no indica a quantidade de relacionamentos que o v ´ ertice possui. Por ´
-ser um grafo dirigido, o valor do grau e a soma do grau de entrada e o de sa ´ ´ida. O grau
+O grau do no indica a quantidade de relacionamentos que o v ´ ertice possui . Por ´
+ser um grafo dirigido , o valor do grau e a soma do grau de entrada e o de sa ´ ´ida . O grau
 de sa´ida foi usado para revelar vertices que poderiam apresentar um certa relev ´ ancia no ˆ
-grafo, por possu´irem valores maiores que o grau de entrada (como pode ser verificado
-na Tabela 1). Os vertices com maior grau de sa ´ ´ida sao os que possuem muitas relac¸ ˜ oes ˜
-de heranc¸a (por representarem cenarios mais gen ´ ericos) e que, por essa raz ´ ao, podem ser ˜
-considerados como vertices cr ´ ´iticos, visto que a sua remoc¸ao implicaria na fragmentac¸ ˜ ao˜
-da arvore de ´ frames, bem como do grafo. Foram identificados tanto vertices com grau (de ´
-entrada e de sa´ida) nulo quanto vertices com grau de entrada maior que 1, e esses casos ´
-serao mais explorados adiante. ˜
-O Closeness foi usado para identificar os vertices mais centrais do grafo por ´ em, ´
-os vertices com ´ Closeness igual a 1 s ` ao os que possuem grau menor que 9; ou seja, s ˜ ao os ˜
-vertices perif ´ ericos ou do pen ´ ultimo n ´ ´ivel das arvores (pais das folhas). Isso ocorre por ´
+grafo , por possu´irem valores maiores que o grau de entrada (como pode ser verificado
+na Tabela 1) . Os vertices com maior grau de sa ´ ´ida sao os que possuem muitas relac¸ ˜ oes ˜
+de heranc¸a (por representarem cenarios mais gen ´ ericos) e que , por essa raz ´ ao , podem ser ˜
+considerados como vertices cr ´ ´iticos , visto que a sua remoc¸ao implicaria na fragmentac¸ ˜ ao˜
+da arvore de ´ frames , bem como do grafo . Foram identificados tanto vertices com grau (de ´
+entrada e de sa´ida) nulo quanto vertices com grau de entrada maior que 1 , e esses casos ´
+serao mais explorados adiante . ˜
+O Closeness foi usado para identificar os vertices mais centrais do grafo por ´ em , ´
+os vertices com ´ Closeness igual a 1 s ` ao os que possuem grau menor que 9; ou seja , s ˜ ao os ˜
+vertices perif ´ ericos ou do pen ´ ultimo n ´ ´ivel das arvores (pais das folhas) . Isso ocorre por ´
 que o Closeness e uma medida que calcula a proximidade do v ´ ertice em relac¸ ´ ao aos outros ˜
-que ele alcanc¸a, e nessa camada da rede os vertices alcanc¸ados s ´ ao apenas os adjacentes. ˜
-O Betweenness foi usado para detectar os vertices ´ ponte do grafo. O intervalo
-superior dessa medida e menor que 0,1. Isso acontece por que o grafo da FrameNet Brasil ´
+que ele alcanc¸a , e nessa camada da rede os vertices alcanc¸ados s ´ ao apenas os adjacentes . ˜
+O Betweenness foi usado para detectar os vertices ´ ponte do grafo . O intervalo
+superior dessa medida e menor que 0 ,1 . Isso acontece por que o grafo da FrameNet Brasil ´
 tende a uma estrutura de floresta de frames existindo poucos caminhos curtos que passam
-pelo mesmo vertice. ´
+pelo mesmo vertice . ´
 O Eigenvector foi usado para reconhecer vertices importantes com base na ´
-importancia de seus v ˆ ertices adjacentes, isto ´ e, identificar v ´ ertices adjacentes a mais de ´
-um no central. Contudo, como foi constatado anteriormente, os n ´ os mais centrais deste ´
-grafo sao os n ˜ os perif ´ ericos e, por esta raz ´ ao, apenas um v ˜ ertice apresentou o ´ Eigenvector
-igual a 1. `
-4.3. Conectividade da rede
+importancia de seus v ˆ ertices adjacentes , isto ´ e , identificar v ´ ertices adjacentes a mais de ´
+um no central . Contudo , como foi constatado anteriormente , os n ´ os mais centrais deste ´
+grafo sao os n ˜ os perif ´ ericos e , por esta raz ´ ao , apenas um v ˜ ertice apresentou o ´ Eigenvector
+igual a 1 . `
+4 .3 . Conectividade da rede
 Visto que as medidas de centralidade nao permitiram obter uma vis ˜ ao clara da estrutura ˜
-da rede, optou-se por aplicar dois algoritmos de agrupamento (detecc¸ao de Componentes ˜
-Conexas e de Comunidades) fornecidos pelo Gephi.
+da rede , optou-se por aplicar dois algoritmos de agrupamento (detecc¸ao de Componentes ˜
+Conexas e de Comunidades) fornecidos pelo Gephi .
 Para detecc¸ao de componentes conexas aplicou-se o algoritmo ˜ Componentes
-Conexas [Wasserman and Faust 1994]. Foram identificadas 60 componentes conexas,
-sendo que a maior engloba mais de 90% dos vertices (1274 ´ frames). Nessa componente
-se encontram os vertices com maior grau e as ´ arvores de ´ frames mais altas. Das 59
-componentes restantes 48 possuem apenas um vertice, isto ´ e, existem v ´ ertices sem arestas ´
-no grafo o que indica que alguns frames estao sem relacionamentos na FrameNet Brasil. ˜
-Estes frames, que representam 3% do total, deveriam ser analisados por especialistas
-para verificar se essa peculiaridade e aceita ou n ´ ao semanticamente. A Figura 4 ilustra ˜
-as componentes do grafo, onde as cores distinguem os vertices pertencentes a mesma ´
-componente.
-Para detecc¸ao de comunidades aplicou-se o algoritmo de ˜ Modularidade, que
+Conexas [Wasserman and Faust 1994] . Foram identificadas 60 componentes conexas ,
+sendo que a maior engloba mais de 90% dos vertices (1274 ´ frames) . Nessa componente
+se encontram os vertices com maior grau e as ´ arvores de ´ frames mais altas . Das 59
+componentes restantes 48 possuem apenas um vertice , isto ´ e , existem v ´ ertices sem arestas ´
+no grafo o que indica que alguns frames estao sem relacionamentos na FrameNet Brasil . ˜
+Estes frames , que representam 3% do total , deveriam ser analisados por especialistas
+para verificar se essa peculiaridade e aceita ou n ´ ao semanticamente . A Figura 4 ilustra ˜
+as componentes do grafo , onde as cores distinguem os vertices pertencentes a mesma ´
+componente .
+Para detecc¸ao de comunidades aplicou-se o algoritmo de ˜ Modularidade , que
 consiste em agrupar os vertices de acordo com o valor da modularidade da partic¸ ´ ao˜
-[Blondel et al. 2008] (usou-se o valor de resoluc¸ao=10 como par ˜ ametro de entrada do ˆ
-algoritmo no Gephi). Foram detectadas 82 comunidades no grafo. Estas comunidades sao˜
-grupos com ligac¸oes muito densas entres os v ˜ ertices participantes. Os dois maiores grupos ´
-contem dois dos v ˆ ertices de maior grau e possuem mais de 90 membros, respectivamente. ´
+[Blondel et al . 2008] (usou-se o valor de resoluc¸ao=10 como par ˜ ametro de entrada do ˆ
+algoritmo no Gephi) . Foram detectadas 82 comunidades no grafo . Estas comunidades sao˜
+grupos com ligac¸oes muito densas entres os v ˜ ertices participantes . Os dois maiores grupos ´
+contem dois dos v ˆ ertices de maior grau e possuem mais de 90 membros , respectivamente . ´
 Anais do VII Brazilian Workshop on Social Network Analysis and Mining - BraSNAM 2018
 24
-Como pode ser observado na Figura 5, os vertices desconexos constituem tamb ´ em´
-comunidades compostas de um unico elemento. ´
-Figura 5. Comunidades do grafo
-4.4. Arvores de ´ frames
+Como pode ser observado na Figura 5 , os vertices desconexos constituem tamb ´ em´
+comunidades compostas de um unico elemento . ´
+Figura 5 . Comunidades do grafo
+4 .4 . Arvores de ´ frames
 As ligac¸oes entre os ˜ frames que compoem um cen ˜ ario geram uma estrutura hier ´ arquica ´
-similar a de uma arvore, onde o n ´ o pai ´ e o´ frame mais geral e o no folha o mais espec ´ ´ifico.
-A Figura 6(a) mostra a arvore gerada por uma das componentes conexas do grafo. ´
-Computacionalmente, os relacionamentos entre os frames violam as restric¸oes da ˜ arvore ´
-(como a estrutura de dados) porem, semanticamente essas infrac¸ ´ oes podem fazer sentido ˜
-para a descric¸ao do assunto em quest ˜ ao (Figura 6(b)). Cabe a um especialista analisar e ˜
-validar tais situac¸oes ou corrigir caso necess ˜ ario. ´
+similar a de uma arvore , onde o n ´ o pai ´ e o´ frame mais geral e o no folha o mais espec ´ ´ifico .
+A Figura 6(a) mostra a arvore gerada por uma das componentes conexas do grafo . ´
+Computacionalmente , os relacionamentos entre os frames violam as restric¸oes da ˜ arvore ´
+(como a estrutura de dados) porem , semanticamente essas infrac¸ ´ oes podem fazer sentido ˜
+para a descric¸ao do assunto em quest ˜ ao (Figura 6(b)) . Cabe a um especialista analisar e ˜
+validar tais situac¸oes ou corrigir caso necess ˜ ario . ´
 (a) Arvore ´ (b) Relacionamentos entre os nos de uma das ´
 subarvore ´
-Figura 6. Visualizac¸ao em ˜ arvore de ´ frames de uma das componentes conexas
+Figura 6 . Visualizac¸ao em ˜ arvore de ´ frames de uma das componentes conexas
 do grafo
-4.5. Avaliac¸ao da proposta ˜
+4 .5 . Avaliac¸ao da proposta ˜
 As medidas e algoritmos apresentados nas sec¸oes anteriores foram empregados com o ˜
-objetivo de identificar poss´iveis pontos cr´iticos da rede. Foram detectados alguns casos,
+objetivo de identificar poss´iveis pontos cr´iticos da rede . Foram detectados alguns casos ,
 Anais do VII Brazilian Workshop on Social Network Analysis and Mining - BraSNAM 2018
 25
-a n´ivel estrutural, e os mesmos foram encaminhados a um especialista em lingu´istica
-computacional, para as respectivas avaliac¸oes. Doutor em Lingu ˜ ´istica Computacional,
-o especialista atua no projeto da FrameNet Brasil. Alguns casos de criticidade foram
-descartados, instantaneamente, e outros mereceram uma analise sem ´ antica mais profunda. ˆ
-Abaixo sao descritos os casos e suas respectivas avaliac¸ ˜ oes e/ou validac¸ ˜ oes. ˜
+a n´ivel estrutural , e os mesmos foram encaminhados a um especialista em lingu´istica
+computacional , para as respectivas avaliac¸oes . Doutor em Lingu ˜ ´istica Computacional ,
+o especialista atua no projeto da FrameNet Brasil . Alguns casos de criticidade foram
+descartados , instantaneamente , e outros mereceram uma analise sem ´ antica mais profunda . ˆ
+Abaixo sao descritos os casos e suas respectivas avaliac¸ ˜ oes e/ou validac¸ ˜ oes . ˜
 i) Medidas de centralidade
 O grau do no se revelou uma m ´ etrica v ´ alida para detecc¸ ´ ao de n ˜ os relevantes tanto ´
-a n´ivel topologico quanto a n ´ ´ivel semantico da rede. N ˆ os com graus altos, quando ´
-eliminados da rede, tendem a gerar mais componentes conexas e o mesmo ocorre
-semanticamente, fazendo com que os frames adjacentes percam uma parte da
-informac¸ao associada a eles. Por exemplo, se o ˜ frame Dar for retirado da rede todos
-os frames adjacentes a ele perderao parte do significado (Figura 2). Esta medida ˜
-foi validada de forma instantanea, contudo, o emprego do ˆ Closeness, Betweennes
-e Eigenvector, que sao medidas que revelam o privil ˜ egio do n ´ o em relac¸ ´ ao˜ a sua `
-localizac¸ao, n ˜ ao se mostrou t ˜ ao proveitoso. Os n ˜ os com ´ Closeness, Betweennes
-e Eigenvector altos sao, na maioria dos casos, n ˜ os perif ´ ericos da rede. Por serem ´
-casos at´ipicos a realidade computacional, essas medidas demandaram uma an ` alise ´
-semantica mais acentuada. Todavia, foram descartadas por n ˆ ao oferecerem risco ˜
-semantico ˆ a FrameNet. `
+a n´ivel topologico quanto a n ´ ´ivel semantico da rede . N ˆ os com graus altos , quando ´
+eliminados da rede , tendem a gerar mais componentes conexas e o mesmo ocorre
+semanticamente , fazendo com que os frames adjacentes percam uma parte da
+informac¸ao associada a eles . Por exemplo , se o ˜ frame Dar for retirado da rede todos
+os frames adjacentes a ele perderao parte do significado (Figura 2) . Esta medida ˜
+foi validada de forma instantanea , contudo , o emprego do ˆ Closeness , Betweennes
+e Eigenvector , que sao medidas que revelam o privil ˜ egio do n ´ o em relac¸ ´ ao˜ a sua `
+localizac¸ao , n ˜ ao se mostrou t ˜ ao proveitoso . Os n ˜ os com ´ Closeness , Betweennes
+e Eigenvector altos sao , na maioria dos casos , n ˜ os perif ´ ericos da rede . Por serem ´
+casos at´ipicos a realidade computacional , essas medidas demandaram uma an ` alise ´
+semantica mais acentuada . Todavia , foram descartadas por n ˆ ao oferecerem risco ˜
+semantico ˆ a FrameNet . `
 ii) Conectividade
 O algoritmo de detecc¸ao de componentes conexas evidenciou grupos pequenos de ˜
 frames desconexos do restante da rede e ate mesmo um n ´ umero consider ´ avel de ´
-frames soltos (41), sem nenhum tipo de relacionamento. Quando apresentados, o
+frames soltos (41) , sem nenhum tipo de relacionamento . Quando apresentados , o
 especialista afirmou que estes casos podem ocorrer se o frame descrever um cenario ´
-muito espec´ifico. Todavia, essa subparte da rede nao deixa de ser um motivo de ˜
-alerta e recebera especial atenc¸ ´ ao dos linguistas do projeto. ˜
+muito espec´ifico . Todavia , essa subparte da rede nao deixa de ser um motivo de ˜
+alerta e recebera especial atenc¸ ´ ao dos linguistas do projeto . ˜
 iii) Arvore de ´ frames
-A estrutura de dados que mais se aproxima da rede de frames e a ´ arvore, como ´
-ja foi discutido na sec¸ ´ ao 4.4, por ˜ em nem todas as propriedades desta estrutura ´
-sao respeitadas na FrameNet Brasil: filhos com mais de um pai, irm ˜ aos com ˜
-ligac¸oes diretas (sem passar pelo pai), ciclos entre n ˜ os de uma sub ´ arvore dentre ´
-outros, sao os casos que podem ser verificados nessa rede. O especialista afirmou ˜
+A estrutura de dados que mais se aproxima da rede de frames e a ´ arvore , como ´
+ja foi discutido na sec¸ ´ ao 4 .4 , por ˜ em nem todas as propriedades desta estrutura ´
+sao respeitadas na FrameNet Brasil: filhos com mais de um pai , irm ˜ aos com ˜
+ligac¸oes diretas (sem passar pelo pai) , ciclos entre n ˜ os de uma sub ´ arvore dentre ´
+outros , sao os casos que podem ser verificados nessa rede . O especialista afirmou ˜
 que prender a FrameNet Brasil a uma estrutura tao r ˜ ´igida limita o projeto no
-que tange a representac¸ao dos mais variados cen ˜ arios da vida cotidiana, bem ´
-como na associac¸ao de informac¸ ˜ oes que agreguem valor sem ˜ antico ao ˆ frame. No
-entanto, quando foram apresentadas as subarvores com restric¸ ´ oes violadas, foram ˜
-necessarias algumas an ´ alises sem ´ anticas para validar os casos. A Figura 6(b) ˆ
-ilustra um exemplo de frames irmaos se relacionando sem passar, necessariamente, ˜
+que tange a representac¸ao dos mais variados cen ˜ arios da vida cotidiana , bem ´
+como na associac¸ao de informac¸ ˜ oes que agreguem valor sem ˜ antico ao ˆ frame . No
+entanto , quando foram apresentadas as subarvores com restric¸ ´ oes violadas , foram ˜
+necessarias algumas an ´ alises sem ´ anticas para validar os casos . A Figura 6(b) ˆ
+ilustra um exemplo de frames irmaos se relacionando sem passar , necessariamente , ˜
 pelo frame pai: os frames inibir o movimento e liberar herdam do frame
-afetar intencionalmente, porem eles se ligam pela relac¸ ´ ao de ˜ precedencia ˆ
-que define a ordem em que os fatos ocorrem.
-5. Considerac¸oes Finais ˜
-Este trabalho apresentou uma analise da rede de ´ frames da FrameNet Brasil, com
+afetar intencionalmente , porem eles se ligam pela relac¸ ´ ao de ˜ precedencia ˆ
+que define a ordem em que os fatos ocorrem .
+5 . Considerac¸oes Finais ˜
+Este trabalho apresentou uma analise da rede de ´ frames da FrameNet Brasil , com
 o objetivo de identificar situac¸oes que pudessem estar em desacordo com o modelo ˜
 Anais do VII Brazilian Workshop on Social Network Analysis and Mining - BraSNAM 2018
 26
-conceitual da mesma.
+conceitual da mesma .
 Foram aplicadas medidas de centralidade e algoritmos de agrupamento na analise ´
-da rede. Nao foram encontrados casos expl ˜ ´icitos de violac¸ao do modelo conceitual da ˜
-FrameNet Brasil porem, foram identificados cen ´ arios at ´ ´ipicos que foram repassados aos
-profissionais do projeto para uma analise detalhada. ´
+da rede . Nao foram encontrados casos expl ˜ ´icitos de violac¸ao do modelo conceitual da ˜
+FrameNet Brasil porem , foram identificados cen ´ arios at ´ ´ipicos que foram repassados aos
+profissionais do projeto para uma analise detalhada . ´
 Como trabalhos futuros pretende-se avanc¸ar na analise da rede de ´ frames usando
 metricas mais sofisticadas de redes complexas e usar a FrameNet Brasil como uma ´
-ferramenta de Analise de Sentimentos. ´
+ferramenta de Analise de Sentimentos . ´
 Referencias ˆ
-[Baker et al. 1998] Baker, C. F., Fillmore, C. J., and Lowe, J. B. (1998). The
-berkeley framenet project. In Proceedings of the 17th international conference on
-Computational linguistics-Volume 1, pages 86–90. Association for Computational
-Linguistics.
-[Barabasi et al. 2000] Barab ´ asi, A.-L., Albert, R., and Jeong, H. (2000). Scale-free ´
-characteristics of random networks: the topology of the world-wide web. Physica
-A: statistical mechanics and its applications, 281(1-4):69–77.
-[Blondel et al. 2008] Blondel, V. D., Guillaume, J.-L., Lambiotte, R., and Lefebvre, E.
-(2008). Fast unfolding of communities in large networks. Journal of statistical
-mechanics: theory and experiment, 2008(10):P10008.
-[Fillmore and Baker 2010] Fillmore, C. J. and Baker, C. (2010). A frames approach to
-semantic analysis. In The Oxford handbook of linguistic analysis.
-[Fillmore et al. 2004] Fillmore, C. J., Baker, C. F., and Sato, H. (2004). Framenet as a”net”.
-In LREC.
-[Fillmore et al. 2003a] Fillmore, C. J., Johnson, C. R., and Petruck, M. R. (2003a).
-Background to framenet. International journal of lexicography, 16(3):235–250.
-[Fillmore et al. 2003b] Fillmore, C. J., Petruck, M. R., Ruppenhofer, J., and Wright, A.
-(2003b). Framenet in action: The case of attaching. International journal of
-lexicography, 16(3):297–332.
-[Ruppenhofer et al. 2016] Ruppenhofer, J., Ellsworth, M., Petruck, M. R., Johnson, C. R.,
-and Scheffczyk, J. (2016). FrameNet II: Extended theory and practice. Institut fur¨
-Deutsche Sprache, Bibliothek.
-[Salomao 2009] Salomao, M. M. M. (2009). Framenet brasil: um trabalho em progresso.
-Calidoscopio ´ , 7(3):171–182.
-[Torrent et al. 2014] Torrent, T., Salomao, M. M., Campos, F., Braga, R., Matos, E., ˜
-Gamonal, M., Gonc¸alves, J., Souza, B., Gomes, D., and Peron, S. (2014). Copa
+[Baker et al . 1998] Baker , C . F . , Fillmore , C . J . , and Lowe , J . B . (1998) . The
+berkeley framenet project . In Proceedings of the 17th international conference on
+Computational linguistics-Volume 1 , pages 86–90 . Association for Computational
+Linguistics .
+[Barabasi et al . 2000] Barab ´ asi , A .-L . , Albert , R . , and Jeong , H . (2000) . Scale-free ´
+characteristics of random networks: the topology of the world-wide web . Physica
+A: statistical mechanics and its applications , 281(1-4):69–77 .
+[Blondel et al . 2008] Blondel , V . D . , Guillaume , J .-L . , Lambiotte , R . , and Lefebvre , E .
+(2008) . Fast unfolding of communities in large networks . Journal of statistical
+mechanics: theory and experiment , 2008(10):P10008 .
+[Fillmore and Baker 2010] Fillmore , C . J . and Baker , C . (2010) . A frames approach to
+semantic analysis . In The Oxford handbook of linguistic analysis .
+[Fillmore et al . 2004] Fillmore , C . J . , Baker , C . F . , and Sato , H . (2004) . Framenet as a”net” .
+In LREC .
+[Fillmore et al . 2003a] Fillmore , C . J . , Johnson , C . R . , and Petruck , M . R . (2003a) .
+Background to framenet . International journal of lexicography , 16(3):235–250 .
+[Fillmore et al . 2003b] Fillmore , C . J . , Petruck , M . R . , Ruppenhofer , J . , and Wright , A .
+(2003b) . Framenet in action: The case of attaching . International journal of
+lexicography , 16(3):297–332 .
+[Ruppenhofer et al . 2016] Ruppenhofer , J . , Ellsworth , M . , Petruck , M . R . , Johnson , C . R . ,
+and Scheffczyk , J . (2016) . FrameNet II: Extended theory and practice . Institut fur¨
+Deutsche Sprache , Bibliothek .
+[Salomao 2009] Salomao , M . M . M . (2009) . Framenet brasil: um trabalho em progresso .
+Calidoscopio ´  , 7(3):171–182 .
+[Torrent et al . 2014] Torrent , T . , Salomao , M . M . , Campos , F . , Braga , R . , Matos , E . , ˜
+Gamonal , M . , Gonc¸alves , J . , Souza , B . , Gomes , D . , and Peron , S . (2014) . Copa
 2014 framenet brasil: a frame-based trilingual electronic dictionary for the football
-world cup. In Proceedings of COLING 2014, the 25th International Conference on
-Computational Linguistics: System Demonstrations, pages 10–14.
-[Wasserman and Faust 1994] Wasserman, S. and Faust, K. (1994). Social network analysis:
-Methods and applications, volume 8. Cambridge university press.
+world cup . In Proceedings of COLING 2014 , the 25th International Conference on
+Computational Linguistics: System Demonstrations , pages 10–14 .
+[Wasserman and Faust 1994] Wasserman , S . and Faust , K . (1994) . Social network analysis:
+Methods and applications , volume 8 . Cambridge university press .
