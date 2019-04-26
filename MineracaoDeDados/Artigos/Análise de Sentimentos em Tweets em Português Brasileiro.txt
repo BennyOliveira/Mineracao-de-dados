@@ -1,213 +1,213 @@
 Análise de Sentimentos em Tweets em Português Brasileiro
-Daniel P .  Kansaon1
- ,  Michele A .  Brandão2
- ,  Saulo A .  de Paula Pinto 1
+Daniel P. Kansaon1
+, Michele A. Brandão2
+, Saulo A. de Paula Pinto 1
 1
- Pontifícia Universidade Católica de Minas Gerais  ( PUC - MG )   -  Belo Horizonte ,  MG –
+ Pontifícia Universidade Católica de Minas Gerais (PUC-MG) - Belo Horizonte, MG –
 Brasil
-2Universidade Federal de Minas Gerais  ( UFMG )   -  Belo Horizonte ,  MG – Brasil
+2Universidade Federal de Minas Gerais (UFMG) - Belo Horizonte, MG – Brasil
 1
-{daniel . kansaon , saulo}@sga . pucminas . br , 2micheleabrandao@dcc . ufmg . br
-Abstract .  There are several studies on sentiment analysis for the English
-language .  In the case of Brazilian Portuguese ,  the number of papers is smaller
+{daniel.kansaon,saulo}@sga.pucminas.br,2micheleabrandao@dcc.ufmg.br
+Abstract. There are several studies on sentiment analysis for the English
+language. In the case of Brazilian Portuguese, the number of papers is smaller
 because there are not so many datasets available and methods to perform the
-analysis .  This work presents a methodology to compare techniques that
+analysis. This work presents a methodology to compare techniques that
 classify feelings expressed directly or indirectly in tweets in the Brazilian
-Portuguese language .  In addition ,  seven classes of feelings are considered and
-identified in the tweets .  The results are promising when classifying distinct
-feelings ,  as the best classifier achieves 85% of accuracy .  On the other hand , 
-relations between close feelings present results less than 70% of accuracy . 
-Resumo .  Existem diversos trabalhos sobre análise de sentimentos para a
-língua inglesa .  No caso do português brasileiro ,  a quantidade de trabalhos é
+Portuguese language. In addition, seven classes of feelings are considered and
+identified in the tweets. The results are promising when classifying distinct
+feelings, as the best classifier achieves 85% of accuracy. On the other hand,
+relations between close feelings present results less than 70% of accuracy.
+Resumo. Existem diversos trabalhos sobre análise de sentimentos para a
+língua inglesa. No caso do português brasileiro, a quantidade de trabalhos é
 menor por não existirem tantas bases de dados disponíveis e métodos para
-realizar a análise .  Este trabalho apresenta uma metodologia para comparar
+realizar a análise. Este trabalho apresenta uma metodologia para comparar
 técnicas que classificam sentimentos expressos diretamente ou indiretamente
-em tweets no idioma português brasileiro .  Ademais ,  são consideradas e
-identificadas sete classes de sentimentos nos tweets .  Os resultados são
-promissores ao classificar sentimentos distintos ,  pois o melhor classificador
-alcança 85% de acerto .  Por outro lado ,  relações entre sentimentos próximos
-apresentam resultados inferiores a 70% de acerto . 
-1 .  Introdução
+em tweets no idioma português brasileiro. Ademais, são consideradas e
+identificadas sete classes de sentimentos nos tweets. Os resultados são
+promissores ao classificar sentimentos distintos, pois o melhor classificador
+alcança 85% de acerto. Por outro lado, relações entre sentimentos próximos
+apresentam resultados inferiores a 70% de acerto.
+1. Introdução
 Dados são coleções de valores que podem ser explorados e processados a fim de se
-obter padrões ,  associações ,  mudanças e anomalias em prol de algum objetivo .  Nas
-últimas décadas ,  devido à globalização ,  a produção de dados na forma digital tem
-aumentado exponencialmente .  Algumas estimativas apontam que a quantidade de
-informação produzida no mundo se duplica a cada vinte meses [Dwivedi et al .  ,  2016] . 
+obter padrões, associações, mudanças e anomalias em prol de algum objetivo. Nas
+últimas décadas, devido à globalização, a produção de dados na forma digital tem
+aumentado exponencialmente. Algumas estimativas apontam que a quantidade de
+informação produzida no mundo se duplica a cada vinte meses [Dwivedi et al., 2016].
 Um bom processamento e manipulação dessas informações pode trazer benefícios a
-organizações ,  grupos de investidores e até mesmo pessoas que desejam extrair algum
-tipo de informação sobre um conjunto de dados [Dwivedi et al .  ,  2016] . 
-Com o avanço tecnológico e a popularização das redes sociais online ,  as pessoas
-utilizam cada vez mais essas redes como um grande aliado para a comunicação ,  fazendo
-com que as redes sejam uma grande fonte de informação .  Devido a grande quantidade
-de dados disponíveis ,  as análises dessas redes podem trazer informações valiosas para
-as várias empresas que buscam informações sobre seus produtos ,  clientes e que
-procuram entender melhor o mercado e os concorrentes ,  por exemplo . 
-Anais do VII Brazilian Workshop on Social Network Analysis and Mining  -  BraSNAM 2018
+organizações, grupos de investidores e até mesmo pessoas que desejam extrair algum
+tipo de informação sobre um conjunto de dados [Dwivedi et al., 2016].
+Com o avanço tecnológico e a popularização das redes sociais online, as pessoas
+utilizam cada vez mais essas redes como um grande aliado para a comunicação, fazendo
+com que as redes sejam uma grande fonte de informação. Devido a grande quantidade
+de dados disponíveis, as análises dessas redes podem trazer informações valiosas para
+as várias empresas que buscam informações sobre seus produtos, clientes e que
+procuram entender melhor o mercado e os concorrentes, por exemplo.
+Anais do VII Brazilian Workshop on Social Network Analysis and Mining - BraSNAM 2018
 52
-Uma das técnicas que auxiliam essas avaliações é a análise de sentimentos ,  que
-tem como ideia principal extrair e descobrir qual o sentimento expresso em um texto . 
-Assim ,  é possível classificar a sua polaridade ,  que é a tarefa de determinar se um
-sentimento expresso em um texto é positiva ,  negativa ou até mesmo neutra [Cavalcanti
-et al .  ,  2012] .  Ademais ,  a análise de sentimentos é uma das técnicas aplicadas no
-contexto das redes sociais e está associada com a mineração de dados .  Essa técnica pode
-ser empregada em diversas situações ,  principalmente ,  para entender o senso comum
-sobre um determinado acontecimento ,  como :  eventos ,  economia e política . 
-Nesse contexto ,  este trabalho apresenta uma análise de sentimentos expressos
-pelos usuários em tweets ,  postagens realizadas no Twitter .  A identificação dos
-sentimentos tem como apoio processos de mineração ,  que visam extrair informações
-relevantes ,  utilizando - se de métodos de classificação para determinar o sentimento
-expresso nos tweets .  Assim ,  o foco deste trabalho é responder à pergunta :  quais
+Uma das técnicas que auxiliam essas avaliações é a análise de sentimentos, que
+tem como ideia principal extrair e descobrir qual o sentimento expresso em um texto.
+Assim, é possível classificar a sua polaridade, que é a tarefa de determinar se um
+sentimento expresso em um texto é positiva, negativa ou até mesmo neutra [Cavalcanti
+et al., 2012]. Ademais, a análise de sentimentos é uma das técnicas aplicadas no
+contexto das redes sociais e está associada com a mineração de dados. Essa técnica pode
+ser empregada em diversas situações, principalmente, para entender o senso comum
+sobre um determinado acontecimento, como: eventos, economia e política.
+Nesse contexto, este trabalho apresenta uma análise de sentimentos expressos
+pelos usuários em tweets, postagens realizadas no Twitter. A identificação dos
+sentimentos tem como apoio processos de mineração, que visam extrair informações
+relevantes, utilizando-se de métodos de classificação para determinar o sentimento
+expresso nos tweets. Assim, o foco deste trabalho é responder à pergunta: quais
 algoritmos de classificação podem melhor descobrir sentimentos em tweets em
-português brasileiro? Em outras palavras ,  uma pesquisa exploratória é realizada com
+português brasileiro? Em outras palavras, uma pesquisa exploratória é realizada com
 objetivo principal de verificar o desempenho de diferentes algoritmos de classificação
 ao serem aplicados na análise de sentimentos semelhantes e distintos em tweets em
-português brasileiro . 
-O restante deste artigo está organizado da seguinte forma .  A Seção 2 apresenta
-os trabalhos relacionados .  A Seção 3 descreve a metodologia utilizada e a Seção 4
-descreve os resultados obtidos nos experimentos ,  detalhando a aplicação de cada
-método .  Já a Seção 5 discute os resultados experimentais obtidos .  Finalmente ,  a Seção 6
-apresenta conclusões e comenta sobre trabalhos futuros . 
-2 .  Trabalhos Relacionados
+português brasileiro.
+O restante deste artigo está organizado da seguinte forma. A Seção 2 apresenta
+os trabalhos relacionados. A Seção 3 descreve a metodologia utilizada e a Seção 4
+descreve os resultados obtidos nos experimentos, detalhando a aplicação de cada
+método. Já a Seção 5 discute os resultados experimentais obtidos. Finalmente, a Seção 6
+apresenta conclusões e comenta sobre trabalhos futuros.
+2. Trabalhos Relacionados
 A mineração de dados juntamente com a análise de sentimentos tem ampla
-aplicabilidade em várias áreas do conhecimento ,  por exemplo ,  jogos ,  educação e
-política ,  e sempre busca informações significativas em grandes volumes de dados . 
-Assim ,  existem diversos trabalhos recentes que enfatizam o uso da mineração de dados , 
-especificamente ,  a aplicação de técnicas de classificação . 
-Nesse cenário ,  Bouazizi e Ohtsuki [2016] propõem uma abordagem para
-quantificação de sentimentos no Twitter .  Tal trabalho destaca a importância da detecção
+aplicabilidade em várias áreas do conhecimento, por exemplo, jogos, educação e
+política, e sempre busca informações significativas em grandes volumes de dados.
+Assim, existem diversos trabalhos recentes que enfatizam o uso da mineração de dados,
+especificamente, a aplicação de técnicas de classificação.
+Nesse cenário, Bouazizi e Ohtsuki [2016] propõem uma abordagem para
+quantificação de sentimentos no Twitter. Tal trabalho destaca a importância da detecção
 de sentimentos em tweets e apresenta uma maneira de extrair diferentes sentimentos
-utilizando a técnica de classificação Random Forest .  Foram coletados cerca de 40 . 000
-tweets e atribuídos um sentimento para cada um ,  sendo eles :  amor ,  felicidade ,  diversão , 
-entusiasmo ,  alívio ,  ódio ,  raiva ,  tristeza ,  tédio preocupação ,  surpresa e neutralidade . 
-Ademais ,  Pandeye e Rajpoot [2016] analisam sentimentos através da
-comparação de diferentes técnicas de classificação como J48 ,  Random Forest ,  Decision
-Tree ,  Random Tree ,  NaiveBayes ,  SimpleNaiveBayes ,  NaiveBayes e DecisionStump . 
+utilizando a técnica de classificação Random Forest. Foram coletados cerca de 40.000
+tweets e atribuídos um sentimento para cada um, sendo eles: amor, felicidade, diversão,
+entusiasmo, alívio, ódio, raiva, tristeza, tédio preocupação, surpresa e neutralidade.
+Ademais, Pandeye e Rajpoot [2016] analisam sentimentos através da
+comparação de diferentes técnicas de classificação como J48, Random Forest, Decision
+Tree, Random Tree, NaiveBayes, SimpleNaiveBayes, NaiveBayes e DecisionStump.
 Essa análise foi feita com um conjunto de dados sobre o consumo de álcool por
-estudantes de uma escola .  O algoritmo que realizou a melhor classificação foi Decision
-Stump ,  com um resultado de 95 , 44% de acurácia .  Além disso ,  Caetano et al .  [2017]
+estudantes de uma escola. O algoritmo que realizou a melhor classificação foi Decision
+Stump, com um resultado de 95,44% de acurácia. Além disso, Caetano et al. [2017]
 utilizaram a ferramenta SentiStrength para analisar sentimentos no Twitter sobre
-candidatos das eleições americanas .  Tal estudo foi realizado com o objetivo de analisar
-Anais do VII Brazilian Workshop on Social Network Analysis and Mining  -  BraSNAM 2018
+candidatos das eleições americanas. Tal estudo foi realizado com o objetivo de analisar
+Anais do VII Brazilian Workshop on Social Network Analysis and Mining - BraSNAM 2018
 53
-Tabela 1 .  Modelos diferentes de emoções básicas propostas por teóricos .  Fonte : 
-adaptada de Yadollahi et al .  [2017] . 
+Tabela 1. Modelos diferentes de emoções básicas propostas por teóricos. Fonte:
+adaptada de Yadollahi et al. [2017].
 Teórico Ano Emoções Básicas
-Ekman 1972 raiva ,  desgosto ,  medo ,  alegria ,  tristeza ,  surpresa
-Plutchik 1986 raiva ,  antecipação ,  desgosto ,  medo ,  alegria ,  tristeza ,  surpresa , 
+Ekman 1972 raiva, desgosto, medo, alegria, tristeza, surpresa
+Plutchik 1986 raiva, antecipação, desgosto, medo, alegria, tristeza, surpresa,
 confiança
-Shaver 1987 raiva ,  medo ,  alegria ,  amor ,  tristeza ,  surpresa
-Lovheim 2011 raiva ,  desgosto ,  angústia ,  medo ,  alegria ,  interesse ,  vergonha , 
+Shaver 1987 raiva, medo, alegria, amor, tristeza, surpresa
+Lovheim 2011 raiva, desgosto, angústia, medo, alegria, interesse, vergonha,
 surpresa
-a homofilia  ( a tendência de pessoas se relacionarem com semelhantes )  entre usuários .  Já
-Garimella et al .  [2018] realizaram um estudo a fim de quantificar controvérsias em
-redes sociais baseada em gráficos ,  tal estudo indica que os gráficos que apresentam
-temas controversos ,  possuem uma estrutura de cluster ,  onde indivíduos com opinião
-similar tendem a ampliar os argumentos um dos outros . 
-Em relação à comparação de diferentes métodos de análise sentimentos ,  Araújo
-et al .  [2015] apresentam um estudo que compara oito diferentes métodos para detecção
-de sentimentos em tweets no idioma inglês .  Já Araújo et al .  [2016] propôs uma análise
-de sentimento multilíngue ,  onde é feita tradução automática de textos para o inglês ,  e
-posteriormente utiliza - se métodos existentes na língua inglesa para a análise de
-sentimento .  Ademais ,  Yadollahi et al .  [2017] realizam uma categorização cuidadosa de
+a homofilia (a tendência de pessoas se relacionarem com semelhantes) entre usuários. Já
+Garimella et al. [2018] realizaram um estudo a fim de quantificar controvérsias em
+redes sociais baseada em gráficos, tal estudo indica que os gráficos que apresentam
+temas controversos, possuem uma estrutura de cluster, onde indivíduos com opinião
+similar tendem a ampliar os argumentos um dos outros.
+Em relação à comparação de diferentes métodos de análise sentimentos, Araújo
+et al. [2015] apresentam um estudo que compara oito diferentes métodos para detecção
+de sentimentos em tweets no idioma inglês. Já Araújo et al. [2016] propôs uma análise
+de sentimento multilíngue, onde é feita tradução automática de textos para o inglês, e
+posteriormente utiliza-se métodos existentes na língua inglesa para a análise de
+sentimento. Ademais, Yadollahi et al. [2017] realizam uma categorização cuidadosa de
 tarefas na análise de sentimentos e retratam a importância de uma taxonomia clara e
-lógica dentro dessa análise .  Adicionalmente ,  métodos e melhorias do estado da arte para
-a análise de sentimentos em textos foram discutidos ,  além de aspectos teóricos ligados
-ao surgimento das emoções e sentimentos .  Note que os sentimentos estão relacionados
-às emoções visto que são respostas a elas . 
-Nesse contexto ,  a Tabela 1 apresenta algumas emoções básicas que podem ser
-encontradas em todos os seres humanos ,  bem como a respectiva classificação de acordo
-com as teorias da emoção [Yadollahi et al .  ,  2017] .  Além disso ,  Bouazizi e Ohtsuki
-[2016] também classificam sentimentos considerando um conjunto de classes como : 
-amor ,  feliz ,  tristeza e raiva .  A análise de tais estudos auxiliou na escolha de sete
-sentimentos para identificar em tweets coletados neste trabalho :  Triste ,  Chateado ,  Amor , 
-Feliz ,  Raiva ,  Inveja ,  Ironia . 
-Em relação à comparação de várias técnicas de classificação ,  Garg e Khurana
-[2014] propõem um estudo em um contexto diferente da análise de sentimentos .  O
+lógica dentro dessa análise. Adicionalmente, métodos e melhorias do estado da arte para
+a análise de sentimentos em textos foram discutidos, além de aspectos teóricos ligados
+ao surgimento das emoções e sentimentos. Note que os sentimentos estão relacionados
+às emoções visto que são respostas a elas.
+Nesse contexto, a Tabela 1 apresenta algumas emoções básicas que podem ser
+encontradas em todos os seres humanos, bem como a respectiva classificação de acordo
+com as teorias da emoção [Yadollahi et al., 2017]. Além disso, Bouazizi e Ohtsuki
+[2016] também classificam sentimentos considerando um conjunto de classes como:
+amor, feliz, tristeza e raiva. A análise de tais estudos auxiliou na escolha de sete
+sentimentos para identificar em tweets coletados neste trabalho: Triste, Chateado, Amor,
+Feliz, Raiva, Inveja, Ironia.
+Em relação à comparação de várias técnicas de classificação, Garg e Khurana
+[2014] propõem um estudo em um contexto diferente da análise de sentimentos. O
 objetivo é utilizar algoritmos de classificação para projetar um modelo eficaz de
-detecção de intrusão ,  impedindo que as redes de computadores sejam invadidas .  Os
-métodos foram avaliados usando 41 atributos e cerca de 94 . 000 instâncias para o
-conjunto de treinamento ,  além de 48 . 000 instâncias para o conjunto de teste .  Por fim ,  foi
+detecção de intrusão, impedindo que as redes de computadores sejam invadidas. Os
+métodos foram avaliados usando 41 atributos e cerca de 94.000 instâncias para o
+conjunto de treinamento, além de 48.000 instâncias para o conjunto de teste. Por fim, foi
 apresentada uma lista de 45 métodos de classificação ordenados pelos seus respectivos
-resultados .  Os cinco algoritmos com melhores resultados são Rotation Forest ,  Random
-Tree ,  Random Committee ,  Random Forest e IBK . 
-Anais do VII Brazilian Workshop on Social Network Analysis and Mining  -  BraSNAM 2018
+resultados. Os cinco algoritmos com melhores resultados são Rotation Forest, Random
+Tree, Random Committee, Random Forest e IBK.
+Anais do VII Brazilian Workshop on Social Network Analysis and Mining - BraSNAM 2018
 54
-Figura 1 .  Etapas da metodologia . †
+Figura 1. Etapas da metodologia.†
 Todos esses estudos mostram desempenhos diferentes para algoritmos de
-classificação a depender da base de dados utilizada .  Assim ,  este trabalho contribui com
+classificação a depender da base de dados utilizada. Assim, este trabalho contribui com
 o estado da arte ao considerar o idioma português brasileiro para realizar análise de
-sentimentos em tweets .  Considerar tal idioma não é muito comum por não existirem
-muitas bases de dados disponíveis [Neri et al .  ,  2012] ,  além de ter poucos métodos e
-ontologias disponíveis no português brasileiro para realizar análises do texto .  Outra
-contribuição é a metodologia proposta ,  que inclui coleta e processamento dos dados , 
-identificação de diferentes classes de sentimentos ,  seleção dos algoritmos de
-classificação e descrição do treinamento dos classificadores . 
-3 .  Metodologia
-Esta seção apresenta os processos de coleta ,  processamento e preparação dos dados para
-a realização da análise de sentimentos ,  bem como a descrição dos algoritmos de
-classificação selecionados e o processo de treinamento dos classificadores . 
-Especificamente ,  este trabalho identifica sentimentos e emoções expressos em tweets
-através de métodos de classificação .  Para atingir o objetivo ,  foi necessário realizar uma
-série de etapas para adaptar os dados ao formato compatível com o ambiente WEKA , 
-que possibilita o uso de diferentes algoritmos . 
-A Figura 1 exemplifica as etapas principais da metodologia .  Cada etapa pode ser
-executada mais de uma vez .  As seções a seguir detalham cada uma dessas etapas . 
-3 . 1 .  Seleção dos Sentimentos
+sentimentos em tweets. Considerar tal idioma não é muito comum por não existirem
+muitas bases de dados disponíveis [Neri et al., 2012], além de ter poucos métodos e
+ontologias disponíveis no português brasileiro para realizar análises do texto. Outra
+contribuição é a metodologia proposta, que inclui coleta e processamento dos dados,
+identificação de diferentes classes de sentimentos, seleção dos algoritmos de
+classificação e descrição do treinamento dos classificadores.
+3. Metodologia
+Esta seção apresenta os processos de coleta, processamento e preparação dos dados para
+a realização da análise de sentimentos, bem como a descrição dos algoritmos de
+classificação selecionados e o processo de treinamento dos classificadores.
+Especificamente, este trabalho identifica sentimentos e emoções expressos em tweets
+através de métodos de classificação. Para atingir o objetivo, foi necessário realizar uma
+série de etapas para adaptar os dados ao formato compatível com o ambiente WEKA,
+que possibilita o uso de diferentes algoritmos.
+A Figura 1 exemplifica as etapas principais da metodologia. Cada etapa pode ser
+executada mais de uma vez. As seções a seguir detalham cada uma dessas etapas.
+3.1. Seleção dos Sentimentos
 A definição das classes de sentimentos analisados durante a pesquisa tem como base os
-diversos sentimentos que podem ser expressos através dos tweets .  As expressões podem
-ser identificadas de várias formas ,  através de emojis ,  emoticons ,  hashtag .  A hashtag é
-composta por uma ou algumas palavras - chave relacionadas ao assunto abordado na
-postagem .  Elas são representadas pelo símbolo de cerquilha  ( # )  ,  seguida da
-palavra - chave .  Posteriormente ,  as hashtags são indexadas para utilização dos
-mecanismos de busca .  Os emojis e emoticons são amplamente usados no Twitter e estão
-diretamente associados a emoções .  Os emojis são exibidos como imagens claras e
-podem conter animações .  Por outro lado ,  os emoticons ,  são formas mais simples de
-expressar emoção e ,  geralmente ,  são representados por uma sequência de caracteres ,  por
-exemplo :  { :  (  ,   : D ,   : /} [Matsuda ,  2017] . 
+diversos sentimentos que podem ser expressos através dos tweets. As expressões podem
+ser identificadas de várias formas, através de emojis, emoticons, hashtag. A hashtag é
+composta por uma ou algumas palavras-chave relacionadas ao assunto abordado na
+postagem. Elas são representadas pelo símbolo de cerquilha (#), seguida da
+palavra-chave. Posteriormente, as hashtags são indexadas para utilização dos
+mecanismos de busca. Os emojis e emoticons são amplamente usados no Twitter e estão
+diretamente associados a emoções. Os emojis são exibidos como imagens claras e
+podem conter animações. Por outro lado, os emoticons, são formas mais simples de
+expressar emoção e, geralmente, são representados por uma sequência de caracteres, por
+exemplo: {:(, :D, :/} [Matsuda, 2017].
 Os sentimentos analisados neste trabalho foram escolhidos através do estudo de
-outros trabalhos apresentados na Seção 2 .  Além disso ,  o estudo feito por Yadollahi et al . 
-[2017] ,  oferece uma contribuição importante para a escolha dos sentimentos aqui
-analisados ,  pois apresenta as emoções básicas que podem ser encontradas nos seres
-humanos  ( Tabela 1 )  .  Dessa forma ,  busca - se tweets que expressem os sentimentos : 
-Triste ,  Chateado ,  Amor ,  Feliz ,  Raiva ,  Inveja ,  Ironia .  Para coletar tweets que expressem
-Anais do VII Brazilian Workshop on Social Network Analysis and Mining  -  BraSNAM 2018
+outros trabalhos apresentados na Seção 2. Além disso, o estudo feito por Yadollahi et al.
+[2017], oferece uma contribuição importante para a escolha dos sentimentos aqui
+analisados, pois apresenta as emoções básicas que podem ser encontradas nos seres
+humanos (Tabela 1). Dessa forma, busca-se tweets que expressem os sentimentos:
+Triste, Chateado, Amor, Feliz, Raiva, Inveja, Ironia. Para coletar tweets que expressem
+Anais do VII Brazilian Workshop on Social Network Analysis and Mining - BraSNAM 2018
 55
-Figura 2 .  Detalhamento do fluxo de coleta dos dados . 
-Figura 3 .  Etapas do processamento de cada tweet . 
-esses sentimentos ,  foi definido que o tweet precisa conter a hashtag com o nome do
-sentimento selecionado .  Assim ,  são considerados os tweets que possuem as hashtags : 
-#Triste ,  #Chateado ,  #Feliz ,  #Amor ,  #Raiva ,  #Inveja ,  #Ironia . 
-3 . 2 .  Coleta dos Dados
-Após a seleção dos sentimentos ,  foi necessário realizar a extração e o armazenamento
-dos dados .  A API oficial do Twitter fornece vários recursos para a coleta de tweets .  Por
-meio dela ,  usuários que se cadastram como desenvolvedores conseguem coletar tweets a
-partir de parâmetros .  A API possui algumas restrições para a coleta dos dados ,  por
-exemplo ,  a limitação do número de cem tweets como resposta para cada consulta
-realizada .  Apesar disso ,  ela se apresenta suficiente para realização do estudo .  Para
-considerar o tweet na análise ,  é necessário estar no idioma português brasileiro e possuir
-as hashtags definidas  ( #Triste ,  #Chateado ,  #Feliz ,  #Amor ,  #Raiva ,  #Inveja ,  #Ironia )  . 
-A Figura 2 apresenta o funcionamento do fluxo de coleta dos tweets .  Toda a
-comunicação com a API é feita através do protocolo HTTP usando métodos de GET . 
-Todas as respostas retornadas foram armazenadas na base de dados .  A coleta foi feita
-entre os meses de agosto e outubro de 2017 ,  contando com 12 . 814 tweets armazenados
-na base de dados  ,  criada na linguagem SQL  ( SQL Server )  e hospedada no servidor na
+Figura 2. Detalhamento do fluxo de coleta dos dados.
+Figura 3. Etapas do processamento de cada tweet.
+esses sentimentos, foi definido que o tweet precisa conter a hashtag com o nome do
+sentimento selecionado. Assim, são considerados os tweets que possuem as hashtags:
+#Triste, #Chateado, #Feliz, #Amor, #Raiva, #Inveja, #Ironia.
+3.2. Coleta dos Dados
+Após a seleção dos sentimentos, foi necessário realizar a extração e o armazenamento
+dos dados. A API oficial do Twitter fornece vários recursos para a coleta de tweets. Por
+meio dela, usuários que se cadastram como desenvolvedores conseguem coletar tweets a
+partir de parâmetros. A API possui algumas restrições para a coleta dos dados, por
+exemplo, a limitação do número de cem tweets como resposta para cada consulta
+realizada. Apesar disso, ela se apresenta suficiente para realização do estudo. Para
+considerar o tweet na análise, é necessário estar no idioma português brasileiro e possuir
+as hashtags definidas (#Triste, #Chateado, #Feliz, #Amor, #Raiva, #Inveja, #Ironia).
+A Figura 2 apresenta o funcionamento do fluxo de coleta dos tweets. Toda a
+comunicação com a API é feita através do protocolo HTTP usando métodos de GET.
+Todas as respostas retornadas foram armazenadas na base de dados. A coleta foi feita
+entre os meses de agosto e outubro de 2017, contando com 12.814 tweets armazenados
+na base de dados , criada na linguagem SQL (SQL Server) e hospedada no servidor na
 1
-nuvem Azure .  Por se tratar de uma plataforma gerenciada ,  a base de dados na nuvem
+nuvem Azure. Por se tratar de uma plataforma gerenciada, a base de dados na nuvem
 oferece alta disponibilidade sem precisar da instalação de qualquer software para a
-utilização .  Todas as informações relevantes dos tweets foram armazenadas na base de
-dados ,  sendo elas :  texto ,  hashtag de busca ,  autor ,  data de criação ,  linguagem , 
-quantidade de URLs ,  quantidade de menções feitas ,  texto do URLs e tipo . 
-3 . 3 .  Processamento dos Dados
+utilização. Todas as informações relevantes dos tweets foram armazenadas na base de
+dados, sendo elas: texto, hashtag de busca, autor, data de criação, linguagem,
+quantidade de URLs, quantidade de menções feitas, texto do URLs e tipo.
+3.3. Processamento dos Dados
 O processamento realizado tem como objetivo tratar os dados coletados removendo as
-informações que não contribuem para classificação dos sentimentos .  Cada tweet contém
-uma grande quantidade de informações que são irrelevantes para a análise .  Por isso ,  são
-removidas dos tweets .  Nesta etapa da metodologia ,  foram necessários vários passos de
+informações que não contribuem para classificação dos sentimentos. Cada tweet contém
+uma grande quantidade de informações que são irrelevantes para a análise. Por isso, são
+removidas dos tweets. Nesta etapa da metodologia, foram necessários vários passos de
 1
- Base de dados construída a partir da coleta de tweets :  http : //bit . ly/dataset - analise - sentimento - BraSNAM†
-Anais do VII Brazilian Workshop on Social Network Analysis and Mining  -  BraSNAM 2018
+ Base de dados construída a partir da coleta de tweets: http://bit.ly/dataset-analise-sentimento-BraSNAM†
+Anais do VII Brazilian Workshop on Social Network Analysis and Mining - BraSNAM 2018
 56
-processamento e tratamento dos dados ,  realizados de forma sequencial ,  conforme
-mostra a Figura 3 . 
+processamento e tratamento dos dados, realizados de forma sequencial, conforme
+mostra a Figura 3.
 Amor
 x
 Triste
@@ -223,88 +223,88 @@ x
 Triste
 x
 Chateado
-Figura 4 .  Relações de sentimentos . †
-Na coleta dos tweets ,  foi observado que a API do Twitter retorna informações
-repetidas .  Com isso ,  é necessário remover todos os tweets repetidos na base de dados , 
-para que não influencie o resultado final ao aplicar os algoritmos .  Em seguida ,  as
-hashtags usadas para a coleta dos tweets são removidas dos textos ,  os quais possuem
-links compartilhados e até mesmo notações utilizadas para mencionar outros usuários . 
-Assim ,  as marcas de agregação identificadas através da sigla RT ou @ nome do usuário
-são removidas juntamente com os links encontrados .  O ambiente WEKA não possui
-suporte a caracteres Unicode .  Assim ,  os emojis ,  por se tratarem de caracteres com
-formato específico ,  são transformados em palavras - chave ,  formadas pela junção da letra
-“E” maiúscula ,  completada posteriormente com uma palavra que representa o
-respectivo símbolo do emoji ,  exemplo :  ECoracao ,  EBravo ,  ESorridente .  Por fim ,  as
-palavras conhecidas como stop words  ( a ,  as ,  de ,  para ,  etc )  também são removidas . 
-Além das etapas de processamento ,  um critério para nivelamento dos dados é
-considerado com base na quantidade de tweets coletados .  É necessário que os
+Figura 4. Relações de sentimentos.†
+Na coleta dos tweets, foi observado que a API do Twitter retorna informações
+repetidas. Com isso, é necessário remover todos os tweets repetidos na base de dados,
+para que não influencie o resultado final ao aplicar os algoritmos. Em seguida, as
+hashtags usadas para a coleta dos tweets são removidas dos textos, os quais possuem
+links compartilhados e até mesmo notações utilizadas para mencionar outros usuários.
+Assim, as marcas de agregação identificadas através da sigla RT ou @ nome do usuário
+são removidas juntamente com os links encontrados. O ambiente WEKA não possui
+suporte a caracteres Unicode. Assim, os emojis, por se tratarem de caracteres com
+formato específico, são transformados em palavras-chave, formadas pela junção da letra
+“E” maiúscula, completada posteriormente com uma palavra que representa o
+respectivo símbolo do emoji, exemplo: ECoracao, EBravo, ESorridente. Por fim, as
+palavras conhecidas como stop words (a, as, de, para, etc) também são removidas.
+Além das etapas de processamento, um critério para nivelamento dos dados é
+considerado com base na quantidade de tweets coletados. É necessário que os
 sentimentos tenham uma quantidade suficiente de exemplos ou instâncias para serem
-analisados ,  pois um número pequeno de dados pode levar a um resultado não fidedigno . 
-Para evitar essa situação ,  foi definida uma premissa :  um sentimento apenas é analisado , 
-se possuir um mínimo de mil tweets .  Com isso ,  os sentimentos :  Ironia ,  Inveja e Raiva
-foram excluídos .  Após a exclusão de tais sentimentos ,  a quantidade total de tweets
-disponíveis passou para 9 . 631 ,  assim ,  representando uma média de dois mil tweets para
-cada sentimento restante . 
-3 . 4 .  Preparação dos Dados
-Após os tratamentos realizados ,  os dados coletados são separados em classes de
-sentimentos .  Algumas relações entre sentimentos são criadas para avaliar se os métodos
-de classificação conseguem distinguir as diferenças entre os sentimentos .  As relações
-são formadas visando comparar os sentimentos separando em :  positivos x negativos , 
-positivos x positivos e negativos x negativos .  Assim ,  os sentimentos amor e feliz são
-considerados sentimentos positivos ,  já os sentimentos triste e chateado ,  representam os
-sentimentos negativos .  Dessa forma ,  a Figura 4 apresenta as relações formadas para a
-análise de sentimentos . 
-Em seguida ,  é necessário exportar os dados para o formato “ARFF”  ( Attribute
-Relation Format File )  ,  do ambiente WEKA .  Para isso ,  é criado um arquivo para cada
-relação de sentimentos selecionados anteriormente ,  com os requisitos exigidos pelo
-WEKA .  Em tal arquivo ,  os dados foram divididos em dois atributos ,  o primeiro
-chamado “Descricao” que contém o texto do tweet a ser analisado e o segundo atributo , 
-chamado de “Sentimento” que define qual classe de sentimento o tweet se enquadra . 
-Anais do VII Brazilian Workshop on Social Network Analysis and Mining  -  BraSNAM 2018
+analisados, pois um número pequeno de dados pode levar a um resultado não fidedigno.
+Para evitar essa situação, foi definida uma premissa: um sentimento apenas é analisado,
+se possuir um mínimo de mil tweets. Com isso, os sentimentos: Ironia, Inveja e Raiva
+foram excluídos. Após a exclusão de tais sentimentos, a quantidade total de tweets
+disponíveis passou para 9.631, assim, representando uma média de dois mil tweets para
+cada sentimento restante.
+3.4. Preparação dos Dados
+Após os tratamentos realizados, os dados coletados são separados em classes de
+sentimentos. Algumas relações entre sentimentos são criadas para avaliar se os métodos
+de classificação conseguem distinguir as diferenças entre os sentimentos. As relações
+são formadas visando comparar os sentimentos separando em: positivos x negativos,
+positivos x positivos e negativos x negativos. Assim, os sentimentos amor e feliz são
+considerados sentimentos positivos, já os sentimentos triste e chateado, representam os
+sentimentos negativos. Dessa forma, a Figura 4 apresenta as relações formadas para a
+análise de sentimentos.
+Em seguida, é necessário exportar os dados para o formato “ARFF” (Attribute
+Relation Format File), do ambiente WEKA. Para isso, é criado um arquivo para cada
+relação de sentimentos selecionados anteriormente, com os requisitos exigidos pelo
+WEKA. Em tal arquivo, os dados foram divididos em dois atributos, o primeiro
+chamado “Descricao” que contém o texto do tweet a ser analisado e o segundo atributo,
+chamado de “Sentimento” que define qual classe de sentimento o tweet se enquadra.
+Anais do VII Brazilian Workshop on Social Network Analysis and Mining - BraSNAM 2018
 57
-3 . 5 .  Seleção dos Algoritmos de Classificação e Treinamento
-Neste trabalho ,  os algoritmos de classificação baseados no modelo Naive Bayes são
-algumas das abordagens escolhidas .  Esses algoritmos utilizam a probabilidade
-condicional para criar o modelo de dados a ser trabalhado .  São considerados algoritmos
-como o Naive Bayes Multinominal ,  no qual a classe de um documento  (  tweets )  é
-determinada não apenas pelas palavras existentes ,  mas também pela frequência que
-ocorrem [Witten et al .  ,  2016] .  Ademais ,  França e Oliveira [2014] utilizam o algoritmo
+3.5. Seleção dos Algoritmos de Classificação e Treinamento
+Neste trabalho, os algoritmos de classificação baseados no modelo Naive Bayes são
+algumas das abordagens escolhidas. Esses algoritmos utilizam a probabilidade
+condicional para criar o modelo de dados a ser trabalhado. São considerados algoritmos
+como o Naive Bayes Multinominal, no qual a classe de um documento ( tweets) é
+determinada não apenas pelas palavras existentes, mas também pela frequência que
+ocorrem [Witten et al., 2016]. Ademais, França e Oliveira [2014] utilizam o algoritmo
 Naive Bayes no idioma português brasileiro e apresentam resultados de até 90% de
 acurácia ao classificar polaridades expressas nos tweets relacionados aos protestos
-ocorridos no Brasil em 2013 . 
-Além dos algoritmos baseados no Naive Bayes ,  alguns algoritmos que
-apresentaram bons resultados em outros trabalhos ,  também foram selecionados .  Isso
+ocorridos no Brasil em 2013.
+Além dos algoritmos baseados no Naive Bayes, alguns algoritmos que
+apresentaram bons resultados em outros trabalhos, também foram selecionados. Isso
 permite verificar se os resultados obtidos nos trabalhos se repetem na classificação de
-tweets no idioma português brasileiro .  Em Garg e Khurana [2014] ,  são avaliados o
-desempenho de vários métodos de classificação ,  conforme descrito na Seção 2 .  Dessa
-forma ,  foram escolhidos os algoritmos que apresentaram bons resultados e que são
-compatíveis com o formato dos dados trabalhados .  Sendo eles :  IBK ,  Forest e Random
-Committee [Garg e Khurana ,  2014] .  Em resumo ,  os algoritmos selecionados para a
-classificação dos tweets são :  Naive Bayes ,  Naive Bayes Multinominal ,  Naive Bayes
-Multinominal Updateable ,  Sparge Generative Model ,  DMNB Text ,  Complement Naive
-Bayes ,  Bayesian Logistc Regression ,  IBK ,  Forest e Random Committee . 
-Para treinar o classificador ,  é comum usar um terço dos dados para testes e dois
-terços para treino ,  mas o problema dessa abordagem é que a parte usada para treino
-pode não ser representativa do problema e nem do conjunto de testes .  A base de dados
-deve ser representada na proporção certa ,  pois se o problema não estiver bem
-representado ,  dificilmente qualquer algoritmo apresentará um bom resultado .  Uma
-maneira de mitigar qualquer parcialidade causada pela amostragem ,  é utilizar o tipo de
-treinamento conhecido como validação cruzada  ( de dez partições ou vias )  .  Nesse caso , 
+tweets no idioma português brasileiro. Em Garg e Khurana [2014], são avaliados o
+desempenho de vários métodos de classificação, conforme descrito na Seção 2. Dessa
+forma, foram escolhidos os algoritmos que apresentaram bons resultados e que são
+compatíveis com o formato dos dados trabalhados. Sendo eles: IBK, Forest e Random
+Committee [Garg e Khurana, 2014]. Em resumo, os algoritmos selecionados para a
+classificação dos tweets são: Naive Bayes, Naive Bayes Multinominal, Naive Bayes
+Multinominal Updateable, Sparge Generative Model, DMNB Text, Complement Naive
+Bayes, Bayesian Logistc Regression, IBK, Forest e Random Committee.
+Para treinar o classificador, é comum usar um terço dos dados para testes e dois
+terços para treino, mas o problema dessa abordagem é que a parte usada para treino
+pode não ser representativa do problema e nem do conjunto de testes. A base de dados
+deve ser representada na proporção certa, pois se o problema não estiver bem
+representado, dificilmente qualquer algoritmo apresentará um bom resultado. Uma
+maneira de mitigar qualquer parcialidade causada pela amostragem, é utilizar o tipo de
+treinamento conhecido como validação cruzada (de dez partições ou vias). Nesse caso,
 os dados são divididos em dez partições de tamanhos aproximadamente iguais e cada
-uma delas é usada para testes e o restante é usado para treinamento .  Esse processo é
-repetido dez vezes para que no final ,  cada instância seja usada uma vez para testar .  Para
-obter a melhor estimativa de erro ,  é indicado usar dez partições [Witten et al .  ,  2016] . 
-4 .  Resultados
-Após a realização das etapas da metodologia ,  os algoritmos de classificação e a análise
-dos resultados foram realizados .  Assim ,  esta seção apresenta a avaliação dos algoritmos
-quanto à sua capacidade de classificar e diferenciar os sentimentos expressos nos tweets . 
-Especificamente ,  são apresentadas as palavras identificadas como relevantes para
-identificar cada sentimento  ( Seção 4 . 1 )  e os resultados de uma análise comparativa dos
-algoritmos de classificação  ( Seção 4 . 2 )  . 
-Anais do VII Brazilian Workshop on Social Network Analysis and Mining  -  BraSNAM 2018
+uma delas é usada para testes e o restante é usado para treinamento. Esse processo é
+repetido dez vezes para que no final, cada instância seja usada uma vez para testar. Para
+obter a melhor estimativa de erro, é indicado usar dez partições [Witten et al., 2016].
+4. Resultados
+Após a realização das etapas da metodologia, os algoritmos de classificação e a análise
+dos resultados foram realizados. Assim, esta seção apresenta a avaliação dos algoritmos
+quanto à sua capacidade de classificar e diferenciar os sentimentos expressos nos tweets.
+Especificamente, são apresentadas as palavras identificadas como relevantes para
+identificar cada sentimento (Seção 4.1) e os resultados de uma análise comparativa dos
+algoritmos de classificação (Seção 4.2).
+Anais do VII Brazilian Workshop on Social Network Analysis and Mining - BraSNAM 2018
 58
-Tabela 2 .  Palavras consideradas relevantes para a análise de cada sentimento .  As cores†
-representam palavras semelhantes encontradas em classes diferentes . †
+Tabela 2. Palavras consideradas relevantes para a análise de cada sentimento. As cores†
+representam palavras semelhantes encontradas em classes diferentes.†
 # Amor Feliz Triste Chateado
 1 ECoracao ESorridente ERostoFranzido ERostoDesanimado
 2 ESorridente ECoracao EChorando ERostoFranzido
@@ -316,36 +316,36 @@ representam palavras semelhantes encontradas em classes diferentes . †
 8 Desejo Sorriso Infelizmente Ruim
 9 Flores Sucesso Acabaram Problemas
 10 Fofura Excelente Aff Sozinho
-4 . 1 .  Relevância das Palavras em Cada Sentimento
+4.1. Relevância das Palavras em Cada Sentimento
 Uma das formas de entender os resultados dos algoritmos é analisar quais elementos
-foram importantes para a detecção dos sentimentos .  A Tabela 2 apresenta as dez
+foram importantes para a detecção dos sentimentos. A Tabela 2 apresenta as dez
 principais palavras que foram determinantes para a diferenciação dos sentimentos ao
-aplicar os algoritmos de classificação .  As palavras estão ordenadas pela sua relevância e
-algumas delas se repetem em determinados sentimentos .  Por exemplo ,  os emojis : 
+aplicar os algoritmos de classificação. As palavras estão ordenadas pela sua relevância e
+algumas delas se repetem em determinados sentimentos. Por exemplo, os emojis:
 ERostoDesanimado e ERostoFranzido são encontrados no sentimento Triste e
-Chateado ,  isso ocorre devido à proximidade dos dois sentimentos .  Quando o sentimento
-chateado é expresso ,  logo ,  o sentimento de tristeza também pode ser expresso ,  pois são
-sentimentos relacionados .  Essa proximidade também acontece nos sentimentos Amor e
-Feliz ,  com os emojis ECoracao e ESorridente ,  por exemplo . 
-Foram considerados quatro mil tweets para cada relação ,  sendo dois mil para
-cada sentimento da relação .  Essa equiparação foi feita para que os algoritmos
-classificassem os sentimentos com a mesma quantidade de instâncias ,  evitando
-resultados influenciados pelo desbalanceamento das classes ,  ou seja ,  uma classe ter uma
-quantidade de instâncias excessivamente maior que a outra . 
-4 . 2 .  Análise Comparativa dos Algoritmos de Classificação
-Com base na aplicação dos algoritmos e da divisão das diversas classes de sentimentos , 
-alguns algoritmos se destacaram na classificação ,  já outros não apresentaram bons
-resultados .  Em geral ,  os algoritmos baseados no modelo de Bayes foram os que
-apresentaram os melhores resultados . 
+Chateado, isso ocorre devido à proximidade dos dois sentimentos. Quando o sentimento
+chateado é expresso, logo, o sentimento de tristeza também pode ser expresso, pois são
+sentimentos relacionados. Essa proximidade também acontece nos sentimentos Amor e
+Feliz, com os emojis ECoracao e ESorridente, por exemplo.
+Foram considerados quatro mil tweets para cada relação, sendo dois mil para
+cada sentimento da relação. Essa equiparação foi feita para que os algoritmos
+classificassem os sentimentos com a mesma quantidade de instâncias, evitando
+resultados influenciados pelo desbalanceamento das classes, ou seja, uma classe ter uma
+quantidade de instâncias excessivamente maior que a outra.
+4.2. Análise Comparativa dos Algoritmos de Classificação
+Com base na aplicação dos algoritmos e da divisão das diversas classes de sentimentos,
+alguns algoritmos se destacaram na classificação, já outros não apresentaram bons
+resultados. Em geral, os algoritmos baseados no modelo de Bayes foram os que
+apresentaram os melhores resultados.
 Considerando o maior valor de acerto para combinação de classes que
-representam sentimentos semelhantes  ( positivo x positivo e negativo x negativo )  e
-distintos  ( positivo x negativo )  ,  as taxas de acerto de classificação de sentimentos foram
-85 , 54% para o Naive Bayes Multinominal Updateable ,  85 , 41% para o Naive Bayes
-Multinominal e 85 , 64% para Complement Naive Bayes . 
-Anais do VII Brazilian Workshop on Social Network Analysis and Mining  -  BraSNAM 2018
+representam sentimentos semelhantes (positivo x positivo e negativo x negativo) e
+distintos (positivo x negativo), as taxas de acerto de classificação de sentimentos foram
+85,54% para o Naive Bayes Multinominal Updateable, 85,41% para o Naive Bayes
+Multinominal e 85,64% para Complement Naive Bayes.
+Anais do VII Brazilian Workshop on Social Network Analysis and Mining - BraSNAM 2018
 59
-Tabela 3 .  Taxa de acerto dos melhores algoritmos para detectar sentimentos positivos x†
-negativos . †
+Tabela 3. Taxa de acerto dos melhores algoritmos para detectar sentimentos positivos x†
+negativos.†
 Algoritmo Amor x
 Triste
 Feliz x
@@ -357,82 +357,82 @@ Média
 Naive Bayes
 Multinominal
 Updateable
-85 , 54% 81 , 35% 79 , 60% 82 , 16 %
+85,54% 81,35% 79,60% 82,16 %
 Naive Bayes
 Multinominal
-85 , 41% 81 , 02% 79 , 60% 82 , 01 %
+85,41% 81,02% 79,60% 82,01 %
 Complement
 Naive Bayes
-85 , 64% 80 , 34% 79 , 54% 81 , 84 %
+85,64% 80,34% 79,54% 81,84 %
 As relações compostas por sentimentos distintos positivos x negativos
-apresentaram melhores resultados .  Os três algoritmos responsáveis por tal desempenho
-são apresentados na Tabela 3 .  Em primeiro lugar ,  a relação Amor x Triste teve 85 , 64%
-de acerto na classificação com o método Complement Naive Bayes  ( a Tabela 4
+apresentaram melhores resultados. Os três algoritmos responsáveis por tal desempenho
+são apresentados na Tabela 3. Em primeiro lugar, a relação Amor x Triste teve 85,64%
+de acerto na classificação com o método Complement Naive Bayes (a Tabela 4
 apresenta resultados para todos os algoritmos de classificação aplicados para essa
-relação ,  o que permite observar as métricas F - Measure e ROC com valores maiores
+relação, o que permite observar as métricas F-Measure e ROC com valores maiores
 2
-também para Complement Naive Bayes em relação a outros algoritmos )  .  Uma das
-razões para esse resultado é a quantidade de emojis encontrados na relação .  Os emojis
-Ecoracao e Esorridente foram encontrados diversas vezes no sentimento amor .  Já no
-sentimento triste ,  não foi detectado nenhuma ocorrência desses emojis ,  conforme mostra
-a Tabela 2 .  Em seguida ,  a relação Feliz x Triste obteve 81 , 35% de acerto com o método
-Naive Bayes Multinominal Updateable .  Os emojis ECoração e ESorridente encontrados
-na classe feliz ,  também não são localizados na classe triste .  Por fim ,  a relação Feliz x
-Chateado ficou em terceiro lugar ,  com 79 , 60% de acerto na classificação ,  com os
-algoritmos Naive Bayes Multinominal e Naive Bayes Multinominal Updateable .  Vale
+também para Complement Naive Bayes em relação a outros algoritmos). Uma das
+razões para esse resultado é a quantidade de emojis encontrados na relação. Os emojis
+Ecoracao e Esorridente foram encontrados diversas vezes no sentimento amor. Já no
+sentimento triste, não foi detectado nenhuma ocorrência desses emojis, conforme mostra
+a Tabela 2. Em seguida, a relação Feliz x Triste obteve 81,35% de acerto com o método
+Naive Bayes Multinominal Updateable. Os emojis ECoração e ESorridente encontrados
+na classe feliz, também não são localizados na classe triste. Por fim, a relação Feliz x
+Chateado ficou em terceiro lugar, com 79,60% de acerto na classificação, com os
+algoritmos Naive Bayes Multinominal e Naive Bayes Multinominal Updateable. Vale
 ressaltar que as palavras relevantes para a classificação dos sentimentos positivos x
-negativos não se repetem .  Consequentemente ,  essas relações são as que apresentam os
-melhores resultados comparado com as demais . 
-Em contrapartida ,  as relações compostas por sentimentos parecidos positivos x
-positivos ou negativos x negativos apresentam os piores resultados .  Os algoritmos
+negativos não se repetem. Consequentemente, essas relações são as que apresentam os
+melhores resultados comparado com as demais.
+Em contrapartida, as relações compostas por sentimentos parecidos positivos x
+positivos ou negativos x negativos apresentam os piores resultados. Os algoritmos
 usados para a classificação não são capazes de distinguir ou encontrar alguma palavra
-que expresse um sentimento de maneira que diferencie um do outro .  Como
-consequência ,  os resultados das relações representadas por sentimentos semelhantes são
-inferiores às relações compostas por sentimentos distintos .  Ademais ,  nos sentimentos
-triste e chateado ,  quatro das dez palavras consideradas relevantes para a classificação se
-repetem ,  sendo elas :  ERostoFranzido ,  ESemExpressao ,  Triste e ERostoDesanimado . 
-Isso indica a semelhança entre os sentimentos ,  refletindo nos resultados obtidos . 
+que expresse um sentimento de maneira que diferencie um do outro. Como
+consequência, os resultados das relações representadas por sentimentos semelhantes são
+inferiores às relações compostas por sentimentos distintos. Ademais, nos sentimentos
+triste e chateado, quatro das dez palavras consideradas relevantes para a classificação se
+repetem, sendo elas: ERostoFranzido, ESemExpressao, Triste e ERostoDesanimado.
+Isso indica a semelhança entre os sentimentos, refletindo nos resultados obtidos.
 A Tabela 5 mostra a taxa de acerto dos três algoritmos que apresentam os
-melhores resultados nas relações de sentimentos semelhantes .  O método Naive Bayes
+melhores resultados nas relações de sentimentos semelhantes. O método Naive Bayes
 Multinominal Updateable obteve melhor resultado dos algoritmos aplicados na relação
 2
-† † † † F - Measure and ROC  ( Receiver Operating Characteristic † †  )  são métricas comumente utilizadas para † † † † † †
-avaliar a qualidade de algoritmos de aprendizagem de máquina . †
-Anais do VII Brazilian Workshop on Social Network Analysis and Mining  -  BraSNAM 2018
+† † † † F-Measure and ROC (Receiver Operating Characteristic † † ) são métricas comumente utilizadas para † † † † † †
+avaliar a qualidade de algoritmos de aprendizagem de máquina.†
+Anais do VII Brazilian Workshop on Social Network Analysis and Mining - BraSNAM 2018
 60
-Tabela 4 .  Resultado da aplicação dos algoritmos na relação Amor x Triste . †
+Tabela 4. Resultado da aplicação dos algoritmos na relação Amor x Triste.†
 Algoritmo Amor Triste
 Acerto
- ( % ) 
+(%)
 Erro
- ( % ) 
-F - Measure ROC
+(%)
+F-Measure ROC
 Area
-F - Measure ROC
+F-Measure ROC
 Area
-Naive Bayes 0 , 59 0 , 87 0 , 77 0 , 87 70 , 72 29 , 27
+Naive Bayes 0,59 0,87 0,77 0,87 70,72 29,27
 Naive Bayes
 Multinominal
-0 , 84 0 , 92 0 , 86 0 , 92 85 , 41 4 , 58
+0,84 0,92 0,86 0,92 85,41 4,58
 Naive Bayes
 Multinominal
 Updateable
-0 , 84 0 , 92 0 , 86 0 , 92 85 , 54 4 , 45
+0,84 0,92 0,86 0,92 85,54 4,45
 Sparge Generative
 Model
-0 , 82 0 , 92 0 , 84 0 , 92 83 , 84 6 , 15
-DMNB Text 0 , 82 0 , 92 0 , 86 0 , 92 84 , 50 5 , 49
+0,82 0,92 0,84 0,92 83,84 6,15
+DMNB Text 0,82 0,92 0,86 0,92 84,50 5,49
 Complement Naive
 Bayes
-0 , 84 0 , 85 0 , 86 0 , 85 85 , 64 4 , 35
+0,84 0,85 0,86 0,85 85,64 4,35
 Bayesian Logistic
 Regression
-0 , 79 0 , 80 0 , 80 0 , 80 80 , 38 9 , 61
-IBK 0 , 76 0 , 83 0 , 69 0 , 83 73 , 59 6 , 40
-Ramdom Forest 0 , 82 0 , 91 0 , 82 0 , 91 83 , 11 6 , 88
-Ramdom Committee 0 , 80 0 , 88 0 , 80 0 , 88 81 , 03 18 , 96
-Tabela 5 . Taxa de acerto dos algoritmos para sentimentos negativos x negativos e†
-positivos x positivos . †
+0,79 0,80 0,80 0,80 80,38 9,61
+IBK 0,76 0,83 0,69 0,83 73,59 6,40
+Ramdom Forest 0,82 0,91 0,82 0,91 83,11 6,88
+Ramdom Committee 0,80 0,88 0,80 0,88 81,03 18,96
+Tabela 5.Taxa de acerto dos algoritmos para sentimentos negativos x negativos e†
+positivos x positivos.†
 Algoritmo Amor x
 Feliz
 Triste x
@@ -441,93 +441,93 @@ Taxa de Acerto
 Média
 Naive Bayes Multinominal
 Updateable
-73 , 59% 66 , 48% 70 , 03 %
-Naive Bayes Multinominal 73 , 25% 65 , 16% 69 , 20 %
-Complement Naive Bayes 72 , 95% 64 , 14% 68 , 54 %
-Anais do VII Brazilian Workshop on Social Network Analysis and Mining  -  BraSNAM 2018
+73,59% 66,48% 70,03 %
+Naive Bayes Multinominal 73,25% 65,16% 69,20 %
+Complement Naive Bayes 72,95% 64,14% 68,54 %
+Anais do VII Brazilian Workshop on Social Network Analysis and Mining - BraSNAM 2018
 61
-relação Chateado x Triste ,  com 66 , 48% de classificação correta .  Já nos sentimentos feliz
-e amor ,  os emojis :  ECoracao e ESorridente aparecem em ambos sentimentos ,  indicando
-a proximidade entre eles .  Apesar da semelhança ,  a relação Amor x Feliz obteve um
-resultado de 73 , 59% de classificação correta com o método Naive Bayes Multinominal
-Updateable ,  sendo superior ao resultado obtido pela relação Triste x Chateado . 
-Os algoritmos IBK ,  Random Forest ,  Random Committee não apresentam
+relação Chateado x Triste, com 66,48% de classificação correta. Já nos sentimentos feliz
+e amor, os emojis: ECoracao e ESorridente aparecem em ambos sentimentos, indicando
+a proximidade entre eles. Apesar da semelhança, a relação Amor x Feliz obteve um
+resultado de 73,59% de classificação correta com o método Naive Bayes Multinominal
+Updateable, sendo superior ao resultado obtido pela relação Triste x Chateado.
+Os algoritmos IBK, Random Forest, Random Committee não apresentam
 resultados eficientes quando comparados com os resultados apresentados no trabalho
-feito por Garg e Khurana [2014] .  Isso se dá pelo fato do formato dos dados serem
-diferentes e em outro idioma .  Outro ponto importante que distingue os dois trabalhos é a
-quantidade de dados usados para as etapas de processamento e teste .  Em Garg e
-Khurana  ( 2014 )  foram considerados cerca de 142 . 000 para o conjunto de treino e teste . 
-Além das etapas de treino e de processamento dos dados ,  que foram importantes
-para a classificação dos sentimentos ,  os emojis se mostram essenciais para a
-classificação .  Tais ideogramas representam as principais palavras para caracterizar um
-sentimento ,  diferenciando um sentimento positivo de outro negativo . 
-5 .  Conclusão
-Neste trabalho ,  foram utilizados métodos de classificação baseados no modelo Naive
-Bayes e em outros modelos de classificação ,  como árvores de decisão ,  para classificar
-tweets em português brasileiro .  Apesar de ser um tema popular ,  ainda existem vários
-desafios para a descoberta de sentimentos ,  especialmente ,  em textos na língua
-portuguesa .  O estudo considerou sete sentimentos :  triste ,  chateado ,  amor ,  feliz ,  raiva , 
-inveja ,  ironia .  Os dados foram obtidos do Twitter ,  no qual foram coletados 12 . 814
-tweets .  Ao final do processamento ,  inveja ,  ironia e raiva foram excluídos ,  restando
-9 . 631 tweets .  Após a coleta ,  os dados foram separados em relações de sentimentos : 
-positivo x negativo ,  negativo x negativo e positivo x positivo ,  para ,  assim ,  serem
-aplicados os algoritmos de classificação .  Os resultados mostraram que os algoritmos
-baseados no modelo Naive Bayes apresentaram melhor acurácia .  As relações que
+feito por Garg e Khurana [2014]. Isso se dá pelo fato do formato dos dados serem
+diferentes e em outro idioma. Outro ponto importante que distingue os dois trabalhos é a
+quantidade de dados usados para as etapas de processamento e teste. Em Garg e
+Khurana (2014) foram considerados cerca de 142.000 para o conjunto de treino e teste.
+Além das etapas de treino e de processamento dos dados, que foram importantes
+para a classificação dos sentimentos, os emojis se mostram essenciais para a
+classificação. Tais ideogramas representam as principais palavras para caracterizar um
+sentimento, diferenciando um sentimento positivo de outro negativo.
+5. Conclusão
+Neste trabalho, foram utilizados métodos de classificação baseados no modelo Naive
+Bayes e em outros modelos de classificação, como árvores de decisão, para classificar
+tweets em português brasileiro. Apesar de ser um tema popular, ainda existem vários
+desafios para a descoberta de sentimentos, especialmente, em textos na língua
+portuguesa. O estudo considerou sete sentimentos: triste, chateado, amor, feliz, raiva,
+inveja, ironia. Os dados foram obtidos do Twitter, no qual foram coletados 12.814
+tweets. Ao final do processamento, inveja, ironia e raiva foram excluídos, restando
+9.631 tweets. Após a coleta, os dados foram separados em relações de sentimentos:
+positivo x negativo, negativo x negativo e positivo x positivo, para, assim, serem
+aplicados os algoritmos de classificação. Os resultados mostraram que os algoritmos
+baseados no modelo Naive Bayes apresentaram melhor acurácia. As relações que
 possuem os sentimentos positivos x negativos foram as que obtiveram os melhores
-resultados ,  chegando a 85% de acerto na classificação com o Complement Naive Bayes . 
+resultados, chegando a 85% de acerto na classificação com o Complement Naive Bayes.
 Apesar dos métodos produzirem resultados inferiores quando aplicados no português
-brasileiro ,  os resultados foram satisfatórios e de acordo com outras pesquisas na área . 
-Para os trabalhos futuros ,  planeja - se ampliar a coleta de dados ,  aplicar mais
+brasileiro, os resultados foram satisfatórios e de acordo com outras pesquisas na área.
+Para os trabalhos futuros, planeja-se ampliar a coleta de dados, aplicar mais
 métodos de classificação e comparar com resultados obtidos em textos na língua
-inglesa .  Ademais ,  métodos de análise de sentimentos podem ser utilizados a fim de
-realizar uma análise mais detalhada .  Por exemplo ,  explorar a importância dos emojis e
-emoticons na identificação dos sentimentos expressos e detectar múltiplos sentimentos . 
-Agradecimentos .  Este trabalho foi parcialmente financiado pelo CNPq . 
-7 .  Referências
-Araújo ,  M .  ;  Gonçalves ,  P .  ;  Benevenuto ,  F .   ( 2015 )  .  Métodos para Análise de
-Sentimentos em Mídias Sociais .  In Procs .  of Simpósio Brasileiro de Multimídia e
-Web  ( WEBMEDIA )  ,  p .  27  -  30 ,  Manaus ,  Brasil . 
-Anais do VII Brazilian Workshop on Social Network Analysis and Mining  -  BraSNAM 2018
+inglesa. Ademais, métodos de análise de sentimentos podem ser utilizados a fim de
+realizar uma análise mais detalhada. Por exemplo, explorar a importância dos emojis e
+emoticons na identificação dos sentimentos expressos e detectar múltiplos sentimentos.
+Agradecimentos. Este trabalho foi parcialmente financiado pelo CNPq.
+7. Referências
+Araújo, M.; Gonçalves, P.; Benevenuto, F. (2015). Métodos para Análise de
+Sentimentos em Mídias Sociais. In Procs. of Simpósio Brasileiro de Multimídia e
+Web (WEBMEDIA), p. 27 - 30, Manaus, Brasil.
+Anais do VII Brazilian Workshop on Social Network Analysis and Mining - BraSNAM 2018
 62
-Araújo ,  M .  ;  Reis ,  J .  ;  Pereira ,  A .  ;  Benevenuto ,  F .   ( 2016 )  .  An Evaluation of Machine
-Translation for Multilingual Sentence - level Sentiment Analysis .  In Procs .  of ACM
-Symposium on Applied Computing  ( SAC )  ,  p .  1140  -  1145 ,  Pisa ,  Itália . 
-Bouazizi ,  M .  ;  Ohtsuki ,  T .   ( 2016 )  .  Sentiment Analysis in Twitter :  From Classification to
-Quantification of Sentiments within Tweets .  In Procs .  of Global Communications
-Conference  ( GLOBECOM )  .  p .  1  -  6 ,  Washington ,  USA . 
-Caetano ,  J .  A .  C .  ;  Lima ,  H .  S .  L .  ;  dos Santos Santos ,  M .  F .  ;  Marques - Neto ,  H .  T .  M .  N . 
- ( 2017 )  .  Utilizando Análise de Sentimentos para Definição da Homofilia Política dos
-Usuários do Twitter durante a Eleição Presidencial Americana de 2016 .  In Procs .  of
-Brazilian Workshop on Social Network Analysis and Mining  ( BraSNAM )  ,  p . 
-480 - 491 ,  São Paulo ,  Brasil . 
-Cavalcanti ,  D .  C .  et al .   ( 2012 )  .  Análise de Sentimento em Citações Científicas para
-Definição de Fatores de Impacto Positivo .  In Procs .  of International Workshop on
-Web and Text Intelligence  ( WTI )  ,  4 .  p .  1  -  10 ,  Paraná ,  Brasil . 
-Dwivedi ,  S .  ;  Kasliwal ,  P .  ;  Soni ,  S .   ( 2016 )  .  Comprehensive study of data analytics tools
- ( RapidMiner ,  Weka ,  R tool ,  Knime )  .  In Procs .  of Symposium On Colossal Data
-Analysis And Networking  ( CDAN )  ,  p .  1  -  8 ,  Indore ,  India . 
-França ,  Tiago C .  de ;  Oliveira ,  Jonice .   ( 2014 )  .  Análise de Sentimento de Tweets
-Relacionados aos Protestos que ocorreram no Brasil entre Junho e Agosto de 2013  . 
-In Procs .  of Brazilian Workshop on Social Network Analysis and Mining
- ( BraSNAM )  ,  p .  128  -  139 ,  Brasília ,  Brasil . 
-Garg ,  T .  ;  Khurana ,  S .  S .   ( 2014 )  .  Comparison of classification techniques for intrusion
-detection dataset using WEKA .  In Procs .  of International Conference on Recent
-Advances and Innovations in Engineering  ( ICRAIE )  .  p .  1  -  5 ,  Jaipur ,  India . 
-Garimella ,  Kiran .  et al .   ( 2018 )  .  Quantifying Controversy in Social Media .  Journal ACM
-Transactions on Social Computing ,  v .  1 ,  n .  1 ,  p .  3 : 1 -  - 3 : 27 . 
-Matsuda ,  Y .   ( 2017 )  .  Development of Emotion Teaching Interfaces using Emoticons and
-Emojis .  In Procs of International Conference On Intelligent Human - Machine
-Systems and Cybernetics  ( IHMSC )  ,  9 ,  p .  253  -  258 ,  Hangzhou ,  China . 
-Neri ,  F ;  Aliprandi ,  C ;  Capeci ,  F ;  Cuadros ,  M .   ( 2012 )  Sentiment Analysis on Social
-Media .  In Procs .  of IEEE/ACM International Conference on Advances in Social
-Networks Analysis and Mining  ( ASONAM )  ,  p .  919  -  926 ,  Istanbul ,  Turquia . 
-Pandey ,  A .  K .  ;  Rajpoot ,  D .  S .   ( 2016 )  .  A comparative study of classification techniques
-by utilizing WEKA .  In Procs .  of International Conference On Signal Processing And
-Communication  ( ICSC )  .  p .  219  -  224 ,  Bangalore ,  India . 
-Witten I .  H .  ;  Frank ,  E ;  Hall ,  M .  A .  ;  Pal ,  C .  J .   ( 2016 )  .  Data Mining :  Practical Machine
-Learning Tools and Techniques .  Morgan Kaufmann Publishers ,  4th
- edition .  ISBN : 
-978 - 0128042915 . 
-Yadollahi ,  A .  ;  Shahraki ,  A .  G .  ;  Zaiane ,  O .  R .   ( 2017 )  .  Current State of Text Sentiment
-Analysis from Opinion to Emotion Mining .  ACM Computing Surveys  ,  v .  50 ,  n . 2 ,  p .  1
- -  33 .  
+Araújo, M.; Reis, J.; Pereira, A.; Benevenuto, F. (2016). An Evaluation of Machine
+Translation for Multilingual Sentence-level Sentiment Analysis. In Procs. of ACM
+Symposium on Applied Computing (SAC), p. 1140 - 1145, Pisa, Itália.
+Bouazizi, M.; Ohtsuki, T. (2016). Sentiment Analysis in Twitter: From Classification to
+Quantification of Sentiments within Tweets. In Procs. of Global Communications
+Conference (GLOBECOM). p. 1 - 6, Washington, USA.
+Caetano, J. A. C.; Lima, H. S. L.; dos Santos Santos, M. F.; Marques-Neto, H. T. M. N.
+(2017). Utilizando Análise de Sentimentos para Definição da Homofilia Política dos
+Usuários do Twitter durante a Eleição Presidencial Americana de 2016. In Procs. of
+Brazilian Workshop on Social Network Analysis and Mining (BraSNAM), p.
+480-491, São Paulo, Brasil.
+Cavalcanti, D. C. et al. (2012). Análise de Sentimento em Citações Científicas para
+Definição de Fatores de Impacto Positivo. In Procs. of International Workshop on
+Web and Text Intelligence (WTI), 4. p. 1 - 10, Paraná, Brasil.
+Dwivedi, S.; Kasliwal, P.; Soni, S. (2016). Comprehensive study of data analytics tools
+(RapidMiner, Weka, R tool, Knime). In Procs. of Symposium On Colossal Data
+Analysis And Networking (CDAN), p. 1 - 8, Indore, India.
+França, Tiago C. de; Oliveira, Jonice. (2014). Análise de Sentimento de Tweets
+Relacionados aos Protestos que ocorreram no Brasil entre Junho e Agosto de 2013 .
+In Procs. of Brazilian Workshop on Social Network Analysis and Mining
+(BraSNAM), p. 128 - 139, Brasília, Brasil.
+Garg, T.; Khurana, S. S. (2014). Comparison of classification techniques for intrusion
+detection dataset using WEKA. In Procs. of International Conference on Recent
+Advances and Innovations in Engineering (ICRAIE). p. 1 - 5, Jaipur, India.
+Garimella, Kiran. et al. (2018). Quantifying Controversy in Social Media. Journal ACM
+Transactions on Social Computing, v. 1, n. 1, p. 3:1--3:27.
+Matsuda, Y. (2017). Development of Emotion Teaching Interfaces using Emoticons and
+Emojis. In Procs of International Conference On Intelligent Human-Machine
+Systems and Cybernetics (IHMSC), 9, p. 253 - 258, Hangzhou, China.
+Neri, F; Aliprandi, C; Capeci, F; Cuadros, M. (2012) Sentiment Analysis on Social
+Media. In Procs. of IEEE/ACM International Conference on Advances in Social
+Networks Analysis and Mining (ASONAM), p. 919 - 926, Istanbul, Turquia.
+Pandey, A. K.; Rajpoot, D. S. (2016). A comparative study of classification techniques
+by utilizing WEKA. In Procs. of International Conference On Signal Processing And
+Communication (ICSC). p. 219 - 224, Bangalore, India.
+Witten I. H.; Frank, E; Hall, M. A.; Pal, C. J. (2016). Data Mining: Practical Machine
+Learning Tools and Techniques. Morgan Kaufmann Publishers, 4th
+ edition. ISBN:
+978-0128042915.
+Yadollahi, A.; Shahraki, A. G.; Zaiane, O. R. (2017). Current State of Text Sentiment
+Analysis from Opinion to Emotion Mining. ACM Computing Surveys , v. 50, n.2, p. 1
+- 33. 

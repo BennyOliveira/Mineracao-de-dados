@@ -1,439 +1,439 @@
-Modelo e Algoritmos para Servic ¸ o de Controle de Densidade
+Modelo e Algoritmos para Servic¸o de Controle de Densidade
 de Redes de Sensores sem Fio sujeitas a falhas
-Fab ´ iola G .  Nakamura1 , 2
- ,  Flavio V .  C .  Martins  ´ 
+Fab´iola G. Nakamura1,2
+, Flavio V. C. Martins ´
 1
- , 
-Frederico P .  Quintao ˜ 
+,
+Frederico P. Quintao˜
 1
- ,  Geraldo Robson Mateus1
-1Departamento de Ciˆencia da Computac ¸   ˜ ao
-Universidade Federal de Minas Gerais  ( UFMG ) 
-Av .  Antˆonio Carlos ,  6627 – Belo Horizonte – MG – Brasil
-2Departamento de Ciˆencia da Computac ¸   ˜ ao
-Universidade Federal do Amazonas  ( UFAM ) 
-Av .  Gen .  Rodrigo Oct ´ avio Jord ˜ ao Ramos ,  3000 – Manaus – AM – Brasil
-{fgnaka , cruzeiro , fred , mateus}@dcc . ufmg . br ,  fabiola@dcc . ufam . edu . br
-Abstract .  In this paper we propose a mathematical formalization of the Density Control Problem in Wireless Sensor Networks  ( WSNs )  .  Our formalizaton is
-based on WSNs application requirements such as coverage ,  connectivity ,  data
-dissemination and fault tolerance ,  combined to energy-safe strategies .  Since this
-is a hard computational problem ,  we present algorithms to achieve solutions for
-the problem in a feasible time ,  in order to apply our solution as a Management
-Service in the dynamic scenario of Wireless Sensor Networks . 
-Resumo .  Este artigo propoe uma formalizac ¸   ˜  ao matem  ˜  atica para o Problema de  ´ 
-Controle de Densidade em Redes de Sensores sem Fio  ( RSSFs )  .  A formalizac ¸ ao ˜ 
-e baseada em requisitos de aplicac ¸   ´  ao ,  tais como cobertura ,  conectividade ,   ˜ 
-disseminac ¸ ao de dados e toler  ˜  ancia a falhas ,  aliados ˆ a restric ¸  ` ao de energia  ˜ 
-existente no ambiente das RSSFs .  Como se trata de um problema que apresenta
-elevado custo computacional ,  sao apresentados algoritmos para obter soluc ¸   ˜  oes  ˜ 
-em tempo viavel .  O objetivo  ´  e aplicar as soluc ¸   ´  oes propostas a um Servic ¸ o de  ˜ 
-Gerenciamento no ambiente dinamico das Redes de Sensores sem Fio .  ˆ
-1 .  Introduc ¸ ao ˜ 
-No cen ´ ario das Redes de Sensores sem Fio  ( RSSFs )  emergem conflitos entre compromissos devido `as restric ¸   ˜ oes da rede .  Por um lado ,  a rede deve ser capaz de cumprir os
-requisitos da aplicac ¸   ˜ ao ,  tais como cobrir de maneira efetiva a  ´ area a ser monitorada e
-reportar com sucesso os dados coletados .  O primeiro requisito indica que os dados resultantes dos fenˆomenos de interesse ,  os quais podem ocorrer em qualquer ponto da  ´ area
-monitorada ,  devem ser coletados com a melhor precis ˜ ao poss ´ ivel .  O segundo que os dados dos fenˆomenos precisam ser entregues ao usu ´ ario final da rede para que ele possa
-extrair informac ¸   ˜ oes relevantes dos mesmos . 
-O atendimento de tais requisitos n ˜ ao  ´ e uma tarefa simples uma vez que RSSFs est ´ a
-sujeita a diversas restric ¸   ˜ oes .  Al ´ em das restric ¸   ˜ oes de processamento e capacidade dos n ´ os
-sensores ,  devido a tamanho e custos reduzidos ,  nesse cen ´ ario h ´ a a restric ¸   ˜ ao de energia . 
-Os n ´ os sensores ,  dispositivos m ´ oveis sem fio ,  disp ˜ oem apenas de uma quantidade finita
-de energia para realizar sua atividade – energia que  ´ e provida por uma bateria . 
+, Geraldo Robson Mateus1
+1Departamento de Ciˆencia da Computac¸ ˜ao
+Universidade Federal de Minas Gerais (UFMG)
+Av. Antˆonio Carlos, 6627 – Belo Horizonte – MG – Brasil
+2Departamento de Ciˆencia da Computac¸ ˜ao
+Universidade Federal do Amazonas (UFAM)
+Av. Gen. Rodrigo Oct´avio Jord˜ao Ramos, 3000 – Manaus – AM – Brasil
+{fgnaka,cruzeiro,fred,mateus}@dcc.ufmg.br, fabiola@dcc.ufam.edu.br
+Abstract. In this paper we propose a mathematical formalization of the Density Control Problem in Wireless Sensor Networks (WSNs). Our formalizaton is
+based on WSNs application requirements such as coverage, connectivity, data
+dissemination and fault tolerance, combined to energy-safe strategies. Since this
+is a hard computational problem, we present algorithms to achieve solutions for
+the problem in a feasible time, in order to apply our solution as a Management
+Service in the dynamic scenario of Wireless Sensor Networks.
+Resumo. Este artigo propoe uma formalizac¸ ˜ ao matem ˜ atica para o Problema de ´
+Controle de Densidade em Redes de Sensores sem Fio (RSSFs). A formalizac¸ao˜
+e baseada em requisitos de aplicac¸ ´ ao, tais como cobertura, conectividade, ˜
+disseminac¸ao de dados e toler ˜ ancia a falhas, aliados ˆ a restric¸ ` ao de energia ˜
+existente no ambiente das RSSFs. Como se trata de um problema que apresenta
+elevado custo computacional, sao apresentados algoritmos para obter soluc¸ ˜ oes ˜
+em tempo viavel. O objetivo ´ e aplicar as soluc¸ ´ oes propostas a um Servic¸o de ˜
+Gerenciamento no ambiente dinamico das Redes de Sensores sem Fio. ˆ
+1. Introduc¸ao˜
+No cen´ario das Redes de Sensores sem Fio (RSSFs) emergem conflitos entre compromissos devido `as restric¸ ˜oes da rede. Por um lado, a rede deve ser capaz de cumprir os
+requisitos da aplicac¸ ˜ao, tais como cobrir de maneira efetiva a ´area a ser monitorada e
+reportar com sucesso os dados coletados. O primeiro requisito indica que os dados resultantes dos fenˆomenos de interesse, os quais podem ocorrer em qualquer ponto da ´area
+monitorada, devem ser coletados com a melhor precis˜ao poss´ivel. O segundo que os dados dos fenˆomenos precisam ser entregues ao usu´ario final da rede para que ele possa
+extrair informac¸ ˜oes relevantes dos mesmos.
+O atendimento de tais requisitos n˜ao ´e uma tarefa simples uma vez que RSSFs est´a
+sujeita a diversas restric¸ ˜oes. Al´em das restric¸ ˜oes de processamento e capacidade dos n´os
+sensores, devido a tamanho e custos reduzidos, nesse cen´ario h´a a restric¸ ˜ao de energia.
+Os n´os sensores, dispositivos m´oveis sem fio, disp˜oem apenas de uma quantidade finita
+de energia para realizar sua atividade – energia que ´e provida por uma bateria.
 Sessão Técnica 1 - Redes sem fio 37
 Uma maneira de resolver o problema do trade-off entre os requisitos e as
-restric ¸   ˜ oes da rede  ´ e espalhar um grande n ´ umero de n ´ os sensores pela  ´ area de monitoramento ,  aumentando-se a quantidade de energia dispon ´ ivel para que a rede execute
-suas tarefas .  Esta estrat ´ egia ,  entretanto ,  pode levar `a deteriorac ¸   ˜ ao de m ´ etricas importantes [Tilak et al .  2002] .  A grande quantidade de dispositivos em disputa pelo acesso
-ao meio implica em colis ˜ oes de pacotes e interferˆencia e ,  portanto ,  a retransmiss ˜ ao de
-pacotes passa a ser necess ´ aria para que o requisito de entrega dos dados coletados seja
-satisfeito ,  o que por sua vez aumenta o consumo de energia dos n ´ os sensores . 
-Neste contexto s ˜ ao propostos mecanismo de controle de densidade para RSSFs
-que atuam como um servic ¸ o de gerenciamento para resolver o entrave entre requisitos
-de aplicac ¸   ˜ ao ,  restric ¸   ˜ oes da rede e abundˆancia de sensores no ambiente monitorado .  O
-controle de densidade visa promover a produtividade de uma RSSF atuando no n ´ ivel da
-Operac ¸ ao ˜  e da Administrac ¸ ao da rede e dos servic ¸ os  ˜   . 
-[Xu et al .  2003] apresentam um protocolo de controle de densidade que visa prolongar o tempo de vida da rede ,  mantendo a conectividade entre os n ´ os .  A abordagem
-deste trabalho  ´ e reconhecer n ´ os redundantes e desligar seus r ´ adios .  Este protocolo  ´ e denominado Geographic Adaptive Fidelity ( GAF )  ,  e identifica os n ´ os redundantes atrav ´ es da
-avaliac ¸   ˜ ao de dois dados: localizac ¸   ˜ ao f ´ isica do n ´ o e estimativa do alcance de r ´ adio .  O protocolo assume que todos os n ´ os conhecem sua localizac ¸   ˜ ao e utiliza um modelo de r ´ adio
-idealizado . 
-[Zhang and Hou 2005] apresentam o algoritmo OGDC  ( Optimal Geographical
-Density Control )  .  Segundo os autores ,  o algoritmo  ´ e totalmente descentralizado e localizado .  OGDC  ´ e baseado no fato de que ,  caso o raio de comunicac ¸   ˜ ao seja pelo menos
-duas vezes maior do que o de sensoriamento ,  a garantia da cobertura implica na garantia da conectividade .  A partir desta observac ¸   ˜ ao ,  os autores apresentam um conjunto de
-condic ¸   ˜ oes  ´ otimas sobre as quais um conjunto de n ´ os ativos pode ser encontrado para cobertura total da rede ,  e apresentam um algoritmo que mant ´ em estas condic ¸   ˜ oes quando a
-rede possui alta densidade e cada n ´ o sabe a sua localizac ¸   ˜ ao . 
-[Siqueira et al .  2006] desenvolveram um controle de densidade integrado que resolve os problemas de cobertura e roteamento ao mesmo tempo ,  visando garantir a
-operac ¸   ˜ ao das RSSFs de maneira correta e eficiente .  S ˜ ao propostas duas soluc ¸   ˜ oes ,  RDCSync e RDC-Integrated ,  compostas do algoritmo OGDC e de um algoritmo em  ´ arvore
-denominado EF-TREE proposto por [Figueiredo et al .  2004] .  A diferenc ¸ a entre as duas
-abordagens se d ´ a na maneira como as duas soluc ¸   ˜ oes s ˜ ao integradas . 
-Neste trabalho s ˜ ao propostos um modelo de Programac ¸   ˜ ao Linear Inteira  ( PLI ) 
-e algoritmos para realizar o Controle de Densidade em RSSFs planas .  Inicialmente ,  s ˜ ao
-apresentados dois algoritmos para tratar o problema mas que possuem limitac ¸   ˜ oes no cumprimento de necessidades das  ´ areas funcionais acima citadas .  O primeiro algoritmo apresentado atua de uma maneira global ,  escolhendo um conjunto de n ´ os sensores com baixo
-custo de energia para manter a  ´ area de cobertura e assegurar a conectividade dos n ´ os , 
-atrav ´ es da construc ¸   ˜ ao de uma  ´ arvore de roteamento .  O outro algoritmo atua de maneira
-localizada e online restabelecendo a cobertura e a conectividade da redes na vizinhanc ¸ a de
-falhas ,  baseado apenas em dados locais .  Finalmente ,  a combinac ¸   ˜ ao destes dois algoritmos
-d ´ a origem ao algoritmo mais completo ,  que atende as necessidades das  ´ areas funcionais . 
+restric¸ ˜oes da rede ´e espalhar um grande n´umero de n´os sensores pela ´area de monitoramento, aumentando-se a quantidade de energia dispon´ivel para que a rede execute
+suas tarefas. Esta estrat´egia, entretanto, pode levar `a deteriorac¸ ˜ao de m´etricas importantes [Tilak et al. 2002]. A grande quantidade de dispositivos em disputa pelo acesso
+ao meio implica em colis˜oes de pacotes e interferˆencia e, portanto, a retransmiss˜ao de
+pacotes passa a ser necess´aria para que o requisito de entrega dos dados coletados seja
+satisfeito, o que por sua vez aumenta o consumo de energia dos n´os sensores.
+Neste contexto s˜ao propostos mecanismo de controle de densidade para RSSFs
+que atuam como um servic¸o de gerenciamento para resolver o entrave entre requisitos
+de aplicac¸ ˜ao, restric¸ ˜oes da rede e abundˆancia de sensores no ambiente monitorado. O
+controle de densidade visa promover a produtividade de uma RSSF atuando no n´ivel da
+Operac¸ao˜ e da Administrac¸ao da rede e dos servic¸os ˜ .
+[Xu et al. 2003] apresentam um protocolo de controle de densidade que visa prolongar o tempo de vida da rede, mantendo a conectividade entre os n´os. A abordagem
+deste trabalho ´e reconhecer n´os redundantes e desligar seus r´adios. Este protocolo ´e denominado Geographic Adaptive Fidelity(GAF), e identifica os n´os redundantes atrav´es da
+avaliac¸ ˜ao de dois dados: localizac¸ ˜ao f´isica do n´o e estimativa do alcance de r´adio. O protocolo assume que todos os n´os conhecem sua localizac¸ ˜ao e utiliza um modelo de r´adio
+idealizado.
+[Zhang and Hou 2005] apresentam o algoritmo OGDC (Optimal Geographical
+Density Control). Segundo os autores, o algoritmo ´e totalmente descentralizado e localizado. OGDC ´e baseado no fato de que, caso o raio de comunicac¸ ˜ao seja pelo menos
+duas vezes maior do que o de sensoriamento, a garantia da cobertura implica na garantia da conectividade. A partir desta observac¸ ˜ao, os autores apresentam um conjunto de
+condic¸ ˜oes ´otimas sobre as quais um conjunto de n´os ativos pode ser encontrado para cobertura total da rede, e apresentam um algoritmo que mant´em estas condic¸ ˜oes quando a
+rede possui alta densidade e cada n´o sabe a sua localizac¸ ˜ao.
+[Siqueira et al. 2006] desenvolveram um controle de densidade integrado que resolve os problemas de cobertura e roteamento ao mesmo tempo, visando garantir a
+operac¸ ˜ao das RSSFs de maneira correta e eficiente. S˜ao propostas duas soluc¸ ˜oes, RDCSync e RDC-Integrated, compostas do algoritmo OGDC e de um algoritmo em ´arvore
+denominado EF-TREE proposto por [Figueiredo et al. 2004]. A diferenc¸a entre as duas
+abordagens se d´a na maneira como as duas soluc¸ ˜oes s˜ao integradas.
+Neste trabalho s˜ao propostos um modelo de Programac¸ ˜ao Linear Inteira (PLI)
+e algoritmos para realizar o Controle de Densidade em RSSFs planas. Inicialmente, s˜ao
+apresentados dois algoritmos para tratar o problema mas que possuem limitac¸ ˜oes no cumprimento de necessidades das ´areas funcionais acima citadas. O primeiro algoritmo apresentado atua de uma maneira global, escolhendo um conjunto de n´os sensores com baixo
+custo de energia para manter a ´area de cobertura e assegurar a conectividade dos n´os,
+atrav´es da construc¸ ˜ao de uma ´arvore de roteamento. O outro algoritmo atua de maneira
+localizada e online restabelecendo a cobertura e a conectividade da redes na vizinhanc¸a de
+falhas, baseado apenas em dados locais. Finalmente, a combinac¸ ˜ao destes dois algoritmos
+d´a origem ao algoritmo mais completo, que atende as necessidades das ´areas funcionais.
 38 XII WGRS
-Este algoritmo visa desfrutar das vantagens das vis ˜ oes global e local . 
-2 .  O Problema Abordado
-De maneira formal o problema a ser tratado pode ser definido como: Dada uma area de  ´ 
-monitoramento A ,  um conjunto de nos sensores  ´  S ,  um conjunto de nos sorvedouros  ´  M , 
-um conjunto de pontos de demanda D ,  o Problema de Controle de Densidade em Redes
-de Sensores sem Fio  ( PCD-RSSF )  consiste em garantir para cada ponto de demanda
-d ? D na area  ´  A que pelo menos q nos sensores  ´  s ? S o cubram e que existe uma rota
-entre cada no sensor ativo  ´  s ? S e um no sorvedouro  ´  m ? M . 
-Dadas as restric ¸   ˜ oes de energia da rede ,  os crit ´ erios
-EMl energia de manutenc ¸   ˜ ao do n ´ o l em cada per ´ iodo ,  que representa o consumo de
-corrente do n ´ o com sensoriamento ,  processamento e escuta de canal . 
-ETli corrente consumida pelo n ´ o l com a operac ¸   ˜ ao de transmiss ˜ ao dos pacotes gerados
-para o n ´ o i
-ERl corrente consumida pelo n ´ o l com a operac ¸   ˜ ao de recepc ¸   ˜ ao dos pacotes . 
-ERel energia residual do n ´ o l . 
-Blj energia residual do n ´ o l . 
-As vari ´ aveis do modelo s ˜ ao:
-xlj vari ´ avel que indica se o n ´ o l est ´ a cobrindo o ponto de demanda j . 
-zlki vari ´ avel de decis ˜ ao que possui valor 1 se o arco ki faz parte da rota entre o n ´ o l e um
-n ´ o sorvedouro ,  e 0 caso contr ´ ario
-yl vari ´ avel de decis ˜ ao que possui valor 1 se o n ´ o l est ´ a ativo ,  e 0 caso contr ´ ario
-O modelo  ´ e apresentado a seguir .  A Equac ¸   ˜ ao 1 representa a func ¸   ˜ ao objetivo que minimiza
-a relac ¸   ˜ ao entre a energia consumida pelo n ´ os ,  dada pela soma das energias de ativac ¸   ˜ ao , 
-manutenc ¸   ˜ ao ,  transmiss ˜ ao e recepc ¸   ˜ ao ,  e a energia existente na bateria ,  aqui denominada
-energia residual .  Essa func ¸   ˜ ao objetivo privilegia a ativac ¸   ˜ ao dos n ´ os com consumo baixo e
-energia residual alta .  A energia residual  ´ e inclu ´ ida no modelo numa tentativa de se evitar
-que um n ´ o escolhido na soluc ¸   ˜ ao falhe logo ap ´ os a soluc ¸   ˜ ao ter sido gerada .  Al ´ em disso
-espera-se minimizar o n ´ umero de falhas por falta de energia e que o consumo se dˆe de
-maneira mais homogˆenea na rede . 
+Este algoritmo visa desfrutar das vantagens das vis˜oes global e local.
+2. O Problema Abordado
+De maneira formal o problema a ser tratado pode ser definido como: Dada uma area de ´
+monitoramento A, um conjunto de nos sensores ´ S, um conjunto de nos sorvedouros ´ M,
+um conjunto de pontos de demanda D, o Problema de Controle de Densidade em Redes
+de Sensores sem Fio (PCD-RSSF) consiste em garantir para cada ponto de demanda
+d ? D na area ´ A que pelo menos q nos sensores ´ s ? S o cubram e que existe uma rota
+entre cada no sensor ativo ´ s ? S e um no sorvedouro ´ m ? M.
+Dadas as restric¸ ˜oes de energia da rede, os crit´erios
+EMl energia de manutenc¸ ˜ao do n´o l em cada per´iodo, que representa o consumo de
+corrente do n´o com sensoriamento, processamento e escuta de canal.
+ETli corrente consumida pelo n´o l com a operac¸ ˜ao de transmiss˜ao dos pacotes gerados
+para o n´o i
+ERl corrente consumida pelo n´o l com a operac¸ ˜ao de recepc¸ ˜ao dos pacotes.
+ERel energia residual do n´o l.
+Blj energia residual do n´o l.
+As vari´aveis do modelo s˜ao:
+xlj vari´avel que indica se o n´o l est´a cobrindo o ponto de demanda j.
+zlki vari´avel de decis˜ao que possui valor 1 se o arco ki faz parte da rota entre o n´o l e um
+n´o sorvedouro, e 0 caso contr´ario
+yl vari´avel de decis˜ao que possui valor 1 se o n´o l est´a ativo, e 0 caso contr´ario
+O modelo ´e apresentado a seguir. A Equac¸ ˜ao 1 representa a func¸ ˜ao objetivo que minimiza
+a relac¸ ˜ao entre a energia consumida pelo n´os, dada pela soma das energias de ativac¸ ˜ao,
+manutenc¸ ˜ao, transmiss˜ao e recepc¸ ˜ao, e a energia existente na bateria, aqui denominada
+energia residual. Essa func¸ ˜ao objetivo privilegia a ativac¸ ˜ao dos n´os com consumo baixo e
+energia residual alta. A energia residual ´e inclu´ida no modelo numa tentativa de se evitar
+que um n´o escolhido na soluc¸ ˜ao falhe logo ap´os a soluc¸ ˜ao ter sido gerada. Al´em disso
+espera-se minimizar o n´umero de falhas por falta de energia e que o consumo se dˆe de
+maneira mais homogˆenea na rede.
 ZP CD = minX
 l?S
- (  ( EMl + EAl )  × y
+((EMl + EAl) × y
 t
 l
 +
 X
-k? ( S-l ) 
+k?(S-l)
 X
-il?El ( As ) 
+il?El(As)
 ERl × zkil
 +
 X
 k?S
 X
-li?Sl ( As?Am ) 
- ( ETli × zkli )  ) /ERel  ( 1 ) 
-O modelo est ´ a sujeito a um conjunto de restric ¸   ˜ oes de cobertura ,  restric ¸   ˜ oes de conectividade ,  restric ¸   ˜ oes de ativac ¸   ˜ ao e restric ¸   ˜ oes que definem os tipos de vari ´ aveis .  As restric ¸   ˜ oes
- ( 2 )  e  ( 3 )  lidam com o problema da cobertura garantindo que cada ponto de demanda seja
-coberto por pelo menos um deles e que um n ´ o s ´ o possa estar sensoriando se estiver ativo . 
-Al ´ em disso  ´ e definido que para um n ´ o poder realizar o sensoriamento ele deve estar ativo . 
+li?Sl(As?Am)
+(ETli × zkli))/ERel (1)
+O modelo est´a sujeito a um conjunto de restric¸ ˜oes de cobertura, restric¸ ˜oes de conectividade, restric¸ ˜oes de ativac¸ ˜ao e restric¸ ˜oes que definem os tipos de vari´aveis. As restric¸ ˜oes
+(2) e (3) lidam com o problema da cobertura garantindo que cada ponto de demanda seja
+coberto por pelo menos um deles e que um n´o s´o possa estar sensoriando se estiver ativo.
+Al´em disso ´e definido que para um n´o poder realizar o sensoriamento ele deve estar ativo.
 X
 l?S
-Blj × xlj = m ,  ?j ? D  ( 2 ) 
+Blj × xlj = m, ?j ? D (2)
 0 = Blj × xlj = yl
- ,  ?l ? S e ?j ? D  ( 3 ) 
-As restric ¸   ˜ oes  ( 4 )  ,   ( 5 )  ,   ( 6 )  e  ( 7 )  referem-se ao problema de conectividade e garantem que
-para cada n ´ o ativo para sensoriamento deve existir uma rota at ´ e um n ´ o sorvedouro . 
+, ?l ? S e ?j ? D (3)
+As restric¸ ˜oes (4), (5), (6) e (7) referem-se ao problema de conectividade e garantem que
+para cada n´o ativo para sensoriamento deve existir uma rota at´e um n´o sorvedouro.
 X
-ip?Ep ( As ) 
+ip?Ep(As)
 zlip -
 X
-pk?Sp ( As?Am ) 
-zlpk = 0 ,  ?p ?  ( S ? M - l )  ,  ?l ? S  ( 4 ) 
+pk?Sp(As?Am)
+zlpk = 0, ?p ? (S ? M - l), ?l ? S (4)
 -
 X
-pk?Sp ( As?Am ) 
+pk?Sp(As?Am)
 zlpk = -yl
- ,  p = l ,  ?l ? S  ( 5 ) 
+, p = l, ?l ? S (5)
 40 XII WGRS
 zlip = yi
- ,  ?i ? S ,  ?l ?  ( S - p )  ,  ?ip ?  ( A
+, ?i ? S, ?l ? (S - p), ?ip ? (A
 s ? A
-m )   ( 6 ) 
-zlip = yp ,  ?p ? S ,  ?l ?  ( S - p )  ,  ?ip ?  ( A
+m) (6)
+zlip = yp, ?p ? S, ?l ? (S - p), ?ip ? (A
 s ? A
-m )   ( 7 ) 
-y ,  z ? {0 ,  1}  ( 8 ) 
-A soluc ¸   ˜ ao do modelo consiste do conjunto Y de n ´ os sensores que devem ser ativos , 
-isto  ´ e ,  Y = {i ? S|yi = 1} .  Esta soluc ¸   ˜ ao  ´ e gerada periodicamente  ( ou quando necess ´ ario ) 
-e indica quais n ´ os devem cobrir quais pontos de demanda e garante pelo menos uma rota
-entre esses n ´ os sensores e um n ´ o sorvedouro . 
-2 . 2 .  Algoritmos propostos
-O modelo matem ´ atico apresentado na Sec ¸   ˜ ao anterior pode ser resolvido utilizando-se algum pacote comercial de otimizac ¸   ˜ ao ,  como o CPLEX [ILOG 2006] .  Entretanto ,  para
-grandes instˆancias do problema ,  obter a soluc ¸   ˜ ao  ´ otima pode ser invi ´ avel computacionalmente ,  ainda que em software dedicado  ( de fato ,  o PCD-RSSF  ´ e um problema de
-otimizac ¸   ˜ ao combinat ´ oria NP-dif ´ icil )  .  Al ´ em disso ,  o software comercial dedicado em geral  ´ e muito caro ,  podendo n ˜ ao ser poss ´ ivel realizar a sua aquisic ¸   ˜ ao .  Estas observac ¸   ˜ oes nos
-indicam que caminhar para soluc ¸   ˜ oes aproximadas pode ser uma boa estrat ´ egia para resolver o PCD-RSSF .  Por esse motivo ,  s ˜ ao apresentados a seguir diferentes algoritmos para
-o problema .  As func ¸   ˜ oes de aptid ˜ ao e decis ˜ ao dos algoritmos propostos tamb ´ em visam
-privilegiar n ´ os com baixo consumo de energia e alta energia residual . 
-2 . 2 . 1 .  Algoritmo Global Periodico  ´ 
-O Algoritmo Global Peri ´ odico  ( AGP )  utiliza um Algoritmo Gen ´ etico para resolver um
-Problema de Cobertura baseado no Set Covering Problem ,  em conjunto com os algoritmos de Arvore Geradora M ´ inima  ( AGM )  e Caminho M ´ inimo ,  para reconstruir a rede  ´ 
-quando solicitado .  A func ¸   ˜ ao de aptid ˜ ao do algoritmo gen ´ etico inclui o custo para ativar
-o n ´ o ,  mais o custo do caminho m ´ inimo entre o n ´ o i e o sorvedouro mais pr ´ oximo  ( denominado CMi )  ,  o qual contabiliza o custo de transmiss ˜ ao dos n ´ os .  Dado que o algoritmo
-gen ´ etico pode n ˜ ao garantir a cobertura total e visando minimizar esse problema ,  uma parcela que penaliza os pontos de demanda descobertos  ´ e adicionada a func ¸   ˜ ao de aptid ˜ ao . 
-A penalidade  ´ e dada pelo parˆametro EH que deve possuir valor bastante elevado para
-privilegiar soluc ¸   ˜ oes com a melhor cobertura poss ´ ivel .  A vari ´ avel hj
-ir ´ a possuir valor 1 se
-o ponto de demanda j estiver descoberto e 0 caso contr ´ ario .  Neste momento comec ¸ a-se
-a abrir m ˜ ao da otimalidade em func ¸   ˜ ao de soluc ¸   ˜ oes mais r ´ apidas e n ˜ ao dependentes de
-softwares dedicados .  A func ¸   ˜ ao de aptid ˜ ao  ´ e mostrada na Equac ¸   ˜ ao  ( 9 )  .  Mais detalhes
-sobre este algoritmo est ˜ ao em [Quint ˜ ao et al .  2004] . 
-aptid ˜ ao ( H )  = X
+m) (7)
+y, z ? {0, 1} (8)
+A soluc¸ ˜ao do modelo consiste do conjunto Y de n´os sensores que devem ser ativos,
+isto ´e, Y = {i ? S|yi = 1}. Esta soluc¸ ˜ao ´e gerada periodicamente (ou quando necess´ario)
+e indica quais n´os devem cobrir quais pontos de demanda e garante pelo menos uma rota
+entre esses n´os sensores e um n´o sorvedouro.
+2.2. Algoritmos propostos
+O modelo matem´atico apresentado na Sec¸ ˜ao anterior pode ser resolvido utilizando-se algum pacote comercial de otimizac¸ ˜ao, como o CPLEX [ILOG 2006]. Entretanto, para
+grandes instˆancias do problema, obter a soluc¸ ˜ao ´otima pode ser invi´avel computacionalmente, ainda que em software dedicado (de fato, o PCD-RSSF ´e um problema de
+otimizac¸ ˜ao combinat´oria NP-dif´icil). Al´em disso, o software comercial dedicado em geral ´e muito caro, podendo n˜ao ser poss´ivel realizar a sua aquisic¸ ˜ao. Estas observac¸ ˜oes nos
+indicam que caminhar para soluc¸ ˜oes aproximadas pode ser uma boa estrat´egia para resolver o PCD-RSSF. Por esse motivo, s˜ao apresentados a seguir diferentes algoritmos para
+o problema. As func¸ ˜oes de aptid˜ao e decis˜ao dos algoritmos propostos tamb´em visam
+privilegiar n´os com baixo consumo de energia e alta energia residual.
+2.2.1. Algoritmo Global Periodico ´
+O Algoritmo Global Peri´odico (AGP) utiliza um Algoritmo Gen´etico para resolver um
+Problema de Cobertura baseado no Set Covering Problem, em conjunto com os algoritmos de Arvore Geradora M´inima (AGM) e Caminho M´inimo, para reconstruir a rede ´
+quando solicitado. A func¸ ˜ao de aptid˜ao do algoritmo gen´etico inclui o custo para ativar
+o n´o, mais o custo do caminho m´inimo entre o n´o i e o sorvedouro mais pr´oximo (denominado CMi), o qual contabiliza o custo de transmiss˜ao dos n´os. Dado que o algoritmo
+gen´etico pode n˜ao garantir a cobertura total e visando minimizar esse problema, uma parcela que penaliza os pontos de demanda descobertos ´e adicionada a func¸ ˜ao de aptid˜ao.
+A penalidade ´e dada pelo parˆametro EH que deve possuir valor bastante elevado para
+privilegiar soluc¸ ˜oes com a melhor cobertura poss´ivel. A vari´avel hj
+ir´a possuir valor 1 se
+o ponto de demanda j estiver descoberto e 0 caso contr´ario. Neste momento comec¸a-se
+a abrir m˜ao da otimalidade em func¸ ˜ao de soluc¸ ˜oes mais r´apidas e n˜ao dependentes de
+softwares dedicados. A func¸ ˜ao de aptid˜ao ´e mostrada na Equac¸ ˜ao (9). Mais detalhes
+sobre este algoritmo est˜ao em [Quint˜ao et al. 2004].
+aptid˜ao(H) = X
 i?S
- ( EAi + EMi + CMi ) 
+(EAi + EMi + CMi)
 ERei
 × yi +
 X
 j?D
-EHj × hj  ( 9 ) 
-Para tratar o problema de controle de densidade dinˆamico o AGP  ´ e utilizado periodicamente e antes de cada nova execuc ¸   ˜ ao ,  o conjunto S  ´ e atualizado e todos os n ´ os que
-falharam entre o per ´ iodo atual e a  ´ ultima execuc ¸   ˜ ao do algoritmo s ˜ ao exclu ´ idos . 
+EHj × hj (9)
+Para tratar o problema de controle de densidade dinˆamico o AGP ´e utilizado periodicamente e antes de cada nova execuc¸ ˜ao, o conjunto S ´e atualizado e todos os n´os que
+falharam entre o per´iodo atual e a ´ultima execuc¸ ˜ao do algoritmo s˜ao exclu´idos.
 Sessão Técnica 1 - Redes sem fio 41
-2 . 2 . 2 .  Algoritmo Local Online
-O Algoritmo Local Online  ( ALO )   ´ e acionado a cada perda de cobertura e conectividade
-devido `a falhas de n ´ os .  Seja ET ( i ,  j )  a energia consumida pelo n ´ o i para enviar um sinal
-para o n ´ o j ,  C o conjunto de filhos do n ´ o que falhou e pai o pai – na  ´ arvore de roteamento
-– do n ´ o que falhou .  Al ´ em disso ,  considere Di
- ,  o conjunto de pontos de demanda que s ˜ ao
-cobertos exclusivamente pelo n ´ o i ,  i ? S . 
-Caso haja falha na cobertura e C 6= Ø ,  o algoritmo seleciona um novo k n ´ o para
-ser pai dos n ´ os que falharam baseado no valor da Equac ¸   ˜ ao  ( 10 )  .  A energia de transmiss ˜ ao
-quadrada  ´ e utilizada para que a escolha dos n ´ os priorize um candidato que esteja ,  ao
-mesmo tempo ,  perto do pai e dos filhos do n ´ o que falhou ,  uma vez que o valor da energia
- ´ e diretamente proporcional `a distˆancia . 
-n ´ o escolhido = min
+2.2.2. Algoritmo Local Online
+O Algoritmo Local Online (ALO) ´e acionado a cada perda de cobertura e conectividade
+devido `a falhas de n´os. Seja ET(i, j) a energia consumida pelo n´o i para enviar um sinal
+para o n´o j, C o conjunto de filhos do n´o que falhou e pai o pai – na ´arvore de roteamento
+– do n´o que falhou. Al´em disso, considere Di
+, o conjunto de pontos de demanda que s˜ao
+cobertos exclusivamente pelo n´o i, i ? S.
+Caso haja falha na cobertura e C 6= Ø, o algoritmo seleciona um novo k n´o para
+ser pai dos n´os que falharam baseado no valor da Equac¸ ˜ao (10). A energia de transmiss˜ao
+quadrada ´e utilizada para que a escolha dos n´os priorize um candidato que esteja, ao
+mesmo tempo, perto do pai e dos filhos do n´o que falhou, uma vez que o valor da energia
+´e diretamente proporcional `a distˆancia.
+n´o escolhido = min
 k?S\Y
- ( 
- ( ET2
- ( k ,  pai )  +X
+(
+(ET2
+(k, pai) +X
 j?C
 ET2
- ( j ,  k )  ) /ERek
- ) 
- ( 10 ) 
-Caso C = Ø  ( o que significa que o n ´ o que falhou  ´ e uma folha da  ´ arvore de roteamento )  ,  a
-escolha do n ´ o ativo  ´ e baseada na energia de transmiss ˜ ao e no n ´ umero de pontos exclusivamente cobertos pelo n ´ o . 
-n ´ o escolhido = min
+(j, k))/ERek
+)
+(10)
+Caso C = Ø (o que significa que o n´o que falhou ´e uma folha da ´arvore de roteamento), a
+escolha do n´o ativo ´e baseada na energia de transmiss˜ao e no n´umero de pontos exclusivamente cobertos pelo n´o.
+n´o escolhido = min
 k?S\Y
 
 ET2
- ( k ,  pai ) 
+(k, pai)
 |Dk|
 
- ( 11 ) 
-O AGP  ´ e executado no tempo de simulac ¸   ˜ ao 0 para criar uma soluc ¸   ˜ ao inicial .  Ent ˜ ao ,  a
-cada ocorrˆencia de falha o Algoritmo Local Online  ´ e chamado . 
-2 . 2 . 3 .  Algoritmo H ´ ibrido
-O Algoritmo H ´ ibrido proposto combina a estrat ´ egia de soluc ¸   ˜ ao global apresentada na
-Sec ¸   ˜ ao 2 . 2 . 1 ,  que reconstr ´ oi toda a rede ,  com a estrat ´ egia local ,  que a cada falha de n ´ os
-tenta restabelecer a cobertura e conectividade na vizinhanc ¸ a da falha  ( apresentado na
-Sec ¸   ˜ ao 2 . 2 . 2 )  .  Este algoritmo tenta combinar as vantagens de cada uma dessas estrat ´ egias
-em uma  ´ unica soluc ¸   ˜ ao ,  que se adapte melhor `as RSSFs .  A vis ˜ ao global da rede pode
-levar a melhores resultados por poder escolher os melhores n ´ os para compor a soluc ¸   ˜ ao . 
-Entretanto ,  ela n ˜ ao  ´ e escal ´ avel ,  tanto em termos computacionais quanto para disseminac ¸   ˜ ao
-da soluc ¸   ˜ ao na rede .  A estrat ´ egia local se adapta melhor `as redes de sensores por ser
-computacionalmente mais barata e escal ´ avel ,  por ´ em a vis ˜ ao local pode levar a soluc ¸   ˜ oes
-piores em termos de consumo de energia ,  com a ativac ¸   ˜ ao de um n ´ umero de n ´ os maior que
-o necess ´ ario . 
-A estrutura b ´ asica do Algoritmo H ´ ibrido  ´ e mostrada no Algoritmo 1 . 
-Uma breve descric ¸   ˜ ao da complexidade do algoritmos  ´ e mostrada a seguir .  O AGP
-tem complexidade computacional O ( |S||D| )  + O ( |S| )  = O ( |S||D| )  na parte referente
-ao Algoritmo Gen ´ etico  ( complexidade de c ´ alculo da func ¸   ˜ ao de aptid ˜ ao )  .  O procedimento
-de garantia de conectividade possui custo igual O ( SAlog|S| )  ,  onde |A|  ´ e o n ´ umero de
-arestas entre n ´ os sensores  ( soluc ¸   ˜ ao do problema de caminho m ´ inimo )  .  O ALO tem complexidade O ( |S| )  ,  pois deve selecionar o melhor n ´ o sensor que satisfac ¸ a as equac ¸   ˜ oes 10
+(11)
+O AGP ´e executado no tempo de simulac¸ ˜ao 0 para criar uma soluc¸ ˜ao inicial. Ent˜ao, a
+cada ocorrˆencia de falha o Algoritmo Local Online ´e chamado.
+2.2.3. Algoritmo H´ibrido
+O Algoritmo H´ibrido proposto combina a estrat´egia de soluc¸ ˜ao global apresentada na
+Sec¸ ˜ao 2.2.1, que reconstr´oi toda a rede, com a estrat´egia local, que a cada falha de n´os
+tenta restabelecer a cobertura e conectividade na vizinhanc¸a da falha (apresentado na
+Sec¸ ˜ao 2.2.2). Este algoritmo tenta combinar as vantagens de cada uma dessas estrat´egias
+em uma ´unica soluc¸ ˜ao, que se adapte melhor `as RSSFs. A vis˜ao global da rede pode
+levar a melhores resultados por poder escolher os melhores n´os para compor a soluc¸ ˜ao.
+Entretanto, ela n˜ao ´e escal´avel, tanto em termos computacionais quanto para disseminac¸ ˜ao
+da soluc¸ ˜ao na rede. A estrat´egia local se adapta melhor `as redes de sensores por ser
+computacionalmente mais barata e escal´avel, por´em a vis˜ao local pode levar a soluc¸ ˜oes
+piores em termos de consumo de energia, com a ativac¸ ˜ao de um n´umero de n´os maior que
+o necess´ario.
+A estrutura b´asica do Algoritmo H´ibrido ´e mostrada no Algoritmo 1.
+Uma breve descric¸ ˜ao da complexidade do algoritmos ´e mostrada a seguir. O AGP
+tem complexidade computacional O(|S||D|) + O(|S|) = O(|S||D|) na parte referente
+ao Algoritmo Gen´etico (complexidade de c´alculo da func¸ ˜ao de aptid˜ao). O procedimento
+de garantia de conectividade possui custo igual O(SAlog|S|), onde |A| ´e o n´umero de
+arestas entre n´os sensores (soluc¸ ˜ao do problema de caminho m´inimo). O ALO tem complexidade O(|S|), pois deve selecionar o melhor n´o sensor que satisfac¸a as equac¸ ˜oes 10
 42 XII WGRS
-Algoritmo 1: Algoritmo H ´ ibrido para o PCD-RSSF
-Entrada: S ,  m ,  D  ,  RS  ( raio de sensoriamento )  ,  RC  ( raio de comunicac ¸   ˜ ao ) 
-1 in ´ icio
+Algoritmo 1: Algoritmo H´ibrido para o PCD-RSSF
+Entrada: S, m, D , RS (raio de sensoriamento), RC (raio de comunicac¸ ˜ao)
+1 in´icio
 2 Executar AGP
-3 enquanto  ( S 6= Ø )  fac ¸ a
-4 Falha = Verificar Falha de N ´ os
-5 se  ( Falha = TRUE )  entao ˜ 
+3 enquanto (S 6= Ø) fac¸a
+4 Falha = Verificar Falha de N´os
+5 se (Falha = TRUE) entao˜
 6 Chamar Algoritmo Local Online
 7 S = S - f
-8 se  ( Executar AGP = TRUE )  entao ˜ 
+8 se (Executar AGP = TRUE) entao˜
 9 Executar AGP
 10 fim
-ou 11 .  Logo o Algoritmo H ´ ibrido ,  por se tratar de uma combinac ¸   ˜ ao destes dois ,  tem
-complexidade O ( |S||D| + SAlog|S| )  .  Considerando o caso extremo em que todos os
-sensores comunicam-se entre si ,  chegamos `a complexidade final para o algoritmo igual a
-O ( |S||D| + S
+ou 11. Logo o Algoritmo H´ibrido, por se tratar de uma combinac¸ ˜ao destes dois, tem
+complexidade O(|S||D| + SAlog|S|). Considerando o caso extremo em que todos os
+sensores comunicam-se entre si, chegamos `a complexidade final para o algoritmo igual a
+O(|S||D| + S
 3
-log|S| )  .  E importante ressaltar que esta  ´ e a complexidade computacional  ´ 
-para executar o algoritmo AGP ,  que domina o tempo do algoritmo ALO .  Entretanto ,  o
-AGP nem sempre  ´ e chamado ,  e por isso existe um balanc ¸ o computacional ,  sendo que na
-maior parte do tempo o algoritmo opera em O ( |S| )  . 
-2 . 2 . 4 .  Estrategias para chamada do Algoritmo Global Peri  ´  odico  ´ 
-Como a chamada ao Algoritmo Global Peri ´ odico pode ser muito cara ,  foi feito um estudo
-sobre quando deve-se chamar tal algoritmo  ( linhas 8 e 9 do Algoritmo 1 )   .  Foram implementadas quatro diferentes estrat ´ egias para a chamada do Algoritmo Global Peri ´ odico:
-Estrategia 1  ´  : nessa estrat ´ egia ,  na unidade de tempo t ,   ´ e feita a seguinte verificac ¸   ˜ ao:
-• Seja j o per ´ iodo de tempo onde houve a  ´ ultima chamada ao Algoritmo
+log|S|). E importante ressaltar que esta ´e a complexidade computacional ´
+para executar o algoritmo AGP, que domina o tempo do algoritmo ALO. Entretanto, o
+AGP nem sempre ´e chamado, e por isso existe um balanc¸o computacional, sendo que na
+maior parte do tempo o algoritmo opera em O(|S|).
+2.2.4. Estrategias para chamada do Algoritmo Global Peri ´ odico ´
+Como a chamada ao Algoritmo Global Peri´odico pode ser muito cara, foi feito um estudo
+sobre quando deve-se chamar tal algoritmo (linhas 8 e 9 do Algoritmo 1) . Foram implementadas quatro diferentes estrat´egias para a chamada do Algoritmo Global Peri´odico:
+Estrategia 1 ´ : nessa estrat´egia, na unidade de tempo t, ´e feita a seguinte verificac¸ ˜ao:
+• Seja j o per´iodo de tempo onde houve a ´ultima chamada ao Algoritmo
 Global;
-• Se pelo uma das condic ¸   ˜ oes abaixo  ( Equac ¸   ˜ oes  ( 12 )  e  ( 13 )  )  for verdadeira , 
-o algoritmo Global  ´ e acionado:
+• Se pelo uma das condic¸ ˜oes abaixo (Equac¸ ˜oes (12) e (13)) for verdadeira,
+o algoritmo Global ´e acionado:
 X
 t
 m=j
-|Y  ( m )  - Y  ( m - 1 ) | = |S|
+|Y (m) - Y (m - 1)| = |S|
 10
- ( 12 ) 
+(12)
 ou
-EC ( Y  ( t )  )  = 1 . 05 × EC ( Y  ( t - 1 )  )   ( 13 ) 
-onde Y  ( t )   ´ e o conjunto de n ´ os sensores ativos no per ´ iodo t e EC ( Y  ( t )  ) 
-indica toda a energia consumida no per ´ iodo t pelos sensores Y  . 
-• Marque t como o  ´ ultimo per ´ iodo de tempo onde o Algoritmo Global foi
+EC(Y (t)) = 1.05 × EC(Y (t - 1)) (13)
+onde Y (t) ´e o conjunto de n´os sensores ativos no per´iodo t e EC(Y (t))
+indica toda a energia consumida no per´iodo t pelos sensores Y .
+• Marque t como o ´ultimo per´iodo de tempo onde o Algoritmo Global foi
 chamado;
-Estrategia 2  ´  : Nesta estrat ´ egia ,  o Algoritmo Global  ´ e chamado toda vez que a cobertura
-se torna 10% pior do que a cobertura existente no momento da  ´ ultima chamada ou
-a condic ¸   ˜ ao descrita pela Equac ¸   ˜ ao  ( 13 )   ´ e satisfeita . 
+Estrategia 2 ´ : Nesta estrat´egia, o Algoritmo Global ´e chamado toda vez que a cobertura
+se torna 10% pior do que a cobertura existente no momento da ´ultima chamada ou
+a condic¸ ˜ao descrita pela Equac¸ ˜ao (13) ´e satisfeita.
 Sessão Técnica 1 - Redes sem fio 43
-2 . 3 .  Metodos de Gerac ¸   ´  ao de falhas  ˜ 
-Nesta sec ¸   ˜ ao s ˜ ao discutidas as formas de gerac ¸   ˜ ao de falhas .  E importante verificar o com-  ´ 
-portamento dos algoritmos sob diferentes possibilidades de falhas ,  dado que no ambiente
-das RSSFs as falhas sempre dever ˜ ao acontecer ,  dados os seguintes fatores:
+2.3. Metodos de Gerac¸ ´ ao de falhas ˜
+Nesta sec¸ ˜ao s˜ao discutidas as formas de gerac¸ ˜ao de falhas. E importante verificar o com- ´
+portamento dos algoritmos sob diferentes possibilidades de falhas, dado que no ambiente
+das RSSFs as falhas sempre dever˜ao acontecer, dados os seguintes fatores:
 • Baixa robustez dos elementos de rede
-• Instabilidade do ambiente ,  dado que uma RSSF poder ´ a ser estabelecida em uma
-floresta ,  cratera vulcˆanica ,  campo de guerra ,  etc . 
-Para a gerac ¸   ˜ ao das falhas ,  foi considerado o seguinte fato: `a medida que o tempo
-passa ,  aumentam-se as chances de um n ´ o sensor falhar .  S ˜ ao v ´ arias as raz ˜ oes para isto
-acontecer ,  de acordo com variados cen ´ arios ,  como ,  por exemplo intemp ´ eries ,  problemas
-de hardware ,  desgaste de bateria ,  entre outros . 
-S ˜ ao propostos dois m ´ etodos para gerac ¸   ˜ ao de falhas ,  que simulam falhas decorrentes de problemas mecˆanicas e falhas decorrentes de problemas ambientais .  Os dois
-m ´ etodos s ˜ ao descritos a seguir:
-Metodo 1  ´  : Este m ´ etodo implementa um gerador exponencial simples ,  que permite a falha de apenas um n ´ o sensor por unidade de tempo .  Dada sua maior uniformidade , 
-este m ´ etodo de gerac ¸   ˜ ao de falhas ser ´ a utilizado como padr ˜ ao para os experimentos . 
-Metodo 2  ´  : Este m ´ etodo implementa um exemplo de falha que pode ocorrer devido a
-causas ambientais . 
-Exemplos de falhas que s ˜ ao simuladas por este m ´ etodo:
-• Em um campo de batalha ,  bombas s ˜ ao enviadas sobre a  ´ area de sensoriamento ,  destruindo n ´ os sensores pr ´ oximos ao ponto atingido;
-• Em uma floresta ,  um raio cai sobre uma  ´ area e destr ´ oi n ´ os sensores ou
-inviabiliza a atuac ¸   ˜ ao deles;
-3 .  Experimentos Computacionais
-3 . 1 .  Parametros ˆ
+• Instabilidade do ambiente, dado que uma RSSF poder´a ser estabelecida em uma
+floresta, cratera vulcˆanica, campo de guerra, etc.
+Para a gerac¸ ˜ao das falhas, foi considerado o seguinte fato: `a medida que o tempo
+passa, aumentam-se as chances de um n´o sensor falhar. S˜ao v´arias as raz˜oes para isto
+acontecer, de acordo com variados cen´arios, como, por exemplo intemp´eries, problemas
+de hardware, desgaste de bateria, entre outros.
+S˜ao propostos dois m´etodos para gerac¸ ˜ao de falhas, que simulam falhas decorrentes de problemas mecˆanicas e falhas decorrentes de problemas ambientais. Os dois
+m´etodos s˜ao descritos a seguir:
+Metodo 1 ´ : Este m´etodo implementa um gerador exponencial simples, que permite a falha de apenas um n´o sensor por unidade de tempo. Dada sua maior uniformidade,
+este m´etodo de gerac¸ ˜ao de falhas ser´a utilizado como padr˜ao para os experimentos.
+Metodo 2 ´ : Este m´etodo implementa um exemplo de falha que pode ocorrer devido a
+causas ambientais.
+Exemplos de falhas que s˜ao simuladas por este m´etodo:
+• Em um campo de batalha, bombas s˜ao enviadas sobre a ´area de sensoriamento, destruindo n´os sensores pr´oximos ao ponto atingido;
+• Em uma floresta, um raio cai sobre uma ´area e destr´oi n´os sensores ou
+inviabiliza a atuac¸ ˜ao deles;
+3. Experimentos Computacionais
+3.1. Parametros ˆ
 Cada um dos algoritmos propostos foi simulado para realizar o Controle de Densidade
-de RSSFs sujeitas a falhas .  As m ´ etricas consideradas para comparac ¸   ˜ ao foram a energia
-consumida ,  energia residual e cobertura obtida por cada um dos algoritmos ao longo do
-tempo . 
-Com relac ¸   ˜ ao `a energia consumida ,  foi considerado o modelo linear de descarga . 
-Um n ´ o sensor inicia o per ´ iodo t com energia residual igual `a energia original do n ´ o subtra ´ ida da energia consumida at ´ e o per ´ iodo t-1 .  Neste trabalho ,  a  ´ area coberta representa a
-porcentagem de pontos de demanda cobertos por pelo menos um n ´ o sensor .  Os parˆametros
-utilizados s ˜ ao apresentados a seguir . 
-Foram utilizadas redes de 36 e 49 sensores distribu ´ idos aleatoriamente em um  ´ area
-de 50m × 50m .  A rede de 49 sensores  ´ e formada pela adic ¸   ˜ ao  ( em posic ¸   ˜ oes aleat ´ orias ) 
-de 13 n ´ os `a rede de 36 n ´ os .  Os parˆametros dos n ´ os sensores s ˜ ao: raio de sensoriamento
-igual a 15m ,  raio de comunicac ¸ ao m ´ aximo igual a 25m ,  EA = 5mAh ,  EM=13mA ,  ER =
-2mA ,  ERe = 1000mAh ,  EH=10000 e tempo de transmiss ˜ ao igual a 0 . 5h ,  o que significa
-que durante o duty cycle ,  o n ´ o gasta 25% do tempo no modo de transmiss ˜ ao .  Todos os
-valores s ˜ ao baseados no n ´ o sensor comercial Mica2 [Technology 2006] .  Para computar
-o consumo de energia ,  cada unidade de tempo equivale a uma hora .  Os algoritmos s ˜ ao
-simulados por 100 unidades de tempo ,  ou seja ,  100 horas . 
+de RSSFs sujeitas a falhas. As m´etricas consideradas para comparac¸ ˜ao foram a energia
+consumida, energia residual e cobertura obtida por cada um dos algoritmos ao longo do
+tempo.
+Com relac¸ ˜ao `a energia consumida, foi considerado o modelo linear de descarga.
+Um n´o sensor inicia o per´iodo t com energia residual igual `a energia original do n´o subtra´ida da energia consumida at´e o per´iodo t-1. Neste trabalho, a ´area coberta representa a
+porcentagem de pontos de demanda cobertos por pelo menos um n´o sensor. Os parˆametros
+utilizados s˜ao apresentados a seguir.
+Foram utilizadas redes de 36 e 49 sensores distribu´idos aleatoriamente em um ´area
+de 50m × 50m. A rede de 49 sensores ´e formada pela adic¸ ˜ao (em posic¸ ˜oes aleat´orias)
+de 13 n´os `a rede de 36 n´os. Os parˆametros dos n´os sensores s˜ao: raio de sensoriamento
+igual a 15m, raio de comunicac¸ao m´aximo igual a 25m, EA = 5mAh, EM=13mA, ER =
+2mA, ERe = 1000mAh, EH=10000 e tempo de transmiss˜ao igual a 0.5h, o que significa
+que durante o duty cycle, o n´o gasta 25% do tempo no modo de transmiss˜ao. Todos os
+valores s˜ao baseados no n´o sensor comercial Mica2 [Technology 2006]. Para computar
+o consumo de energia, cada unidade de tempo equivale a uma hora. Os algoritmos s˜ao
+simulados por 100 unidades de tempo, ou seja, 100 horas.
 44 XII WGRS
 0 20 40 60 80 100 120
 0
-0 . 1
-0 . 2
-0 . 3
-0 . 4
-0 . 5
-0 . 6
-0 . 7
-0 . 8
-0 . 9
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+0.7
+0.8
+0.9
 1
-Tempo de Vida da Rede  ( u . t ) 
-Cobertura  ( % ) 
+Tempo de Vida da Rede (u.t)
+Cobertura (%)
 ALO Puro
 AGP
 Hibrido1
 Hibrido2
 CPLEX
- ( a )  Cobertura – M ´ etodo de falhas 1
+(a) Cobertura – M´etodo de falhas 1
 0 20 40 60 80 100 120
 0
-0 . 1
-0 . 2
-0 . 3
-0 . 4
-0 . 5
-0 . 6
-0 . 7
-0 . 8
-0 . 9
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+0.7
+0.8
+0.9
 1
-Tempo de Vida da Rede  ( u . t ) 
-Cobertura  ( % ) 
+Tempo de Vida da Rede (u.t)
+Cobertura (%)
 ALO Puro
 AGP
 Hibrido1
 Hibrido2
 CPLEX
- ( b )  Cobertura – M ´ etodo de falhas 2
-Figura 1 .  Cobertura obtida pelos algoritmos em cada cenario de falhas  ´ 
-3 . 2 .  Metodologia dos Testes
-A soluc ¸   ˜ ao  ´ otima foi obtida atrav ´ es do software comercial CPLEX [ILOG 2006] .  Inicialmente ,  encontra-se a soluc ¸   ˜ ao  ´ otima inicial do problema ,  e ,  em seguida ,  quando uma falha
-ocorre ,  os n ´ os que falharam s ˜ ao exclu ´ idos do conjuntos de n ´ os parˆametros e o CPLEX  ´ e
-executado novamente at ´ e que se encontre a nova soluc ¸   ˜ ao  ´ otima . 
-Na estrat ´ egia AGP ,  o algoritmo  ´ e executado a cada 10 unidades de tempo .  Como
-no caso anterior ,  a cada chamada do AGP ,  o conjunto de n ´ os sensores  ´ e atualizado , 
-removendo-se os sensores que falharam .  Como o algoritmo  ´ e chamado apenas de tempos
-em tempos ,  as falhas que acontecem entre intervalos n ˜ ao s ˜ ao tratadas – passa a haver falha
-de cobertura .  Caso o n ´ o que falhe n ˜ ao seja uma folha da  ´ arvore de roteamento ,  os seus
-filhos continuam realizac ¸   ˜ ao o monitoramento da  ´ area .  Entretanto ,  os dados gerados por
-eles n ˜ ao s ˜ ao encaminhados pela rede ,  e portanto estes filhos est ˜ ao consumindo energia
-desnecessariamente . 
-No caso do ALO ,  na unidade de tempo 0 o AGP  ´ e chamado para gerar uma soluc ¸   ˜ ao
-inicial .  Ent ˜ ao ,  quando uma falha ocorre ,  o algoritmo escolhe um n ´ o para ativar conforme
-indicado na sec ¸   ˜ ao 2 . 2 . 2 . 
-3 . 3 .  Resultados Computacionais
-As Figuras 1 ,  2 e 3 apresentam os resultados que foram obtidos variando-se as
-combinac ¸   ˜ oes de falhas e estrat ´ egias de chamadas do AGP .  Devido `a restric ¸   ˜ ao de espac ¸ o , 
-apenas os resultados para a rede de 49 n ´ os foram apresentados .  Entretanto ,  os resultados
-para a rede de 36 n ´ os foram similares . 
+(b) Cobertura – M´etodo de falhas 2
+Figura 1. Cobertura obtida pelos algoritmos em cada cenario de falhas ´
+3.2. Metodologia dos Testes
+A soluc¸ ˜ao ´otima foi obtida atrav´es do software comercial CPLEX [ILOG 2006]. Inicialmente, encontra-se a soluc¸ ˜ao ´otima inicial do problema, e, em seguida, quando uma falha
+ocorre, os n´os que falharam s˜ao exclu´idos do conjuntos de n´os parˆametros e o CPLEX ´e
+executado novamente at´e que se encontre a nova soluc¸ ˜ao ´otima.
+Na estrat´egia AGP, o algoritmo ´e executado a cada 10 unidades de tempo. Como
+no caso anterior, a cada chamada do AGP, o conjunto de n´os sensores ´e atualizado,
+removendo-se os sensores que falharam. Como o algoritmo ´e chamado apenas de tempos
+em tempos, as falhas que acontecem entre intervalos n˜ao s˜ao tratadas – passa a haver falha
+de cobertura. Caso o n´o que falhe n˜ao seja uma folha da ´arvore de roteamento, os seus
+filhos continuam realizac¸ ˜ao o monitoramento da ´area. Entretanto, os dados gerados por
+eles n˜ao s˜ao encaminhados pela rede, e portanto estes filhos est˜ao consumindo energia
+desnecessariamente.
+No caso do ALO, na unidade de tempo 0 o AGP ´e chamado para gerar uma soluc¸ ˜ao
+inicial. Ent˜ao, quando uma falha ocorre, o algoritmo escolhe um n´o para ativar conforme
+indicado na sec¸ ˜ao 2.2.2.
+3.3. Resultados Computacionais
+As Figuras 1, 2 e 3 apresentam os resultados que foram obtidos variando-se as
+combinac¸ ˜oes de falhas e estrat´egias de chamadas do AGP. Devido `a restric¸ ˜ao de espac¸o,
+apenas os resultados para a rede de 49 n´os foram apresentados. Entretanto, os resultados
+para a rede de 36 n´os foram similares.
 A Figura 1 apresenta os resultados obtidos para a cobertura que cada algoritmo
-consegue manter durante o per ´ iodo de vida da rede . 
-Observa-se que a soluc ¸   ˜ ao  ´ otima sempre mant ´ em uma cobertura da ordem de
-100% ,  mesmo ap ´ os muito tempo de funcionamento da rede .  Isso acontece porque o
-algoritmo  ´ otimo  ´ e chamado toda vez que uma falha acontece ,  logo a cobertura  ´ e reestabelecida .  Al ´ em disso ,  como esta estrat ´ egia visa minimizar o n ´ umero de n ´ os ativos e d ´ a
-prioridade a n ´ os com maior energia residual ,  consegue-se obter a cobertura da ordem de
-100% por muito mais tempo . 
+consegue manter durante o per´iodo de vida da rede.
+Observa-se que a soluc¸ ˜ao ´otima sempre mant´em uma cobertura da ordem de
+100%, mesmo ap´os muito tempo de funcionamento da rede. Isso acontece porque o
+algoritmo ´otimo ´e chamado toda vez que uma falha acontece, logo a cobertura ´e reestabelecida. Al´em disso, como esta estrat´egia visa minimizar o n´umero de n´os ativos e d´a
+prioridade a n´os com maior energia residual, consegue-se obter a cobertura da ordem de
+100% por muito mais tempo.
 Sessão Técnica 1 - Redes sem fio 45
-Com relac ¸   ˜ ao ao AGP ,  observa-se que o algoritmo tem um comportamento muito
-inst ´ avel .  Como ele e chamado em intervalos de tempos regulares ,  existem muitas falhas de  ´ 
-cobertura ,  pois um n ´ o pode falhar em um per ´ iodo entre duas chamadas ,  e nesse intervalo
-de tempo a cobertura n ˜ ao  ´ e recuperada .  Existem pontos do gr ´ afico em que a cobertura
-cai praticamente para zero .  Isso acontece quando um n ´ o cr ´ itico para o roteamento da
-rede falha e os dados de cobertura n ˜ ao chegam ao sorvedouro .  Portanto ,  a informac ¸   ˜ ao de
-cobertura do ponto de vista da aplicac ¸   ˜ ao  ´ e nula .  Entretanto ,  como se observa nos grafos
-de energia consumida  ( Figura 2 )  e energia residual  ( Figura 3 )  ,  a rede continua gastando
-energia ,  pois os n ´ os filhos do n ´ o cr ´ itico continuam monitorando a  ´ area e tentando enviar
-os dados pela rede . 
-O ALO possui o pior resultado .  Como o algoritmo apenas ativa n ´ os  ( e nunca
-desativa )  ,  rapidamente a rede fica sem energia .  Pode-se observar este fato atrav ´ es do
-gr ´ afico da Figura 2 ( a )  .  Em pouco tempo ,  uma grande porcentagem da energia dispon ´ ivel
-da rede  ´ e consumida .  Os n ´ os comec ¸ am a falhar por falta de energia ,  e portanto ,  perde-se
-a cobertura da  ´ area de monitoramento . 
-Finalmente ,  observa-se que a estrat ´ egia de chamada do AGP dentro do H ´ ibrido
- ´ e melhor utilizando-se a estrat ´ egia 1 ,  isto  ´ e ,  a estrat ´ egia que considera a diferenc ¸ a entre
-n ´ os ativos ou a energia consumida .  Como se trata de uma soluc ¸   ˜ ao energy-save ,  a rede
-consegue perpetuar o seu funcionamento por mais per ´ iodos de tempo . 
-Em relac ¸   ˜ ao aos m ´ etodos de gerac ¸   ˜ ao de falhas observou-se que o m ´ etodo 2 contribui mais para na diminuic ¸   ˜ ao do tempo de vida ,  isto porque falhas de mais de um n ´ o na
-mesma regi ˜ ao prejudicam a garantia da conectividade da rede .  Esta conclus ˜ ao pˆode ser tirada porque coincidentemente o n ´ umero de falhas de n ´ os geradas por ambos os m ´ etodos
-foi o mesmo . 
-A Figura 2 apresenta o consumo de energia da rede .  A soluc ¸   ˜ ao  ´ otima sempre
-mant ´ em um consumo bem abaixo do consumo das demais estrat ´ egias .  AGP ,  H ´ ibrido
-1 e H ´ ibrido 2 possuem resultados semelhantes .  E interessante notar que os algoritmos  ´ 
-H ´ ibridos ,  nas duas vers ˜ oes ,  possuem picos estreitos de consumo de energia .  Estes picos
-aparecem pois o algoritmo ,  ao longo do tempo ,  vai resolvendo as falhas utilizando o ALO . 
-Em determinado momento ,  o algoritmo AGP  ´ e chamado e o consumo de energia decresce
-rapidamente .  Por outro lado ,  o algoritmo ALO possui um resultado muito ruim .  Em
-pouco tempo ,  o algoritmo ativa uma quantidade muito grande de n ´ os sensores e a energia
- ´ e rapidamente consumida .  Por volta do per ´ iodo de tempo 40 ,  a rede deixa de informar
-dados para o sorvedouro  ( cobertura igual a zero )  .  Deve-se observar que isto n ˜ ao significa que os n ´ os n ˜ ao estejam monitorando a  ´ area .  Significa que os dados n ˜ ao chegam ao
-sorvedouro ,  provavelmente porque algum n ´ o roteador morreu .  Deve-se observar  ( Figuras
-3 ( a )  e  ( b )  )  que ainda existe energia na rede ,  logo a perda de cobertura  ´ e devido `a falta de
-conectividade .  A Figura 3 apresenta a energia residual da rede a cada instante de tempo . 
-Como j ´ a discutido anteriormente ,  a utilizac ¸   ˜ ao do algoritmo ALO Puro implica em
-deteriorac ¸   ˜ ao da energia da rede ,  pois n ´ os somente s ˜ ao ativados .  Por outro lado ,  AGP
-e H ´ ibridos conseguem resultados parecidos ,  apesar de estarem longe da soluc ¸   ˜ ao  ´ otima
-obtida pelo CPLEX . 
-A comparac ¸   ˜ ao entre os algoritmos AGP ,  ALO e H ´ ibrido  ´ e realizada para que se
-possa verificar e enfatizar os pontos fracos e fortes das estrat ´ egias global e local ,  e deste
+Com relac¸ ˜ao ao AGP, observa-se que o algoritmo tem um comportamento muito
+inst´avel. Como ele e chamado em intervalos de tempos regulares, existem muitas falhas de ´
+cobertura, pois um n´o pode falhar em um per´iodo entre duas chamadas, e nesse intervalo
+de tempo a cobertura n˜ao ´e recuperada. Existem pontos do gr´afico em que a cobertura
+cai praticamente para zero. Isso acontece quando um n´o cr´itico para o roteamento da
+rede falha e os dados de cobertura n˜ao chegam ao sorvedouro. Portanto, a informac¸ ˜ao de
+cobertura do ponto de vista da aplicac¸ ˜ao ´e nula. Entretanto, como se observa nos grafos
+de energia consumida (Figura 2) e energia residual (Figura 3), a rede continua gastando
+energia, pois os n´os filhos do n´o cr´itico continuam monitorando a ´area e tentando enviar
+os dados pela rede.
+O ALO possui o pior resultado. Como o algoritmo apenas ativa n´os (e nunca
+desativa), rapidamente a rede fica sem energia. Pode-se observar este fato atrav´es do
+gr´afico da Figura 2(a). Em pouco tempo, uma grande porcentagem da energia dispon´ivel
+da rede ´e consumida. Os n´os comec¸am a falhar por falta de energia, e portanto, perde-se
+a cobertura da ´area de monitoramento.
+Finalmente, observa-se que a estrat´egia de chamada do AGP dentro do H´ibrido
+´e melhor utilizando-se a estrat´egia 1, isto ´e, a estrat´egia que considera a diferenc¸a entre
+n´os ativos ou a energia consumida. Como se trata de uma soluc¸ ˜ao energy-save, a rede
+consegue perpetuar o seu funcionamento por mais per´iodos de tempo.
+Em relac¸ ˜ao aos m´etodos de gerac¸ ˜ao de falhas observou-se que o m´etodo 2 contribui mais para na diminuic¸ ˜ao do tempo de vida, isto porque falhas de mais de um n´o na
+mesma regi˜ao prejudicam a garantia da conectividade da rede. Esta conclus˜ao pˆode ser tirada porque coincidentemente o n´umero de falhas de n´os geradas por ambos os m´etodos
+foi o mesmo.
+A Figura 2 apresenta o consumo de energia da rede. A soluc¸ ˜ao ´otima sempre
+mant´em um consumo bem abaixo do consumo das demais estrat´egias. AGP, H´ibrido
+1 e H´ibrido 2 possuem resultados semelhantes. E interessante notar que os algoritmos ´
+H´ibridos, nas duas vers˜oes, possuem picos estreitos de consumo de energia. Estes picos
+aparecem pois o algoritmo, ao longo do tempo, vai resolvendo as falhas utilizando o ALO.
+Em determinado momento, o algoritmo AGP ´e chamado e o consumo de energia decresce
+rapidamente. Por outro lado, o algoritmo ALO possui um resultado muito ruim. Em
+pouco tempo, o algoritmo ativa uma quantidade muito grande de n´os sensores e a energia
+´e rapidamente consumida. Por volta do per´iodo de tempo 40, a rede deixa de informar
+dados para o sorvedouro (cobertura igual a zero). Deve-se observar que isto n˜ao significa que os n´os n˜ao estejam monitorando a ´area. Significa que os dados n˜ao chegam ao
+sorvedouro, provavelmente porque algum n´o roteador morreu. Deve-se observar (Figuras
+3(a) e (b)) que ainda existe energia na rede, logo a perda de cobertura ´e devido `a falta de
+conectividade. A Figura 3 apresenta a energia residual da rede a cada instante de tempo.
+Como j´a discutido anteriormente, a utilizac¸ ˜ao do algoritmo ALO Puro implica em
+deteriorac¸ ˜ao da energia da rede, pois n´os somente s˜ao ativados. Por outro lado, AGP
+e H´ibridos conseguem resultados parecidos, apesar de estarem longe da soluc¸ ˜ao ´otima
+obtida pelo CPLEX.
+A comparac¸ ˜ao entre os algoritmos AGP, ALO e H´ibrido ´e realizada para que se
+possa verificar e enfatizar os pontos fracos e fortes das estrat´egias global e local, e deste
 46 XII WGRS
 0 20 40 60 80 100 120
 0
@@ -447,14 +447,14 @@ possa verificar e enfatizar os pontos fracos e fortes das estrat ´ egias global 
 1600
 1800
 2000
-Tempo de Vida da Rede  ( u . t ) 
-Energia  ( mAh ) 
+Tempo de Vida da Rede (u.t)
+Energia (mAh)
 ALO Puro
 AGP
 Hibrido1
 Hibrido2
 CPLEX
- ( a )  Energia consumida – M ´ etodo de falhas 1
+(a) Energia consumida – M´etodo de falhas 1
 0 20 40 60 80 100 120
 0
 500
@@ -462,90 +462,90 @@ CPLEX
 1500
 2000
 2500
-Tempo de Vida da Rede  ( u . t ) 
-Energia  ( mAh ) 
+Tempo de Vida da Rede (u.t)
+Energia (mAh)
 ALO Puro
 AGP
 Hibrido1
 Hibrido2
 CPLEX
- ( b )  Energia consumida – M ´ etodo de falhas 2
-Figura 2 .  Energia consumida pelos nos sensores em cada cen  ´  ario de falhas  ´ 
+(b) Energia consumida – M´etodo de falhas 2
+Figura 2. Energia consumida pelos nos sensores em cada cen ´ ario de falhas ´
 0 20 40 60 80 100 120
-0 . 5
+0.5
 1
-1 . 5
+1.5
 2
-2 . 5
+2.5
 3
-3 . 5
+3.5
 4
-4 . 5
+4.5
 5
 x 104
-Tempo de Vida da Rede  ( u . t ) 
-Energia  ( mAh ) 
+Tempo de Vida da Rede (u.t)
+Energia (mAh)
 ALO Puro
 AGP
 Hibrido1
 Hibrido2
 CPLEX
- ( a )  Energia residual – M ´ etodo de falhas 1
+(a) Energia residual – M´etodo de falhas 1
 0 20 40 60 80 100 120
 1
-1 . 5
+1.5
 2
-2 . 5
+2.5
 3
-3 . 5
+3.5
 4
-4 . 5
+4.5
 5
 x 104
-Tempo de Vida da Rede  ( u . t ) 
-Energia  ( mAh ) 
+Tempo de Vida da Rede (u.t)
+Energia (mAh)
 ALO Puro
 AGP
 Hibrido1
 Hibrido2
 CPLEX
- ( b )  Energia residual – M ´ etodo de falhas 2
-Figura 3 .  Energia residual nos sensores em cada cen  ´  ario de falhas  ´ 
+(b) Energia residual – M´etodo de falhas 2
+Figura 3. Energia residual nos sensores em cada cen ´ ario de falhas ´
 Sessão Técnica 1 - Redes sem fio 47
-modo poder conceber uma vers ˜ ao h ´ ibrida que realmente se beneficie destes pontos fortes e
-tente contornar os pontos fracos .  Como pode-se observar com os resultados apresentados
-a estrat ´ egia H ´ ibrida ,  principalmente quando se considera a chamada do AGP baseada
-em crit ´ erios de n ´ umero de n ´ os e consumo de energia ,  apresenta resultados satisfat ´ orios . 
-Apesar de a soluc ¸   ˜ ao obtida estar relativamente longe da soluc ¸   ˜ ao  ´ otima  ( em termos de
-cobertura e consumo de energia )  ,  esta soluc ¸   ˜ ao possui a vantagem de ter um desempenho
-computacional vi ´ avel e de n ˜ ao depender de pacotes comerciais dedicados . 
-4 .  Conclusoes e Trabalhos Futuros  ˜ 
-Neste trabalho foi apresentado uma formalizac ¸   ˜ ao matem ´ atica baseada em uma formulac ¸   ˜ ao
-de Programac ¸   ˜ ao Linear Inteira para o Problema de Controle de Densidade em RSSFs
-sujeitas a falhas .  Como o problema em quest ˜ ao  ´ e NP-dif ´ icil ,  foram propostas heur ´ isticas
-para resolvˆe-lo .  Partindo de um algoritmo que possui uma vis ˜ ao global e de outro que
-possui uma vis ˜ ao apenas local ,  foi constru ´ ido um algoritmo h ´ ibrido que visa aproveitar
-das vantagens de cada uma das estrat ´ egias .  O objetivo do trabalho foi desenvolver um
-algoritmo que conseguisse atender os requisitos da aplicac ¸   ˜ ao e que ao mesmo tempo fosse
-tolerante a falhas e que permitisse a economia de energia .  Os resultados mostram que
-combinar as duas estrat ´ egias pode ser interessante pois cada uma das vis ˜ oes  ( global x
-local )  possui vantagens e desvantagens .  Trabalhos em andamento consistem em viabilizar
-uma vers ˜ ao distribu ´ ida do ALO para comparac ¸   ˜ ao com as estrat ´ egias centralizadas e incluir
-nos algoritmos custos de gerac ¸   ˜ ao e disseminac ¸   ˜ ao das soluc ¸   ˜ oes . 
+modo poder conceber uma vers˜ao h´ibrida que realmente se beneficie destes pontos fortes e
+tente contornar os pontos fracos. Como pode-se observar com os resultados apresentados
+a estrat´egia H´ibrida, principalmente quando se considera a chamada do AGP baseada
+em crit´erios de n´umero de n´os e consumo de energia, apresenta resultados satisfat´orios.
+Apesar de a soluc¸ ˜ao obtida estar relativamente longe da soluc¸ ˜ao ´otima (em termos de
+cobertura e consumo de energia), esta soluc¸ ˜ao possui a vantagem de ter um desempenho
+computacional vi´avel e de n˜ao depender de pacotes comerciais dedicados.
+4. Conclusoes e Trabalhos Futuros ˜
+Neste trabalho foi apresentado uma formalizac¸ ˜ao matem´atica baseada em uma formulac¸ ˜ao
+de Programac¸ ˜ao Linear Inteira para o Problema de Controle de Densidade em RSSFs
+sujeitas a falhas. Como o problema em quest˜ao ´e NP-dif´icil, foram propostas heur´isticas
+para resolvˆe-lo. Partindo de um algoritmo que possui uma vis˜ao global e de outro que
+possui uma vis˜ao apenas local, foi constru´ido um algoritmo h´ibrido que visa aproveitar
+das vantagens de cada uma das estrat´egias. O objetivo do trabalho foi desenvolver um
+algoritmo que conseguisse atender os requisitos da aplicac¸ ˜ao e que ao mesmo tempo fosse
+tolerante a falhas e que permitisse a economia de energia. Os resultados mostram que
+combinar as duas estrat´egias pode ser interessante pois cada uma das vis˜oes (global x
+local) possui vantagens e desvantagens. Trabalhos em andamento consistem em viabilizar
+uma vers˜ao distribu´ida do ALO para comparac¸ ˜ao com as estrat´egias centralizadas e incluir
+nos algoritmos custos de gerac¸ ˜ao e disseminac¸ ˜ao das soluc¸ ˜oes.
 Referencias ˆ
-Figueiredo ,  C .  ,  Nakamura ,  E .  ,  and Loureiro ,  A .   ( 2004 )  .  Multi: A Hybrid Adaptive Dissemination Protocol for Wireless Sensor Networks .  In 1st International Workshop on
-Algorithmics Aspects of Wireless Sensor Networks  ( Algosensors04 )  ,  pages 171–186 . 
-ILOG  ( 2006 )  .  CPLEX .  Informac ¸   ˜ oes t ´ ecnicas em: http://www . ilog . com/products/cplex/ . 
-Quint ˜ ao ,  F .  ,  Nakamura ,  F .  ,  and Mateus ,  G .  R .   ( 2004 )  .  A Hybrid Approach to solve the
-Coverage and Connectivity Problem in Wireless Sensor Networks .  In Proceedings of
-the IV European Workshop on Meta-heuristics  ( EU/ME04 )  ,  volume 1 . 
-Siqueira ,  I .  ,  Figueiredo ,  C .  ,  Nogueira ,  A .  L .  J .  ,  and Ruiz ,  L .   ( 2006 )  .  An Integrated Approach for Density Control and Routing in Wireless Sensor Networks .  In 20th IEEE
-International Parallel and Distributed Processing Symposium  ( IPDPS’06 )  . 
-Technology ,  C .   ( 2006 )  .  MICA2 - Wireless Measurement System .  source:
-http://www . xbow . com/ . 
-Tilak ,  S .  ,  Abu-Ghazaleh ,  N .  ,  and Heinzelman ,  W .   ( 2002 )  .  Infrastructure Tradeoffs for
-Sensor Networks . 
-Xu ,  Y .  ,  Bne ,  S .  ,  Mori ,  U .  ,  Heidemann ,  J .  ,  and Estrin ,  D .   ( 2003 )  .  Topology Control Protocols to Conserve Energy in Wireless ad hoc Networks .  Technical Report 6 ,  University
-of California ,  Los Angeles ,  Center for Embedded Networked Computing . 
-Zhang ,  H .  and Hou ,  J .   ( 2005 )  .  Mantaining Sensing Coverage and Connectivity in Large
-Sensor Networks .  Wireless ad hoc and Sensor Networks ,  1:89–123 . 
+Figueiredo, C., Nakamura, E., and Loureiro, A. (2004). Multi: A Hybrid Adaptive Dissemination Protocol for Wireless Sensor Networks. In 1st International Workshop on
+Algorithmics Aspects of Wireless Sensor Networks (Algosensors04), pages 171–186.
+ILOG (2006). CPLEX. Informac¸ ˜oes t´ecnicas em: http://www.ilog.com/products/cplex/.
+Quint˜ao, F., Nakamura, F., and Mateus, G. R. (2004). A Hybrid Approach to solve the
+Coverage and Connectivity Problem in Wireless Sensor Networks. In Proceedings of
+the IV European Workshop on Meta-heuristics (EU/ME04), volume 1.
+Siqueira, I., Figueiredo, C., Nogueira, A. L. J., and Ruiz, L. (2006). An Integrated Approach for Density Control and Routing in Wireless Sensor Networks. In 20th IEEE
+International Parallel and Distributed Processing Symposium (IPDPS’06).
+Technology, C. (2006). MICA2 - Wireless Measurement System. source:
+http://www.xbow.com/.
+Tilak, S., Abu-Ghazaleh, N., and Heinzelman, W. (2002). Infrastructure Tradeoffs for
+Sensor Networks.
+Xu, Y., Bne, S., Mori, U., Heidemann, J., and Estrin, D. (2003). Topology Control Protocols to Conserve Energy in Wireless ad hoc Networks. Technical Report 6, University
+of California, Los Angeles, Center for Embedded Networked Computing.
+Zhang, H. and Hou, J. (2005). Mantaining Sensing Coverage and Connectivity in Large
+Sensor Networks. Wireless ad hoc and Sensor Networks, 1:89–123.
